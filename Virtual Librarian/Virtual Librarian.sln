@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2019
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Virtual Librarian", "Virtual Librarian\Virtual Librarian.csproj", "{8B4182E1-AA27-4E67-B1DA-B2A6B45CCFFA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B4182E1-AA27-4E67-B1DA-B2A6B45CCFFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B4182E1-AA27-4E67-B1DA-B2A6B45CCFFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B4182E1-AA27-4E67-B1DA-B2A6B45CCFFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B4182E1-AA27-4E67-B1DA-B2A6B45CCFFA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3C1CDD7B-84AF-442F-B9A8-EC8F1B499A62}
+	EndGlobalSection
+EndGlobal
