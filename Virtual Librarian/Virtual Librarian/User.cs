@@ -22,9 +22,9 @@ namespace Virtual_Librarian
         private string name { get; }
         private string surname { get; }
         private Faculty faculty { get; set; }
-        private string studentId { get; }
+        private int studentId { get; }
         public List<BookCopy> takenBooks = new List<BookCopy>();
-        public User (string name, string surname, string studentId, Faculty faculty) {
+        public User (string name, string surname, int studentId, Faculty faculty) {
             this.name = name;
             this.surname = surname;
             this.studentId = studentId;
