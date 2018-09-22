@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Emgu.CV;
+using Emgu.CV.UI;
+using Emgu.CV.Structure;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace Virtual_Librarian
 {
@@ -21,9 +26,9 @@ namespace Virtual_Librarian
             user1.printTakenBooks();
 
             //To launch windows form
-            //Application.EnableVisualStyles(); 
-            //Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new Form1());
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new MainForm());
         }
     }
 }
