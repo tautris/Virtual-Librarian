@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28010.2019
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Virtual Librarian", "Virtual Librarian\Virtual Librarian.csproj", "{8B4182E1-AA27-4E67-B1DA-B2A6B45CCFFA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualLibrarianTests", "VirtualLibrarianTests\VirtualLibrarianTests.csproj", "{A7F1811B-C256-43A9-8238-18EC884386FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{8B4182E1-AA27-4E67-B1DA-B2A6B45CCFFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B4182E1-AA27-4E67-B1DA-B2A6B45CCFFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B4182E1-AA27-4E67-B1DA-B2A6B45CCFFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7F1811B-C256-43A9-8238-18EC884386FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7F1811B-C256-43A9-8238-18EC884386FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7F1811B-C256-43A9-8238-18EC884386FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7F1811B-C256-43A9-8238-18EC884386FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
