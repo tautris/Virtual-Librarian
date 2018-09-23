@@ -33,7 +33,7 @@ namespace Virtual_Librarian
             this.components = new System.ComponentModel.Container();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.imgCamUser = new Emgu.CV.UI.ImageBox();
-            this.toggleDetection = new System.Windows.Forms.Button();
+            this.learnNewFace = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgCamUser)).BeginInit();
             this.SuspendLayout();
@@ -44,7 +44,7 @@ namespace Virtual_Librarian
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.55738F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.44262F));
             this.tableLayoutPanel1.Controls.Add(this.imgCamUser, 1, 0);
-            this.tableLayoutPanel1.Controls.Add(this.toggleDetection, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.learnNewFace, 1, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -61,21 +61,20 @@ namespace Virtual_Librarian
             this.imgCamUser.Location = new System.Drawing.Point(409, 3);
             this.imgCamUser.Name = "imgCamUser";
             this.imgCamUser.Size = new System.Drawing.Size(198, 177);
+            this.imgCamUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.imgCamUser.TabIndex = 2;
             this.imgCamUser.TabStop = false;
-            this.imgCamUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-
             // 
-            // toggleDetection
+            // learnNewFace
             // 
-            this.toggleDetection.Dock = System.Windows.Forms.DockStyle.Top;
-            this.toggleDetection.Location = new System.Drawing.Point(409, 186);
-            this.toggleDetection.Name = "toggleDetection";
-            this.toggleDetection.Size = new System.Drawing.Size(198, 23);
-            this.toggleDetection.TabIndex = 3;
-            this.toggleDetection.Text = "Toggle detection";
-            this.toggleDetection.UseVisualStyleBackColor = true;
-            this.toggleDetection.Click += new System.EventHandler(this.toggleDetection_Click);
+            this.learnNewFace.Dock = System.Windows.Forms.DockStyle.Top;
+            this.learnNewFace.Location = new System.Drawing.Point(409, 186);
+            this.learnNewFace.Name = "learnNewFace";
+            this.learnNewFace.Size = new System.Drawing.Size(198, 23);
+            this.learnNewFace.TabIndex = 3;
+            this.learnNewFace.Text = "Learn my face!";
+            this.learnNewFace.UseVisualStyleBackColor = true;
+            this.learnNewFace.Click += new System.EventHandler(this.learnNewFace_Click);
             // 
             // MainForm
             // 
@@ -96,7 +95,7 @@ namespace Virtual_Librarian
 
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private Emgu.CV.UI.ImageBox imgCamUser;
-        private System.Windows.Forms.Button toggleDetection;
+        private System.Windows.Forms.Button learnNewFace;
     }
 }
 
