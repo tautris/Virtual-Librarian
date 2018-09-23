@@ -2,6 +2,7 @@
 using Emgu.CV.Structure;
 using System;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Virtual_Librarian
@@ -10,7 +11,8 @@ namespace Virtual_Librarian
     {
         private VideoCapture capture;
         private CascadeClassifier cascadeClassifier;
-        private Timer timer;
+        private Timer detectionTimer;
+        private static Rectangle[] detectedFaces;
 
         public MainForm()
         {
@@ -21,15 +23,17 @@ namespace Virtual_Librarian
         private void MainFormLoaded()
         {
             capture = new VideoCapture();
-            //Classifier to detect faces from opencv with path in bin/debug
-            cascadeClassifier = new CascadeClassifier(@"haarcascade_frontalface_default.xml");
-            timer = new Timer();
-            timer.Tick += new EventHandler(detectFaces);
-            timer.Interval = 1;
-            timer.Start();
+            //Classifier to detect faces from opencv with path bin/debug
+            string projectDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+
+            cascadeClassifier = new CascadeClassifier(projectDir + @"\CV\haarcascade_frontalface_default.xml");
+            detectionTimer = new Timer();
+            detectionTimer.Tick += new EventHandler(DetectFaces);
+            detectionTimer.Interval = 1;
+            detectionTimer.Start();
         }
 
-        private void detectFaces(object sender, EventArgs e)
+        private void DetectFaces(object sender, EventArgs e)
         {
             Image<Bgr, Byte> currentFrame = capture.QueryFrame().ToImage<Bgr, Byte>();
 
@@ -37,20 +41,28 @@ namespace Virtual_Librarian
             {
                 Image<Gray, Byte> grayFrame = currentFrame.Convert<Gray, Byte>();
                 // Face detections happens here by giving the classifier gray image
-                var detectedFaces = cascadeClassifier.DetectMultiScale(grayFrame, 1.1, 10, Size.Empty);
+                detectedFaces = cascadeClassifier.DetectMultiScale(grayFrame, 1.1, 10, Size.Empty);
 
                 foreach (var face in detectedFaces)
-                    //Draws rectangles around faces
+                    // Draws rectangles in frame around faces
                     currentFrame.Draw(face, new Bgr(0, double.MaxValue, 0), 3);
-                //Returns the image with drawn rectangles to live feed in Form
+                //Returns the frame with drawn rectangles to live feed in Form
                 imgCamUser.Image = currentFrame;
             }
         }
 
-        private void learnNewFace_Click(object sender, EventArgs e)
+        private void LearnNewFace_Click(object sender, EventArgs e)
+        {
+
+         
+        }
+        private void LearnFace()
         {
 
         }
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
 
+        }
     }
 }
