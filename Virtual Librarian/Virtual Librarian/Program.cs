@@ -17,7 +17,6 @@ namespace Virtual_Librarian
             var user1 = new User("Tautvydas", "Dirmeikis", 170000, User.Faculty.MIF);
             LibraryDB db = new LibraryDB();
             db.testFunc();
-            for (; ; );
 
             //To launch windows form
             Application.EnableVisualStyles();
