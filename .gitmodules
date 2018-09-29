@@ -1,0 +1,3 @@
+[submodule "external/ISBN"]
+	path = external/ISBN
+	url = git@github.com:unclazz/Unclazz.Commons.Isbn.git
