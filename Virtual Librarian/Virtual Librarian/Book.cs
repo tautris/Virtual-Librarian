@@ -9,27 +9,61 @@ using Unclazz.Commons.Isbn;
 
 namespace Virtual_Librarian
 {
+    [Table(Name ="Authors")]
+    class Author
+    {
+        [Column(IsPrimaryKey = true, IsDbGenerated = true, Name = "ID")] private int id { get; }
+        [Column] public string Name { get; private set; }
+        [Column] public string Surname { get;private  set; }
+
+        private EntitySet<AuthorBook> _authorBooks = new EntitySet<AuthorBook>();
+
+        [Association(Name = "IDToAuthor", Storage = "_authorBooks", OtherKey = "authorID", ThisKey = "id")]
+        private ICollection<AuthorBook> authorBooks
+        {
+            get { return _authorBooks; }
+            set { _authorBooks.Assign(value); }
+        }
+
+    }
+
+
     [Table(Name = "BOOKS")]
     class Book
     {
-        [Column]
-        public string  title { get; private set; }
-        [Column(IsPrimaryKey =true)]
-        public string  ISBN { get; private set; }
+        [Column]                      public string  title { get; private set; }
+        [Column(IsPrimaryKey =true)]  public string  ISBN { get; private set; }
+        [Column] public short publishYear { get; private set; }
+        [Column] public string publisher { get; private set; }
 
-        public string  authorName { get; private set; }
-        public string  authorSurname { get; }
-        [Column]
-        public  short   publishYear { get; private set; }
-        [Column]
-        public string  publisher   { get; private set; }
+        private EntitySet<AuthorBook> _authorBooks = new EntitySet<AuthorBook>();
 
-        public Book() {; } //needed for LINQ
-        public Book (string  ISBN, string title, string authorName, string authorSurname, short publishYear)
+        [Association(Name="ISBNToBook",Storage="_authorBooks",OtherKey="ISBN",ThisKey="ISBN")]
+        private ICollection<AuthorBook> authorBooks
+        {
+            get { return _authorBooks; }
+            set { _authorBooks.Assign(value); }
+        }
+
+        
+        public List<Author> Authors
+        {
+            get { return (from auths in authorBooks select auths.author).ToList();  }
+        }
+
+        
+
+
+
+
+
+
+
+        public Book() { } //needed for LINQ
+        public Book (string  ISBN, string title, short publishYear, Author author)
         {
             this.title= title;
-            this.authorName = authorName;
-            this.authorSurname = authorSurname;
+            //this.Authors;
             this.publishYear = publishYear;
             if (!IsValidISBN(ISBN))
                 throw new ArgumentException("ISBN is not valid");
@@ -40,9 +74,13 @@ namespace Virtual_Librarian
 
         public override string ToString()
         {
-            ISBN = ISBN.Length == 13 ? IsbnCode.Parse(ISBN).ToString(IsbnCodeStyles.WithHyphens) : IsbnCode.Parse(ISBN).ToString(IsbnCodeStyles.AsIsbn10Code | IsbnCodeStyles.WithHyphens );
+            string retISBN = ISBN.Length == 13 ? IsbnCode.Parse(ISBN).ToString(IsbnCodeStyles.WithHyphens) : IsbnCode.Parse(ISBN).ToString(IsbnCodeStyles.AsIsbn10Code);
+            string authorlist = string.Join("\n", Authors.Select(a => a.Name[0].ToString() + ". " + a.Surname));
 
-            return String.Format("Title: {0}\nAuthor: {1}. {2}\nPublished: {3}\nISBN: {4}", title, authorName[0], authorSurname, publishYear, ISBN);
+
+
+            return String.Format("Title: {0}\nAuthors: {1}Publish year: {2}\nISBN: {3}\n", title, authorlist, publishYear, ISBN);
+
         }
 
 
@@ -102,5 +140,35 @@ namespace Virtual_Librarian
         }
 
 
+    }
+
+
+    [Table]
+    internal class AuthorBook //used for mapping books to authors and back for DB
+    {
+        [Column(IsPrimaryKey = true, Name = "AUTHORID")]
+        private int authorID;
+        [Column(IsPrimaryKey = true)]
+        private string ISBN;
+
+        private EntityRef<Author> _author = new EntityRef<Author>();
+        [Association(Name = "IDToAuthor", IsForeignKey = true, Storage = "_author", ThisKey = "authorID")]
+        public Author author
+        {
+            get { return _author.Entity; }
+            set { _author.Entity = value; }
+        }
+
+
+
+
+        private EntityRef<Book> _book = new EntityRef<Book>();
+
+        [Association(Name = "ISBNToBook", IsForeignKey = true, Storage = "_book", ThisKey = "ISBN")]
+        public Book book
+        {
+            get { return _book.Entity; }
+            set { _book.Entity = value; }
+        }
     }
 }

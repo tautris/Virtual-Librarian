@@ -24,14 +24,20 @@ namespace Virtual_Librarian
             EVAF,
             CGF
         }
-        [Column(CanBeNull =false)]
-        public string name { get; private set; }
-        [Column(CanBeNull = false)]
-        public string surname { get; private set; }
+
+        [Column(CanBeNull =false)] public string name { get; private set; }
+
+         
+        [Column(CanBeNull = false)] public string surname { get; private set; }
+
+
         [Column(Name="faculty", CanBeNull =false, DbType = "INT")]
         public Faculty faculty { get; private set; }
+
         [Column(IsPrimaryKey =true, Name = "studentID")]
         public  int studentId { get; private set; }
+
+
         public List<BookCopy> takenBooks = new List<BookCopy>();
 
         public User() {; } //Required for SQL LINQ
@@ -41,7 +47,7 @@ namespace Virtual_Librarian
             this.studentId = studentId;
             this.faculty = faculty;
         }
-
+        /*
         public void TakeBook (BookCopy bookCopy)
         {
             takenBooks.Add(bookCopy);
@@ -54,7 +60,7 @@ namespace Virtual_Librarian
             takenBooks.Remove(bookCopy);
             bookCopy.lastReturnDate = DateTime.Now;
         }
-  
+    */
         public List<BookCopy> TakenBooks ()
         {
             return takenBooks;

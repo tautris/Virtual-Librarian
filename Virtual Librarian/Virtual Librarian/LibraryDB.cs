@@ -8,21 +8,34 @@ using System.Data.Linq.Mapping;
 
 namespace Virtual_Librarian
 {
-     class LibraryDB
+    //[Database]
+    internal class LibraryDataContext : DataContext
     {
-        //private const string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\libraryDB.mdf;Integrated Security=True";
-        private DataContext db { get; }
+        public Table<User>       Users;
+        public Table<Book>       Books;
+        public Table<BookCopy>   BookCopies;
+        public Table<AuthorBook> BookAuthors;
+        public Table<Author>     Authors;
+        //public Table
+        
+
+        public LibraryDataContext(string connection) : base(connection) {}
+    }
+    class LibraryDB
+    {
+        //private const string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\giriukaralius\source\repos\Virtual-Librarian\Virtual Librarian\Virtual Librarian\libraryDB.mdf;Integrated Security=True";
+        private LibraryDataContext db { get; }
 
 
         public LibraryDB()
         {
-            db = new DataContext(Properties.Settings.Default.libraryDBConnectionString);
+            db = new LibraryDataContext(Properties.Settings.Default.libraryDBConnectionString);
 
         }
 
         public List<User> getUsersFromDB()
         {
-            Table<User> users = db.GetTable<User>();
+            Table<User> users = db.Users;
             List<User> retlist = new List<User>();
             foreach (User user in users)
             {
@@ -34,14 +47,9 @@ namespace Virtual_Librarian
 
         public void testFunc()
         {
-            Table<User> Users = db.GetTable<User>();
-            var q =
-                from a in Users
-                select a;
-            foreach (var c in Users)
-            {
-                Console.WriteLine(c.name);
-            }
+            var a = db.GetTable<BookCopy>();
+            foreach (var i in a)
+                System.Console.WriteLine(i.ToString());
         }
 
     }
