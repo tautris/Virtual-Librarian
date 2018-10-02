@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Unclazz.Commons.Isbn</id><!--id>$id$</id-->
+    <version>1.0.0.1</version><!--version>$version$</version-->
+    <!--title>$title$</title-->
+    <authors>unclazz.org</authors><!--authors>$author$</authors-->
+    <!--owners>$author$</owners-->
+    <!--licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl-->
+    <projectUrl>https://github.com/unclazz/Unclazz.Commons.Isbn</projectUrl>
+    <iconUrl>https://avatars0.githubusercontent.com/u/15955371?v=4&s=200</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>An ISBN code serializer/deserializer.</description><!--description>$description$</description-->
+    <!--releaseNotes>Summary of changes made in this release of the package.</releaseNotes-->
+    <copyright>Copyright 2017</copyright>
+    <!--tags>Tag1 Tag2</tags-->
+  </metadata>
+  <files>
+    <file src="bin/Release/net40/Unclazz.Commons.Isbn.dll" target="lib/net40"/>
+    <file src="bin/Release/net40/Unclazz.Commons.Isbn.xml" target="lib/net40"/>
+    <file src="bin/Release/net45/Unclazz.Commons.Isbn.dll" target="lib/net45"/>
+    <file src="bin/Release/net45/Unclazz.Commons.Isbn.xml" target="lib/net45"/>
+    <file src="bin/Release/net46/Unclazz.Commons.Isbn.dll" target="lib/net46"/>
+    <file src="bin/Release/net46/Unclazz.Commons.Isbn.xml" target="lib/net46"/>
+  </files>
+</package>
