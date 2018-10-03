@@ -31,7 +31,7 @@ extra ateičiai:
 * rodo pagal knygų istoriją kiek puslapių jis jau yra perskaitęs.
 
 
-## 1st TASK
+## 1st TASK (10-22!!!)
  
 * Official goal: to develop an app while working in groups while using material covered in 1-6 lectures. 
 
