@@ -12,23 +12,23 @@ Funkcionalumas:
 6. Išsilogina.
 
 5 formos:
--prisijungimui
--knygų laisvų sąrašas
--vienos knygos info langas su galimybe ją pasiimt
--tavo turimų knygų sąrašas(kažkaip vistiek skiriasi nuo šiaip bibliotekos laisvų knygų sąrašo)
--knygos grąžinimo kaip patvirtinimo langas???
+* prisijungimui
+* knygų laisvų sąrašas
+* vienos knygos info langas su galimybe ją pasiimt
+* tavo turimų knygų sąrašas(kažkaip vistiek skiriasi nuo šiaip bibliotekos laisvų knygų sąrašo)
+* knygos grąžinimo kaip patvirtinimo langas???
 
 klausimai?
-?ar vartotojas gali pats prisiregistruot ar tarkim jį turi adminas priregistruot
-? ką adminas gali daryt jei yra adminas (kažkas turi įdėt knygas naujas ar kažkas tokio)
+* ar vartotojas gali pats prisiregistruot ar tarkim jį turi adminas priregistruot
+* ką adminas gali daryt jei yra adminas (kažkas turi įdėt knygas naujas ar kažkas tokio)
 
 extra ateičiai:
--vartotojas gali turėt 5knygas pasiėmęs vienu metu
--mygtukas "suprise me" pagal skaitytų knygų istoriją jam biblioteka pasiūlo įdomią knygą ale panašią.
-- prisispausdinam QR kodų ant visokių ale knygų priklijuojam, QR kodas saugos kiekvieno egzemplioriaus info ir kai vartotojas nori pasiimt knygą jis prisijungęs skanuoja QR kodą.
-- atlikinėti paiešką bibliotekos knygų ir tarkim jei ji jau yra paimta kito žmogaus ją rezervuot ir kai bus grąžinta tu būsi ją rezervavęs.
-- vartotojui prisijungus rodo šiaip kokias naujas knygas bibliotekoje, gal jam atrodys įdomu.
-- rodo pagal knygų istoriją kiek puslapių jis jau yra perskaitęs.
+* vartotojas gali turėt 5knygas pasiėmęs vienu metu
+* mygtukas "suprise me" pagal skaitytų knygų istoriją jam biblioteka pasiūlo įdomią knygą ale panašią.
+* prisispausdinam QR kodų ant visokių ale knygų priklijuojam, QR kodas saugos kiekvieno egzemplioriaus info ir kai vartotojas nori pasiimt knygą jis prisijungęs skanuoja QR kodą.
+* atlikinėti paiešką bibliotekos knygų ir tarkim jei ji jau yra paimta kito žmogaus ją rezervuot ir kai bus grąžinta tu būsi ją rezervavęs.
+* vartotojui prisijungus rodo šiaip kokias naujas knygas bibliotekoje, gal jam atrodys įdomu.
+* rodo pagal knygų istoriją kiek puslapių jis jau yra perskaitęs.
 
 
 ## 1st TASK
