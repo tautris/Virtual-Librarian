@@ -26,9 +26,8 @@ namespace Virtual_Librarian.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"C:\\Users\\giriukaralius\\sourc" +
-            "e\\repos\\Virtual-Librarian\\Virtual Librarian\\Virtual Librarian\\libraryDB.mdf\";Int" +
-            "egrated Security=True")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=\"|DataDirectory|\\libraryDB.md" +
+            "f\";Integrated Security=True")]
         public string libraryDBConnectionString {
             get {
                 return ((string)(this["libraryDBConnectionString"]));

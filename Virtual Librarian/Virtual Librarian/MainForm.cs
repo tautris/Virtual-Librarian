@@ -35,7 +35,6 @@ namespace Virtual_Librarian
 
         private void DetectFaces(object sender, EventArgs e)
         {
-            return;
             Image<Bgr, Byte> currentFrame = capture.QueryFrame().ToImage<Bgr, Byte>();
 
             if (currentFrame != null)
@@ -55,7 +54,7 @@ namespace Virtual_Librarian
         private void LearnNewFace_Click(object sender, EventArgs e)
         {
 
-         
+
         }
         private void LearnFace()
         {
