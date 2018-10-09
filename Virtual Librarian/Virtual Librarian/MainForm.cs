@@ -54,7 +54,7 @@ namespace Virtual_Librarian
         private void LearnNewFace_Click(object sender, EventArgs e)
         {
 
-         
+
         }
         private void LearnFace()
         {

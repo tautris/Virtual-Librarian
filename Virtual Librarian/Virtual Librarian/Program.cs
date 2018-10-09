@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Data.Linq;
+using System.Data.Linq.Mapping;
 
 
 namespace Virtual_Librarian
@@ -9,11 +11,12 @@ namespace Virtual_Librarian
         [STAThread]
         static void Main()
         {
-            var book1 = new Book ("978-3-16-148410-0", "Red Riding Hood", "John", "Smith", DateTime.Today.AddYears(-1));
-            var bookIssue = new BookCopy(book1, DateTime.Today.AddMonths(-1));
+
+
+
             var user1 = new User("Tautvydas", "Dirmeikis", 170000, User.Faculty.MIF);
-            user1.TakeBook(bookIssue);
-            user1.printTakenBooks();
+            LibraryDB db = new LibraryDB();
+            db.testFunc();
 
             //To launch windows form
             Application.EnableVisualStyles();
