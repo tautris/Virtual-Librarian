@@ -14,17 +14,25 @@ namespace Virtual_Librarian
         private string authorSurname { get; }
         private DateTime date { get; set; }
 
-        public Book (string ISBN, string title, string authorName, string authorSurname, DateTime date)
+        public Book(string ISBN, string title, string authorName, string authorSurname, DateTime date)
         {
-            this.title= title;
-            this.ISBN = ISBN;
+            this.title = title;
             this.authorName = authorName;
             this.authorSurname = authorSurname;
             this.date = date;
+            if (!Validators.IsValidISBN(ISBN))
+            {
+                throw new ArgumentException("ISBN is not valid");
+            }
+            else
+            {
+                this.ISBN = ISBN.Replace("-", "");
+            }
         }
+
         public override string ToString()
         {
-            return String.Format("Title: {0}\nAuthor: {1}. {2}\nPublished: {3} {4}\nISBN: {5}", title, authorName[0], authorSurname, date.ToString("MMMM"), date.Year, ISBN);
+            return this.ISBN;
         }
     }
 }
