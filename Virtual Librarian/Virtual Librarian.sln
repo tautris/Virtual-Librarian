@@ -4,13 +4,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.28010.2019
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Virtual Librarian", "Virtual Librarian\Virtual Librarian.csproj", "{8B4182E1-AA27-4E67-B1DA-B2A6B45CCFFA}"
-	ProjectSection(ProjectDependencies) = postProject
-		{3C5BF470-49BA-41F3-B425-2071CBBBFF74} = {3C5BF470-49BA-41F3-B425-2071CBBBFF74}
-	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VirtualLibrarianTests", "VirtualLibrarianTests\VirtualLibrarianTests.csproj", "{A7F1811B-C256-43A9-8238-18EC884386FD}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Unclazz.Commons.Isbn", "..\external\ISBN\Unclazz.Commons.Isbn\Unclazz.Commons.Isbn.csproj", "{3C5BF470-49BA-41F3-B425-2071CBBBFF74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,10 +21,6 @@ Global
 		{A7F1811B-C256-43A9-8238-18EC884386FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7F1811B-C256-43A9-8238-18EC884386FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7F1811B-C256-43A9-8238-18EC884386FD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3C5BF470-49BA-41F3-B425-2071CBBBFF74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3C5BF470-49BA-41F3-B425-2071CBBBFF74}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3C5BF470-49BA-41F3-B425-2071CBBBFF74}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3C5BF470-49BA-41F3-B425-2071CBBBFF74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -33,5 +33,14 @@ namespace Virtual_Librarian.Properties {
                 return ((string)(this["libraryDBConnectionString"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("|DataDirectory|\\RangeMessage.xml")]
+        public string ISBNXML {
+            get {
+                return ((string)(this["ISBNXML"]));
+            }
+        }
     }
 }

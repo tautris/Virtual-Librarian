@@ -1,10 +1,17 @@
-﻿namespace Virtual_Librarian
+﻿using System.Text.RegularExpressions;
+
+namespace Virtual_Librarian
 {
     class Validators
     {
         public static bool IsValidISBN(string isbn)
         {
             isbn = isbn.Replace("-", "");
+            if (Regex.IsMatch(isbn, @"^(97(8|9))?\d{9}(\d|X)$") == false)
+            {
+                return false;
+            }
+            
             switch (isbn.Length)
             {
                 case 10:

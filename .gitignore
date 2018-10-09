@@ -259,3 +259,5 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/Virtual Librarian/Virtual Librarian/RangeMessage.json
+/Virtual Librarian/Virtual Librarian/RangeMessage.xml

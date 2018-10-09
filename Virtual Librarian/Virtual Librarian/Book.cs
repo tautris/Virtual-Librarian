@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data.Linq;
 using System.Data.Linq.Mapping;
-using Unclazz.Commons.Isbn;
+using System.Linq;
 
 namespace Virtual_Librarian
 {
@@ -21,8 +18,8 @@ namespace Virtual_Librarian
         [Association(Name = "IDToAuthor", Storage = "_authorBooks", OtherKey = "authorID", ThisKey = "id")]
         private ICollection<AuthorBook> authorBooks
         {
-            get { return _authorBooks; }
-            set { _authorBooks.Assign(value); }
+            get => _authorBooks;
+            set => _authorBooks.Assign(value);
         }
     }
 
@@ -40,15 +37,12 @@ namespace Virtual_Librarian
         [Association(Name = "ISBNToBook", Storage = "_authorBooks", OtherKey = "ISBN", ThisKey = "ISBN")]
         private ICollection<AuthorBook> authorBooks
         {
-            get { return _authorBooks; }
-            set { _authorBooks.Assign(value); }
+            get => _authorBooks;
+            set => _authorBooks.Assign(value);
         }
 
 
-        public List<Author> Authors
-        {
-            get { return (from auths in authorBooks select auths.author).ToList(); }
-        }
+        public List<Author> Authors => (from auths in authorBooks select auths.author).ToList();
 
 
         public Book() { } //needed for LINQ
@@ -58,22 +52,26 @@ namespace Virtual_Librarian
             //this.Authors;
             this.publishYear = publishYear;
             if (!Validators.IsValidISBN(ISBN))
+            {
                 throw new ArgumentException("ISBN is not valid");
+            }
             else
+            {
                 this.ISBN = ISBN.Replace("-", "");
-
+            }
         }
 
         public override string ToString()
         {
-            string retISBN = ISBN.Length == 13 ? IsbnCode.Parse(ISBN).ToString(IsbnCodeStyles.WithHyphens) : IsbnCode.Parse(ISBN).ToString(IsbnCodeStyles.AsIsbn10Code);
-            string authorlist = string.Join("\n", Authors.Select(a => a.Name[0].ToString() + ". " + a.Surname));
+            //string retISBN = ISBN.Length == 13 ? IsbnCode.Parse(ISBN).ToString(IsbnCodeStyles.WithHyphens) : IsbnCode.Parse(ISBN).ToString(IsbnCodeStyles.AsIsbn10Code);
+            //string authorlist = string.Join("\n", Authors.Select(a => a.Name[0].ToString() + ". " + a.Surname));
 
 
 
-            return String.Format("Title: {0}\nAuthors: {1}Publish year: {2}\nISBN: {3}\n", title, authorlist, publishYear, ISBN);
+            return this.ISBN;
 
         }
+
     }
 
 
@@ -88,10 +86,10 @@ namespace Virtual_Librarian
         private EntityRef<Author> _author = new EntityRef<Author>();
         [Association(Name = "IDToAuthor", IsForeignKey = true, Storage = "_author", ThisKey = "authorID")]
         public Author author
-        {
-            get { return _author.Entity; }
-            set { _author.Entity = value; }
-        }
+            {
+                get => _author.Entity;
+                set => _author.Entity = value;
+            }
 
 
 
@@ -100,9 +98,12 @@ namespace Virtual_Librarian
 
         [Association(Name = "ISBNToBook", IsForeignKey = true, Storage = "_book", ThisKey = "ISBN")]
         public Book book
-        {
-            get { return _book.Entity; }
-            set { _book.Entity = value; }
-        }
+            {
+                get => _book.Entity;
+                set => _book.Entity = value;
+            }
+
+
     }
 }
+
