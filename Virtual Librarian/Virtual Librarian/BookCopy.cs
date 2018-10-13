@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Virtual_Librarian
 {
-    class BookCopy
+    public class BookCopy
     {
         private DateTime dateOfPrinting { get; }
         public DateTime takenDate { get; set; }
