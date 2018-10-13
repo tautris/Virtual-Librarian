@@ -11,15 +11,9 @@ namespace Virtual_Librarian
         private DateTime dateOfPrinting { get; }
         public DateTime takenDate { get; set; }
         public DateTime? lastReturnDate { get; set; }
-        private Book book { get; }
-        public BookCopy (Book book, DateTime dateOfPrinting)
+        public BookCopy (DateTime dateOfPrinting)
         {
-            this.book = book;
             this.dateOfPrinting = dateOfPrinting;
-        }
-        public override string ToString()
-        {
-            return book.ToString();
         }
     }
 }
