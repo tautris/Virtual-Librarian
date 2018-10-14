@@ -14,6 +14,8 @@ namespace Virtual_Librarian
         public BookCopy (DateTime dateOfPrinting)
         {
             this.dateOfPrinting = dateOfPrinting;
+            lastReturnDate = DateTime.Now;
+            takenDate = DateTime.Now.AddSeconds(-1);
         }
         public void TakeCopy ()
         {

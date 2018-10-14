@@ -24,7 +24,10 @@ namespace Virtual_Librarian
         }
         public void addBookCopy (BookCopy copy)
         {
-            copies.Add(copy);
+            if (!copies.Contains(copy))
+            {
+                copies.Add(copy);
+            }
         }
         public void removeBookCopy (BookCopy copy)
         {

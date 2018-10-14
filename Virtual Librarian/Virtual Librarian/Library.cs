@@ -25,6 +25,7 @@ namespace Virtual_Librarian
                 }
             }
         }
+
         private List<Book> allBooks = new List<Book>();
         public void addBook(Book book)
         {
@@ -60,6 +61,11 @@ namespace Virtual_Librarian
                 }
             }
             return availableBooks;
+        }
+
+        public List<Book> getAllBooks()    
+        {
+            return allBooks;
         }
         public List<BookCopy> getAllBookCopies()
         {
