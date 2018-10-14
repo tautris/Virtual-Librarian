@@ -9,11 +9,33 @@ namespace Virtual_Librarian
     public class BookCopy
     {
         private DateTime dateOfPrinting { get; }
-        public DateTime takenDate { get; set; }
-        public DateTime? lastReturnDate { get; set; }
+        private DateTime takenDate { get; set; }
+        private DateTime? lastReturnDate { get; set; }
         public BookCopy (DateTime dateOfPrinting)
         {
             this.dateOfPrinting = dateOfPrinting;
+        }
+        public void TakeCopy ()
+        {
+            if (IsAvailable())
+            {
+                takenDate = DateTime.Now;
+                lastReturnDate = null;
+            }
+        }
+        public void ReturnCopy ()
+        {
+            if (!IsAvailable())
+            {
+                lastReturnDate = DateTime.Now;
+            }
+        }
+        public bool IsAvailable()
+        {
+            if (lastReturnDate != null)
+                return true;
+            else
+                return false;
         }
     }
 }

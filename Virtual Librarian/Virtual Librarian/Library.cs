@@ -26,7 +26,6 @@ namespace Virtual_Librarian
             }
         }
         private List<Book> allBooks = new List<Book>();
-        private List<BookCopy> allBookCopies = new List<BookCopy>();
         public void addBook(Book book)
         {
             allBooks.Add(book);
@@ -50,10 +49,34 @@ namespace Virtual_Librarian
         public List<Book> getAvailableBooksList()
         {
             List<Book> availableBooks = new List<Book>();
-            foreach (Book book in allBooks) {
-
+            foreach (Book book in allBooks)
+            {
+                foreach (BookCopy bookCopy in book.copies)
+                {
+                    if (bookCopy.IsAvailable() && !availableBooks.Contains(book))
+                    {
+                        availableBooks.Add(book);
+                    }
+                }
             }
             return availableBooks;
+        }
+        public List<BookCopy> getAllBookCopies()
+        {
+            List<BookCopy> availableBookCopies = new List<BookCopy>();
+            List<Book> availableBooks = new List<Book>();
+            availableBooks = getAvailableBooksList();
+            foreach (Book book in availableBooks)
+            {
+                foreach (BookCopy bookCopy in book.copies)
+                {
+                    if (bookCopy.IsAvailable())
+                    {
+                        availableBookCopies.Add(bookCopy);
+                    }
+                }
+            }
+            return availableBookCopies;
         }
     }
 }

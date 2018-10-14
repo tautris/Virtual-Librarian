@@ -34,14 +34,13 @@ namespace Virtual_Librarian
         public void TakeBook (BookCopy bookCopy)
         {
             takenBooks.Add(bookCopy);
-            bookCopy.takenDate = DateTime.Now;
-            bookCopy.lastReturnDate = null;
+            bookCopy.TakeCopy();
         }
 
         public void ReturnBook (BookCopy bookCopy)
         {
             takenBooks.Remove(bookCopy);
-            bookCopy.lastReturnDate = DateTime.Now;
+            bookCopy.ReturnCopy();
         }
   
         public List<BookCopy> TakenBooks ()
