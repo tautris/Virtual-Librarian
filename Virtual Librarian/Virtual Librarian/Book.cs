@@ -29,14 +29,14 @@ namespace Virtual_Librarian
                 this.ISBN = ISBN.Replace("-", "");
             }
         }
-        public void addBookCopy (BookCopy copy)
+        public void AddBookCopy (BookCopy copy)
         {
             if (!copies.Contains(copy))
             {
                 copies.Add(copy);
             }
         }
-        public void removeBookCopy (BookCopy copy)
+        public void RemoveBookCopy (BookCopy copy)
         {
             copies.Remove(copy);
         }
