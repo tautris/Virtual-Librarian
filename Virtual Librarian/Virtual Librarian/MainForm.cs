@@ -53,7 +53,9 @@ namespace Virtual_Librarian
 
         private void LearnNewFace_Click(object sender, EventArgs e)
         {
-
+            Profile f2 = new Profile();
+            f2.Show();
+            this.Hide();
          
         }
         private void LearnFace()
@@ -61,6 +63,36 @@ namespace Virtual_Librarian
 
         }
         private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void imgCamUser_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged_2(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
         }
