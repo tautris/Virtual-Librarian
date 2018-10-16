@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="Book.cs" />
     <Compile Include="BookCopy.cs" />
+    <Compile Include="Library.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>

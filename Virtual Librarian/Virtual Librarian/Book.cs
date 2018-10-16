@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Virtual_Librarian
 {
-    class Book
+    public class Book
     {
         private string title { get; }
         private string ISBN { get; }
         private string authorName { get; }
         private string authorSurname { get; }
         private DateTime date { get; set; }
-
+        public List<BookCopy> copies = new List<BookCopy>();
         public Book(string ISBN, string title, string authorName, string authorSurname, DateTime date)
         {
             this.title = title;
@@ -28,6 +28,17 @@ namespace Virtual_Librarian
             {
                 this.ISBN = ISBN.Replace("-", "");
             }
+        }
+        public void AddBookCopy (BookCopy copy)
+        {
+            if (!copies.Contains(copy))
+            {
+                copies.Add(copy);
+            }
+        }
+        public void RemoveBookCopy (BookCopy copy)
+        {
+            copies.Remove(copy);
         }
 
         public override string ToString()

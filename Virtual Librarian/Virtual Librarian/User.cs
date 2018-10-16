@@ -34,14 +34,13 @@ namespace Virtual_Librarian
         public void TakeBook (BookCopy bookCopy)
         {
             takenBooks.Add(bookCopy);
-            bookCopy.takenDate = DateTime.Now;
-            bookCopy.lastReturnDate = null;
+            bookCopy.TakeCopy();
         }
 
         public void ReturnBook (BookCopy bookCopy)
         {
             takenBooks.Remove(bookCopy);
-            bookCopy.lastReturnDate = DateTime.Now;
+            bookCopy.ReturnCopy();
         }
   
         public List<BookCopy> TakenBooks ()
@@ -49,7 +48,7 @@ namespace Virtual_Librarian
             return takenBooks;
         }
 
-        public void printTakenBooks () //Temporary, just for testing purposes
+        public void PrintTakenBooks () //Temporary, just for testing purposes
         {
             takenBooks.ForEach(Console.WriteLine);
         }

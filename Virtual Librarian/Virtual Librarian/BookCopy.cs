@@ -6,20 +6,38 @@ using System.Threading.Tasks;
 
 namespace Virtual_Librarian
 {
-    class BookCopy
+    public class BookCopy
     {
         private DateTime dateOfPrinting { get; }
-        public DateTime takenDate { get; set; }
-        public DateTime? lastReturnDate { get; set; }
-        private Book book { get; }
-        public BookCopy (Book book, DateTime dateOfPrinting)
+        private DateTime takenDate { get; set; }
+        private DateTime? lastReturnDate { get; set; }
+        public BookCopy (DateTime dateOfPrinting)
         {
-            this.book = book;
             this.dateOfPrinting = dateOfPrinting;
+            lastReturnDate = DateTime.Now;
+            takenDate = DateTime.Now.AddSeconds(-1);
         }
-        public override string ToString()
+        public void TakeCopy ()
         {
-            return book.ToString();
+            if (IsAvailable())
+            {
+                takenDate = DateTime.Now;
+                lastReturnDate = null;
+            }
+        }
+        public void ReturnCopy ()
+        {
+            if (!IsAvailable())
+            {
+                lastReturnDate = DateTime.Now;
+            }
+        }
+        public bool IsAvailable()
+        {
+            if (lastReturnDate != null)
+                return true;
+            else
+                return false;
         }
     }
 }
