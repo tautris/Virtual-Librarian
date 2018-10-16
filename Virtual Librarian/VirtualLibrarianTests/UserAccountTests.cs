@@ -19,8 +19,8 @@ namespace VirtualLibrarianTests
 
             Library.Instance.AddBookCopy(bookCopy1, book1);
 
-            Assert.AreEqual(bookCount + 1, Library.Instance.GetAvailableBooksList().Count);//, 0, "The Book was not added successfully");
-            Assert.AreEqual(bookCopyCount + 1, Library.Instance.GetAllBookCopies().Count);//, 0, "The Book Copy was not added successfully");
+            Assert.AreEqual(bookCount + 1, Library.Instance.GetAvailableBooksList().Count);
+            Assert.AreEqual(bookCopyCount + 1, Library.Instance.GetAllBookCopies().Count);
 
             Library.Instance.RemoveBookCopy(bookCopy1, book1);
             Library.Instance.RemoveBook(book1);
