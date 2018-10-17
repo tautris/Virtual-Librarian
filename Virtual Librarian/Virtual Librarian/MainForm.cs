@@ -35,28 +35,41 @@ namespace Virtual_Librarian
 
         private void DetectFaces(object sender, EventArgs e)
         {
-            Image<Bgr, Byte> currentFrame = capture.QueryFrame().ToImage<Bgr, Byte>();
-
-            if (currentFrame != null)
+            try
             {
-                Image<Gray, Byte> grayFrame = currentFrame.Convert<Gray, Byte>();
-                // Face detections happens here by giving the classifier gray image
-                detectedFaces = cascadeClassifier.DetectMultiScale(grayFrame, 1.1, 10, Size.Empty);
+                Image<Bgr, Byte> currentFrame = capture.QueryFrame().ToImage<Bgr, Byte>();
 
-                foreach (var face in detectedFaces)
-                    // Draws rectangles in frame around faces
-                    currentFrame.Draw(face, new Bgr(0, double.MaxValue, 0), 3);
-                //Returns the frame with drawn rectangles to live feed in Form
-                imgCamUser.Image = currentFrame;
+                if (currentFrame != null)
+                {
+                    Image<Gray, Byte> grayFrame = currentFrame.Convert<Gray, Byte>();
+                    // Face detections happens here by giving the classifier gray image
+                    detectedFaces = cascadeClassifier.DetectMultiScale(grayFrame, 1.1, 10, Size.Empty);
+
+                    foreach (var face in detectedFaces)
+                        // Draws rectangles in frame around faces
+                        currentFrame.Draw(face, new Bgr(0, double.MaxValue, 0), 3);
+
+                    //Returns the frame with drawn rectangles to live feed in Form
+                    imgCamUser.Image = currentFrame;
+                }
+
+            }
+            catch
+            {
+                this.Hide();
+                
+                if (MessageBox.Show("Camera not found", "Camera msg", MessageBoxButtons.OK) ==DialogResult.OK)
+                {
+                    this.Close();
+                   }
             }
         }
 
         private void LearnNewFace_Click(object sender, EventArgs e)
         {
-            Profile f2 = new Profile();
+            AvailableBooksForm f2 = new AvailableBooksForm();
             f2.Show();
             this.Hide();
-         
         }
         private void LearnFace()
         {

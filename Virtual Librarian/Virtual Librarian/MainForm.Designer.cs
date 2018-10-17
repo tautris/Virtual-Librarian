@@ -30,6 +30,7 @@ namespace Virtual_Librarian
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.learnNewFace = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -44,14 +45,14 @@ namespace Virtual_Librarian
             // 
             this.panel1.Controls.Add(this.learnNewFace);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(364, 170);
+            this.panel1.Location = new System.Drawing.Point(364, 171);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(243, 193);
+            this.panel1.Size = new System.Drawing.Size(243, 192);
             this.panel1.TabIndex = 5;
             // 
             // learnNewFace
             // 
-            this.learnNewFace.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(143)))), ((int)(((byte)(192)))), ((int)(((byte)(169)))));
+            this.learnNewFace.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(153)))), ((int)(((byte)(0)))));
             this.learnNewFace.Dock = System.Windows.Forms.DockStyle.Top;
             this.learnNewFace.FlatAppearance.BorderSize = 0;
             this.learnNewFace.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
@@ -65,7 +66,7 @@ namespace Virtual_Librarian
             // 
             // tableLayoutPanel1
             // 
-            this.tableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(243)))), ((int)(((byte)(221)))));
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(255)))), ((int)(((byte)(253)))));
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 59.34426F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40.65574F));
@@ -91,7 +92,7 @@ namespace Virtual_Librarian
             this.imgCamUser.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.Minimum;
             this.imgCamUser.Location = new System.Drawing.Point(364, 3);
             this.imgCamUser.Name = "imgCamUser";
-            this.imgCamUser.Size = new System.Drawing.Size(243, 161);
+            this.imgCamUser.Size = new System.Drawing.Size(243, 162);
             this.imgCamUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.imgCamUser.TabIndex = 2;
             this.imgCamUser.TabStop = false;
@@ -99,9 +100,10 @@ namespace Virtual_Librarian
             // 
             // textBox1
             // 
-            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(250)))), ((int)(((byte)(243)))), ((int)(((byte)(221)))));
+            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(255)))), ((int)(((byte)(253)))));
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.Font = new System.Drawing.Font("Arial", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.textBox1.ForeColor = System.Drawing.Color.Black;
             this.textBox1.Location = new System.Drawing.Point(3, 3);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";

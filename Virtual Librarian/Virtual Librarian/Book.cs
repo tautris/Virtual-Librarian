@@ -8,7 +8,8 @@ namespace Virtual_Librarian
 {
     public class Book
     {
-        private string title { get; }
+        //public string title;
+        public string title { get; }
         private string ISBN { get; }
         private string authorName { get; }
         private string authorSurname { get; }
