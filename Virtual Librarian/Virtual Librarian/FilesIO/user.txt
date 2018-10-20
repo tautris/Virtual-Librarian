@@ -1,0 +1,2 @@
+1,ciuvakas,ciuvakenas,MIF
+2,darviens,darvienauskas,KF

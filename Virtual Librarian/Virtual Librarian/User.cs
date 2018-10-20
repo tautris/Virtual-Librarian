@@ -19,16 +19,16 @@ namespace Virtual_Librarian
             EVAF,
             CGF
         }
-        private string name { get; }
-        private string surname { get; }
-        private Faculty faculty { get; set; }
-        private int studentId { get; }
+        public string Name { get; }
+        public string Surname { get; }
+        public Faculty CurrentFaculty { get; set; }
+        public int Id { get; }
         public List<BookCopy> takenBooks = new List<BookCopy>();
-        public User (string name, string surname, int studentId, Faculty faculty) {
-            this.name = name;
-            this.surname = surname;
-            this.studentId = studentId;
-            this.faculty = faculty;
+        public User (int id, string name, string surname, Faculty faculty) {
+            Id = id;
+            Name = name;
+            Surname = surname;
+            CurrentFaculty = faculty;
         }
 
         public void TakeBook (BookCopy bookCopy)
