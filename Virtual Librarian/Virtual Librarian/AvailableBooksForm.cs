@@ -13,7 +13,6 @@ namespace Virtual_Librarian
 {
     //private BookService bookService;
 
-
     public partial class AvailableBooksForm : Form
     {
         public AvailableBooksForm()
