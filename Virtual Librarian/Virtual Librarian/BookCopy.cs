@@ -8,7 +8,8 @@ namespace Virtual_Librarian
 {
     public class BookCopy
     {
-        private DateTime dateOfPrinting { get; }
+        public DateTime dateOfPrinting { get; }
+        //private DateTime dateOfPrinting { get; }
         private DateTime takenDate { get; set; }
         private DateTime? lastReturnDate { get; set; }
         public BookCopy (DateTime dateOfPrinting)
