@@ -12,6 +12,7 @@ namespace Virtual_Librarian
         List<User> GetUsers();
         void InsertUser(User user);
         Book GetBook(String ISBN);
+        List<Book> GetBooks();
         //BookCopy GetBookCopy(int id);
 
         // TODO implement some of the methods below in FileReaderWriter

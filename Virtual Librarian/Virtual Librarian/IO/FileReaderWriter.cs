@@ -134,9 +134,24 @@ namespace Virtual_Librarian
             string bookEntry = bookFileContent.FromToNewline(ISBN);
             string[] bookProperties = bookEntry.Split(',');
 
-            DateTime dateTime = DateTime.ParseExact(bookProperties[4], "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            DateTime date = DateTime.ParseExact(bookProperties[4], "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
-            return new Book(bookProperties[0], bookProperties[1], bookProperties[2], bookProperties[3], dateTime);
+            return new Book(bookProperties[0], bookProperties[1], bookProperties[2], bookProperties[3], date);
+        }
+
+        public List<Book> GetBooks()
+        {
+            List<Book> books = new List<Book>();
+            string bookFileContent = ReadFile(bookFilePath);
+            string[] bookEntries = bookFileContent.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+            foreach (string entry in bookEntries)
+            {
+                string[] bookProperties = entry.Split(',');
+
+                DateTime date = DateTime.ParseExact(bookProperties[4], "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                books.Add(new Book(bookProperties[0], bookProperties[1], bookProperties[2], bookProperties[3], date));
+            }
+            return books;
         }
     }
 }

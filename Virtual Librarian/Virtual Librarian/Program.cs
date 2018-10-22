@@ -12,6 +12,7 @@ namespace Virtual_Librarian
         {
 
             var x = FileReaderWriter.Instance.GetBook("978-0679734529");
+            var z = FileReaderWriter.Instance.GetBooks();
 
             //Available books for testing list
             Book book1 = new Book("978-1-56619-909-4", "Test1", "test", "testy", DateTime.Now.AddYears(-30));
