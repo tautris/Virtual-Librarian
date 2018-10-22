@@ -15,8 +15,11 @@ namespace Virtual_Librarian
 
     public partial class AvailableBooksForm : Form
     {
-        public AvailableBooksForm()
+        private User user;
+
+        public AvailableBooksForm(User user)
         {
+            this.user = user;
             InitializeComponent();
 
             AvailableBooks();
@@ -28,7 +31,10 @@ namespace Virtual_Librarian
             List<Book> AvailableBooksList = new List<Book>(Library.Instance.GetAvailableBooksList());
             foreach (Book book in AvailableBooksList)
             {
-                listView1.Items.Add(book.title.ToString());
+                ListViewItem item = new ListViewItem();
+                item.Text = book.title.ToString();
+                item.Tag = book;
+                listView1.Items.Add(item);
             }
         }
 
@@ -41,11 +47,18 @@ namespace Virtual_Librarian
         //TO DO take the book that is selected
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            this.Hide();
-            ListView listView = (ListView)sender;
-            MessageBox.Show(listView.SelectedItems[0].ToString(), "Selected book");
-        }
+            Book p = (Book)listView1.SelectedItems[0].Tag;
+            MessageBox.Show(p.title, "Taken book:");
+            user.TakeBook(p);
 
+            //For testing what user is taking book
+            //Console.WriteLine(user.Id + user.Name + user.Surname + user.CurrentFaculty);
+            
+            //Loads form with less availabke books
+            AvailableBooksForm f2 = new AvailableBooksForm(user);
+            f2.Show();
+            this.Hide();
+        }
         private void label2_Click(object sender, EventArgs e)
         {
 
