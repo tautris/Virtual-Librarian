@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Virtual_Librarian
 {
-    class User
+    public class User
     {
         public enum Faculty
         {
@@ -31,7 +31,11 @@ namespace Virtual_Librarian
             CurrentFaculty = faculty;
         }
 
-        public void TakeBook (BookCopy bookCopy)
+        public void TakeBook (Book book)
+        {
+            TakeBookCopy(book.copies.First());
+        }
+        public void TakeBookCopy(BookCopy bookCopy)
         {
             takenBooks.Add(bookCopy);
             bookCopy.TakeCopy();
