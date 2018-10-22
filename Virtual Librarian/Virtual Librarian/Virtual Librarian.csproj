@@ -59,6 +59,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Admin.cs" />
     <Compile Include="Book.cs" />
     <Compile Include="BookCopy.cs" />
     <Compile Include="Library.cs" />
