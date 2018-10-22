@@ -12,8 +12,12 @@ namespace Virtual_Librarian
         //private DateTime dateOfPrinting { get; }
         private DateTime takenDate { get; set; }
         private DateTime? lastReturnDate { get; set; }
-        public BookCopy (DateTime dateOfPrinting)
+        public Book book { get; set; }
+        public BookCopy (Book book, DateTime dateOfPrinting)
         {
+            this.book = book;
+            book.AddBookCopy(this);
+
             this.dateOfPrinting = dateOfPrinting;
             lastReturnDate = DateTime.Now;
             takenDate = DateTime.Now.AddSeconds(-1);

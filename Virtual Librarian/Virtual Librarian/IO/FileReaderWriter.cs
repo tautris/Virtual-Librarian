@@ -2,6 +2,7 @@
 using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,9 @@ namespace Virtual_Librarian
     {
         private static readonly string projectDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         private static readonly string userFilePath = projectDir + @"\FilesIO\user.txt";
+        private static readonly string bookCopyFilePath = projectDir + @"\FilesIO\bookCopies.txt";
+        private static readonly string bookFilePath = projectDir + @"\FilesIO\books.txt";
+
         private static FileReaderWriter instance = null;
         private static readonly object padLock = new object();
         FileReaderWriter() { }
@@ -122,6 +126,17 @@ namespace Virtual_Librarian
         public void InsertUser(User user)
         {
             WriteLineToFile(userFilePath, user.Id + "," + user.Name + "," + user.Surname + "," + user.CurrentFaculty);
+        }
+
+        public Book GetBook(String ISBN)
+        {
+            string bookFileContent = ReadFile(bookFilePath);
+            string bookEntry = bookFileContent.FromToNewline(ISBN);
+            string[] bookProperties = bookEntry.Split(',');
+
+            DateTime dateTime = DateTime.ParseExact(bookProperties[4], "yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+            return new Book(bookProperties[0], bookProperties[1], bookProperties[2], bookProperties[3], dateTime);
         }
     }
 }
