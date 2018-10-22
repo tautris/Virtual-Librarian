@@ -20,13 +20,10 @@ namespace Virtual_Librarian
             book2.AddBookCopy(bookCopy2);
             Library.Instance.AddBook(book2);
             //------------------------------------------------------------------
-
             //To launch windows form
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm());
         }
-
-
     }
 }

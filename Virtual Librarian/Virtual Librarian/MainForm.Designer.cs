@@ -84,7 +84,6 @@ namespace Virtual_Librarian
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(610, 366);
             this.tableLayoutPanel1.TabIndex = 0;
-            this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
             // 
             // imgCamUser
             // 
@@ -96,7 +95,6 @@ namespace Virtual_Librarian
             this.imgCamUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.imgCamUser.TabIndex = 2;
             this.imgCamUser.TabStop = false;
-            this.imgCamUser.Click += new System.EventHandler(this.imgCamUser_Click);
             // 
             // textBox1
             // 
@@ -111,7 +109,7 @@ namespace Virtual_Librarian
             this.textBox1.Size = new System.Drawing.Size(280, 161);
             this.textBox1.TabIndex = 6;
             this.textBox1.Text = "  Welcome\r\n  To\r\n  Virtual\r\n  Librarian";
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged_2);
+           
             // 
             // MainForm
             // 
