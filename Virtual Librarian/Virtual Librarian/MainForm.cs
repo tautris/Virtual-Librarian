@@ -25,6 +25,7 @@ namespace Virtual_Librarian
             capture = new VideoCapture();
             //Classifier to detect faces from opencv with path bin/debug
             string projectDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+            
 
             cascadeClassifier = new CascadeClassifier(projectDir + @"\CV\haarcascade_frontalface_default.xml");
             detectionTimer = new Timer();
@@ -67,7 +68,10 @@ namespace Virtual_Librarian
 
         private void LearnNewFace_Click(object sender, EventArgs e)
         {
-            AvailableBooksForm f2 = new AvailableBooksForm();
+            //Fake login 
+            User user = FileReaderWriter.Instance.GetUser(3);
+            //Console.WriteLine(user.Id + user.Name + user.Surname + user.CurrentFaculty);
+            AvailableBooksForm f2 = new AvailableBooksForm(user);
             f2.Show();
             this.Hide();
         }

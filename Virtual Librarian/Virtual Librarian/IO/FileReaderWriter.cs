@@ -2,6 +2,7 @@
 using System.CodeDom;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,9 @@ namespace Virtual_Librarian
     {
         private static readonly string projectDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         private static readonly string userFilePath = projectDir + @"\FilesIO\user.txt";
+        private static readonly string bookCopyFilePath = projectDir + @"\FilesIO\bookCopies.txt";
+        private static readonly string bookFilePath = projectDir + @"\FilesIO\books.txt";
+
         private static FileReaderWriter instance = null;
         private static readonly object padLock = new object();
         FileReaderWriter() { }
@@ -122,6 +126,63 @@ namespace Virtual_Librarian
         public void InsertUser(User user)
         {
             WriteLineToFile(userFilePath, user.Id + "," + user.Name + "," + user.Surname + "," + user.CurrentFaculty);
+        }
+
+        public Book GetBook(String ISBN)
+        {
+            string bookFileContent = ReadFile(bookFilePath);
+            string bookEntry = bookFileContent.FromToNewline(ISBN);
+            string[] bookProperties = bookEntry.Split(',');
+
+            DateTime date = DateTime.ParseExact(bookProperties[4], "yyyy-MM-dd", CultureInfo.InvariantCulture);
+
+            return new Book(bookProperties[0], bookProperties[1], bookProperties[2], bookProperties[3], date);
+        }
+
+        public List<Book> GetBooks()
+        {
+            List<Book> books = new List<Book>();
+            string bookFileContent = ReadFile(bookFilePath);
+            string[] bookEntries = bookFileContent.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+            foreach (string entry in bookEntries)
+            {
+                string[] bookProperties = entry.Split(',');
+
+                DateTime date = DateTime.ParseExact(bookProperties[4], "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                books.Add(new Book(bookProperties[0], bookProperties[1], bookProperties[2], bookProperties[3], date));
+            }
+            return books;
+        }
+
+        public void InsertBook (Book book)          //TODO: Check for repeating ISBN when adding
+        {       
+            WriteLineToFile(bookFilePath, book.ISBN + "," + book.title + "," + book.authorName + "," + book.authorSurname + "," + book.date.ToString("yyyy-MM-dd"));
+        }
+
+        public BookCopy GetBookCopy(int id)        //TODO: User ID 2, reads until 2 is found (e.g. 2018). Problem with FromToNewLine.
+        {
+            string bookCopyFileContent = ReadFile(bookCopyFilePath);
+            string bookEntry = bookCopyFileContent.FromToNewline(id.ToString());
+            string[] bookCopyProperties = bookEntry.Split(',');
+
+            DateTime datePrinting = DateTime.ParseExact(bookCopyProperties[2], "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            return new BookCopy(int.Parse(bookCopyProperties[0]), GetBook(bookCopyProperties[1]), datePrinting);
+        }
+
+        public List<BookCopy> GetBookCopies()
+        {
+            List<BookCopy> bookCopies = new List<BookCopy>();
+            string bookCopyFileContent = ReadFile(bookCopyFilePath);
+            string[] bookEntries = bookCopyFileContent.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+
+            foreach (string entry in bookEntries)
+            {
+                string[] bookCopyProperties = entry.Split(',');
+                DateTime datePrinting = DateTime.ParseExact(bookCopyProperties[2], "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                bookCopies.Add(new BookCopy(int.Parse(bookCopyProperties[0]), GetBook(bookCopyProperties[1]), datePrinting));
+            }
+        
+            return bookCopies;
         }
     }
 }
