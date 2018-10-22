@@ -1,2 +1,2 @@
-978-0486454115,Crime and Punishment,Feodor,Dostoyevsky,1866-01-01
-978-0679734529,Notes from Underground,Feodor,Dostoyevsky,1864-01-01
+978-0486454115,Crime and Punishment,Feodor,Dostoyevsky,1866-01-18
+978-0679734529,Notes from Underground,Feodor,Dostoyevsky,1864-01-18

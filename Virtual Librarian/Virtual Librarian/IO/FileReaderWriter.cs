@@ -154,9 +154,35 @@ namespace Virtual_Librarian
             return books;
         }
 
-        public void InsertBook (Book book)
-        {
+        public void InsertBook (Book book)          //TODO: Check for repeating ISBN when adding
+        {       
             WriteLineToFile(bookFilePath, book.ISBN + "," + book.title + "," + book.authorName + "," + book.authorSurname + "," + book.date.ToString("yyyy-MM-dd"));
+        }
+
+        public BookCopy GetBookCopy(int id)        //TODO: User ID 2, reads until 2 is found (e.g. 2018). Problem with FromToNewLine.
+        {
+            string bookCopyFileContent = ReadFile(bookCopyFilePath);
+            string bookEntry = bookCopyFileContent.FromToNewline(id.ToString());
+            string[] bookCopyProperties = bookEntry.Split(',');
+
+            DateTime datePrinting = DateTime.ParseExact(bookCopyProperties[2], "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            return new BookCopy(int.Parse(bookCopyProperties[0]), GetBook(bookCopyProperties[1]), datePrinting);
+        }
+
+        public List<BookCopy> GetBookCopies()
+        {
+            List<BookCopy> bookCopies = new List<BookCopy>();
+            string bookCopyFileContent = ReadFile(bookCopyFilePath);
+            string[] bookEntries = bookCopyFileContent.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+
+            foreach (string entry in bookEntries)
+            {
+                string[] bookCopyProperties = entry.Split(',');
+                DateTime datePrinting = DateTime.ParseExact(bookCopyProperties[2], "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                bookCopies.Add(new BookCopy(int.Parse(bookCopyProperties[0]), GetBook(bookCopyProperties[1]), datePrinting));
+            }
+        
+            return bookCopies;
         }
     }
 }

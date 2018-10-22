@@ -11,7 +11,7 @@ namespace VirtualLibrarianTests
         public void bookCopyAdded()
         {   
             Book book1 = new Book("978-1-56619-909-4", "Crime and Punishment", "Feodor", "Dostoyevsky", DateTime.Now.AddYears(-30));
-            BookCopy bookCopy1 = new BookCopy(book1, DateTime.Now.AddMonths(-11));
+            BookCopy bookCopy1 = new BookCopy(1, book1, DateTime.Now.AddMonths(-11));
 
             var bookCount = Library.Instance.GetAvailableBooksList().Count;
             var bookCopyCount = Library.Instance.GetAllBookCopies().Count;
@@ -29,7 +29,7 @@ namespace VirtualLibrarianTests
         public void bookCopyRemoved()
         {
             Book book1 = new Book("978-1-56619-909-4", "Crime and Punishment", "Feodor", "Dostoyevsky", DateTime.Now.AddYears(-30));
-            BookCopy bookCopy1 = new BookCopy(book1, DateTime.Now.AddMonths(-11));
+            BookCopy bookCopy1 = new BookCopy(1, book1, DateTime.Now.AddMonths(-11));
 
             var bookCount = Library.Instance.GetAllBooks().Count;
             var availableBookCount = Library.Instance.GetAvailableBooksList().Count;

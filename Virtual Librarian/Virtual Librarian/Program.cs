@@ -12,10 +12,10 @@ namespace Virtual_Librarian
         {
             //Available books for testing list
             Book book1 = new Book("978-1-56619-909-4", "Test1", "test", "testy", DateTime.Now.AddYears(-30));
-            BookCopy bookCopy1 = new BookCopy(book1, DateTime.Now.AddMonths(-11));
+            BookCopy bookCopy1 = new BookCopy(1, book1, DateTime.Now.AddMonths(-11));
             Library.Instance.AddBook(book1);
             Book book2 = new Book("978-1-56619-909-4", "TestBook2", "test", "test", DateTime.Now.AddYears(-30));
-            BookCopy bookCopy2 = new BookCopy(book2, DateTime.Now.AddMonths(-11));
+            BookCopy bookCopy2 = new BookCopy(2, book2, DateTime.Now.AddMonths(-11));
             Library.Instance.AddBook(book2);
             //------------------------------------------------------------------
             //User user = FileReaderWriter.Instance.GetUser(1);
