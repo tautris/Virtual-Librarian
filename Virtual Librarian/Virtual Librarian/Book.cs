@@ -10,10 +10,10 @@ namespace Virtual_Librarian
     {
         //public string title;
         public string title { get; }
-        private string ISBN { get; }
-        private string authorName { get; }
-        private string authorSurname { get; }
-        private DateTime date { get; set; }
+        public string ISBN { get; }
+        public string authorName { get; }
+        public string authorSurname { get; }
+        public DateTime date { get; set; }
         public List<BookCopy> copies = new List<BookCopy>();
         public Book(string ISBN, string title, string authorName, string authorSurname, DateTime date)
         {
