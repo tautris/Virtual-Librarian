@@ -153,5 +153,10 @@ namespace Virtual_Librarian
             }
             return books;
         }
+
+        public void InsertBook (Book book)
+        {
+            WriteLineToFile(bookFilePath, book.ISBN + "," + book.title + "," + book.authorName + "," + book.authorSurname + "," + book.date.ToString("yyyy-MM-dd"));
+        }
     }
 }
