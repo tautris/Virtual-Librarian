@@ -31,29 +31,56 @@ namespace Virtual_Librarian
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.imgCamUser = new Emgu.CV.UI.ImageBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.learnNewFace = new System.Windows.Forms.Button();
-            this.userName = new System.Windows.Forms.TextBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.imgCamUser = new Emgu.CV.UI.ImageBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgCamUser)).BeginInit();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.learnNewFace);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel1.Location = new System.Drawing.Point(364, 171);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(243, 192);
+            this.panel1.TabIndex = 5;
+            // 
+            // learnNewFace
+            // 
+            this.learnNewFace.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(153)))), ((int)(((byte)(0)))));
+            this.learnNewFace.Dock = System.Windows.Forms.DockStyle.Top;
+            this.learnNewFace.FlatAppearance.BorderSize = 0;
+            this.learnNewFace.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.learnNewFace.Location = new System.Drawing.Point(0, 0);
+            this.learnNewFace.Name = "learnNewFace";
+            this.learnNewFace.Size = new System.Drawing.Size(243, 55);
+            this.learnNewFace.TabIndex = 3;
+            this.learnNewFace.Text = "Log In";
+            this.learnNewFace.UseVisualStyleBackColor = false;
+            this.learnNewFace.Click += new System.EventHandler(this.LearnNewFace_Click);
             // 
             // tableLayoutPanel1
             // 
+            this.tableLayoutPanel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(255)))), ((int)(((byte)(253)))));
             this.tableLayoutPanel1.ColumnCount = 2;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 66.55738F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 33.44262F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 59.34426F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 40.65574F));
             this.tableLayoutPanel1.Controls.Add(this.imgCamUser, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.textBox1, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 45.90164F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 54.09836F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(610, 366);
             this.tableLayoutPanel1.TabIndex = 0;
@@ -62,44 +89,27 @@ namespace Virtual_Librarian
             // 
             this.imgCamUser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.imgCamUser.FunctionalMode = Emgu.CV.UI.ImageBox.FunctionalModeOption.Minimum;
-            this.imgCamUser.Location = new System.Drawing.Point(409, 3);
+            this.imgCamUser.Location = new System.Drawing.Point(364, 3);
             this.imgCamUser.Name = "imgCamUser";
-            this.imgCamUser.Size = new System.Drawing.Size(198, 177);
+            this.imgCamUser.Size = new System.Drawing.Size(243, 162);
             this.imgCamUser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.imgCamUser.TabIndex = 2;
             this.imgCamUser.TabStop = false;
             // 
-            // panel1
+            // textBox1
             // 
-            this.panel1.Controls.Add(this.learnNewFace);
-            this.panel1.Controls.Add(this.userName);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(409, 186);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(198, 177);
-            this.panel1.TabIndex = 5;
-            // 
-            // learnNewFace
-            // 
-            this.learnNewFace.Dock = System.Windows.Forms.DockStyle.Top;
-            this.learnNewFace.Location = new System.Drawing.Point(0, 20);
-            this.learnNewFace.Name = "learnNewFace";
-            this.learnNewFace.Size = new System.Drawing.Size(198, 23);
-            this.learnNewFace.TabIndex = 3;
-            this.learnNewFace.Text = "Learn my face!";
-            this.learnNewFace.UseVisualStyleBackColor = true;
-            this.learnNewFace.Click += new System.EventHandler(this.LearnNewFace_Click);
-            // 
-            // userName
-            // 
-            this.userName.Dock = System.Windows.Forms.DockStyle.Top;
-            this.userName.Location = new System.Drawing.Point(0, 0);
-            this.userName.Name = "userName";
-            this.userName.Size = new System.Drawing.Size(198, 20);
-            this.userName.TabIndex = 4;
-            this.userName.Text = "Username";
-            this.userName.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.userName.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(255)))), ((int)(((byte)(253)))));
+            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Font = new System.Drawing.Font("Arial", 24.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
+            this.textBox1.ForeColor = System.Drawing.Color.Black;
+            this.textBox1.Location = new System.Drawing.Point(3, 3);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(280, 161);
+            this.textBox1.TabIndex = 6;
+            this.textBox1.Text = "  Welcome\r\n  To\r\n  Virtual\r\n  Librarian";
+           
             // 
             // MainForm
             // 
@@ -110,21 +120,21 @@ namespace Virtual_Librarian
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
             this.Text = "Virtual Librarian";
-            this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.imgCamUser)).EndInit();
             this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgCamUser)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private Emgu.CV.UI.ImageBox imgCamUser;
-        private System.Windows.Forms.Button learnNewFace;
-        private TextBox userName;
         private Panel panel1;
+        private Button learnNewFace;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Emgu.CV.UI.ImageBox imgCamUser;
+        private TextBox textBox1;
     }
 }
 
