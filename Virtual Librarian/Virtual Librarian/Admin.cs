@@ -36,6 +36,21 @@ namespace Virtual_Librarian
             return this[index];
         }
 
+        public void RemoveManagedUser(int index)
+        {
+            for (int i = index; i < 10; i++)
+            {
+                if (i != 9)
+                {
+                    this[i] = this[i + 1];
+                }
+                else
+                {
+                    this[i] = null;
+                }
+            }
+        }
+
         public List<User> GetAllManagedUsers()
         {
             List<User> UserList = new List<User>();
