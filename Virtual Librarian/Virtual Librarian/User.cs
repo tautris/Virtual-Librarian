@@ -33,7 +33,14 @@ namespace Virtual_Librarian
 
         public void TakeBook (Book book)
         {
-            TakeBookCopy(book.copies.First());
+            foreach (BookCopy bookCopy in book.copies)
+            {
+                if (bookCopy.IsAvailable())
+                {
+                    TakeBookCopy(bookCopy);
+                    return;
+                }
+            }
         }
         public void TakeBookCopy(BookCopy bookCopy)
         {
