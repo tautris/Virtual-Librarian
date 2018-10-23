@@ -12,7 +12,7 @@ namespace Virtual_Librarian
         /// </summary>
         public static string FromToNewline(this string value, string from)
         {
-            int posFrom = value.IndexOf(from);
+            int posFrom = value.IndexOf(from + ',');
             Regex newLineRegex = new Regex("(" + from + @".+?(?=\r\n))");
 
             //Check if not last entry
