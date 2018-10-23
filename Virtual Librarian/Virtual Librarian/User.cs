@@ -24,7 +24,7 @@ namespace Virtual_Librarian
         public Faculty CurrentFaculty { get; set; }
         public int Id { get; }
         public List<BookCopy> takenBooks = new List<BookCopy>();
-        public User (int id, string name, string surname, Faculty faculty) {
+        public User (int id, string name, string surname, Faculty faculty = Faculty.MIF) {
             Id = id;
             Name = name;
             Surname = surname;
