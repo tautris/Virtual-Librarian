@@ -10,7 +10,16 @@ namespace Virtual_Librarian
     {
         private static Library instance = null;
         private static readonly object padLock = new object();
-        Library() { }
+        Library()
+        {
+            allBooks = FileReaderWriter.Instance.GetBooks();
+            List<BookCopy> bookCopies = new List<BookCopy>();
+            bookCopies = FileReaderWriter.Instance.GetBookCopies();
+            foreach (BookCopy bookCopy in bookCopies)
+            {
+                allBooks.First(obj => obj.ISBN == bookCopy.book.ISBN).AddBookCopy(bookCopy);
+            }
+        }
         public static Library Instance
         {
             get
