@@ -58,10 +58,12 @@ namespace Virtual_Librarian
             catch
             {
                 this.Hide();
-                
+                detectionTimer.Stop();
+
                 if (MessageBox.Show("Camera not found", "Camera msg", MessageBoxButtons.OK) ==DialogResult.OK)
                 {
                     this.Close();
+                    
                    }
             }
         }
