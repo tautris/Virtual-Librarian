@@ -79,5 +79,11 @@ namespace Virtual_Librarian
         {
 
         }
+
+        private void MainFormLogInAdminButton_Click(object sender, EventArgs e)
+        {
+            new AdminMainForm().Show();
+            this.Hide();
+        }
     }
 }

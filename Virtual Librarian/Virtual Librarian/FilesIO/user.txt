@@ -1,3 +1,5 @@
 1,ciuvakas,ciuvakenas,MIF
 2,darviens,darvienauskas,KF
 3,testas,testauskas,MIF
+6,adolfas,delfinas,FF
+8,tomas,tomauskas,GMC

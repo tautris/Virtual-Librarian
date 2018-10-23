@@ -16,6 +16,7 @@ namespace Virtual_Librarian
         private static readonly string userFilePath = projectDir + @"\FilesIO\user.txt";
         private static readonly string bookCopyFilePath = projectDir + @"\FilesIO\bookCopies.txt";
         private static readonly string bookFilePath = projectDir + @"\FilesIO\books.txt";
+        private static readonly string adminsFilePath = projectDir + @"\FilesIO\admins.txt";
 
         private static FileReaderWriter instance = null;
         private static readonly object padLock = new object();
@@ -183,6 +184,57 @@ namespace Virtual_Librarian
             }
         
             return bookCopies;
+        }
+
+        public List<Admin> GetAdmins()
+        {
+            List<Admin> admins = new List<Admin>();
+            string adminFileContent = ReadFile(adminsFilePath);
+            string[] adminEntries = adminFileContent.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+            foreach (string entry in adminEntries)
+            {
+                string[] adminProperties = entry.Split(',');
+                Admin currentAdmin = new Admin(adminProperties[0], adminProperties[1]);
+                admins.Add(currentAdmin);
+                var usersList = new List<string>(adminProperties);
+                usersList.RemoveAt(0);
+                usersList.RemoveAt(0);
+                int userIndex = 0;
+                foreach(string userId in usersList)
+                {
+                    User currentUser = GetUser(Int32.Parse(userId));
+                    currentAdmin.AddManagedUser(currentUser, userIndex);
+                    userIndex++;
+                }
+            }
+
+            return admins;
+        }
+
+        public void UpdateAdminUsers(Admin admin)
+        {
+            StringBuilder sb = new StringBuilder();
+            string adminFileContent = ReadFile(adminsFilePath);
+            string[] adminEntries = adminFileContent.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+            foreach (string entry in adminEntries)
+            {
+                string[] adminProperties = entry.Split(',');
+                if (admin.LoginName != adminProperties[0])
+                {
+                    sb.Append(entry);
+                }
+
+            }
+
+            File.WriteAllText(adminsFilePath, sb.ToString());
+            sb.Clear();      
+                        
+            sb.Append(admin.LoginName + "," + admin.Password);
+            foreach(User user in admin.GetAllManagedUsers())
+            {
+                sb.Append("," + user.Id.ToString());
+            }
+            WriteLineToFile(adminsFilePath, sb.ToString());
         }
     }
 }
