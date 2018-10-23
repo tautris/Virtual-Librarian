@@ -107,7 +107,10 @@ namespace Virtual_Librarian
             string userEntry = userFileContent.FromToNewline(id.ToString());
             string[] userProperties = userEntry.Split(',');
 
-            return new User(int.Parse(userProperties[0]), userProperties[1], userProperties[2], (User.Faculty)Enum.Parse(typeof(User.Faculty), userProperties[3]));
+            return new User(id: int.Parse(userProperties[0]), 
+                name: userProperties[1], surname: userProperties[2],
+                faculty: (User.Faculty)Enum.Parse(typeof(User.Faculty), 
+                userProperties[3]));
         }
 
         public List<User> GetUsers()
