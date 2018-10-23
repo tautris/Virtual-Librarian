@@ -163,7 +163,7 @@ namespace Virtual_Librarian
             WriteLineToFile(bookFilePath, book.ISBN + "," + book.title + "," + book.authorName + "," + book.authorSurname + "," + book.date.ToString("yyyy-MM-dd"));
         }
 
-        public BookCopy GetBookCopy(int id)        //TODO: User ID 2, reads until 2 is found (e.g. 2018). Problem with FromToNewLine.
+        public BookCopy GetBookCopy(int id)
         {
             string bookCopyFileContent = ReadFile(bookCopyFilePath);
             string bookEntry = bookCopyFileContent.FromToNewline(id.ToString());
