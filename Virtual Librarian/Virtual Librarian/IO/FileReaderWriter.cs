@@ -189,6 +189,11 @@ namespace Virtual_Librarian
             return bookCopies;
         }
 
+        public void InsertBookCopy(BookCopy bookCopy)
+        {
+            WriteLineToFile(bookCopyFilePath, bookCopy.Id + "," + bookCopy.book.ISBN + "," + bookCopy.dateOfPrinting.ToString("yyyy-MM-dd"));
+        }
+
         public List<Admin> GetAdmins()
         {
             List<Admin> admins = new List<Admin>();
