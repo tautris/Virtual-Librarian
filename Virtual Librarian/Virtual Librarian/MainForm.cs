@@ -73,8 +73,7 @@ namespace Virtual_Librarian
             //Fake login 
             User user = FileReaderWriter.Instance.GetUser(3);
             //Console.WriteLine(user.Id + user.Name + user.Surname + user.CurrentFaculty);
-            AvailableBooksForm f2 = new AvailableBooksForm(user);
-            f2.Show();
+            new UserProfile(user).Show();
             this.Hide();
         }
         private void LearnFace()

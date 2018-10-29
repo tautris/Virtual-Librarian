@@ -44,7 +44,6 @@ namespace Virtual_Librarian
         }
 
         //After selecting book 
-        //TO DO take the book that is selected
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             Book p = (Book)listView1.SelectedItems[0].Tag;
@@ -53,15 +52,20 @@ namespace Virtual_Librarian
 
             //For testing what user is taking book
             //Console.WriteLine(user.Id + user.Name + user.Surname + user.CurrentFaculty);
-            
-            //Loads form with less availabke books
-            AvailableBooksForm f2 = new AvailableBooksForm(user);
-            f2.Show();
+
+            //Loads profile
+            new UserProfile(user).Show();
             this.Hide();
         }
         private void label2_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            new UserProfile(user).Show();
+            this.Hide();
         }
     }
 }
