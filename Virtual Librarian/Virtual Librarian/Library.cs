@@ -69,8 +69,8 @@ namespace Virtual_Librarian
                     }
                 }
             }
-            List<Book> SortedAvailableBooks = availableBooks.OrderBy(o => o.authorSurname).ToList();
-            return availableBooks;
+            List<Book> sortedAvailableBooks = availableBooks.OrderBy(o => o.authorSurname).ToList();
+            return sortedAvailableBooks;
         }
 
         public List<Book> GetAllBooks()    
