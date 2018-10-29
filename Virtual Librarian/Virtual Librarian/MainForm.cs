@@ -44,7 +44,7 @@ namespace Virtual_Librarian
                 {
                     Image<Gray, Byte> grayFrame = currentFrame.Convert<Gray, Byte>();
                     // Face detections happens here by giving the classifier gray image
-                    detectedFaces = cascadeClassifier.DetectMultiScale(grayFrame, 1.1, 10, Size.Empty);
+                    detectedFaces = cascadeClassifier.DetectMultiScale(grayFrame, 1.1, 10, Size.Empty, Size.Empty);
 
                     foreach (var face in detectedFaces)
                         // Draws rectangles in frame around faces

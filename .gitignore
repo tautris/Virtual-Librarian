@@ -265,3 +265,6 @@ FilesIO/*
 
 # exception to the previous rule to keep the folder
 !FilesIO/.gitkeep 
+/Virtual Librarian/Virtual Librarian/Recognizer.cs:Zone.Identifier
+/Virtual Librarian/Virtual Librarian/Recognizer.cs:Zone.Identifier
+/Virtual Librarian/Virtual Librarian/Recognizer.cs:Zone.Identifier
