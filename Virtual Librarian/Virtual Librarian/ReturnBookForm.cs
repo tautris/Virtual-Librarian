@@ -10,18 +10,16 @@ using System.Windows.Forms;
 
 namespace Virtual_Librarian
 {
-    public partial class UserProfile : Form
+    public partial class ReturnBookForm : Form
     {
         private User user;
 
-        public UserProfile(User user)
+        public ReturnBookForm(User user)
         {
             this.user = user;
             InitializeComponent();
-            listView1.View = View.Details;
 
-            textBox1.AppendText(user.Name);
-            TakenBooks();   
+            TakenBooks();
         }
 
         private void TakenBooks()
@@ -30,34 +28,29 @@ namespace Virtual_Librarian
             List<BookCopy> TakenBooksList = new List<BookCopy>(user.TakenBooks());
             foreach (BookCopy bookCopy in TakenBooksList)
             {
-                ListViewItem item = new ListViewItem(new[] { bookCopy.book.title.ToString(), bookCopy.returnDate.ToString("m")});
+                ListViewItem item = new ListViewItem(new[] { bookCopy.book.title.ToString(), bookCopy.returnDate.ToString("m") });
                 //item.Tag = bookCopy;
                 listView1.Items.Add(item);
             }
         }
 
+        //TODO return book
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
+            /*
+            BookCopy p = (BookCopy)listView1.SelectedItems[0].Tag;
+            //MessageBox.Show(p.title, "Returned book:");
+            user.ReturnBook(p);
 
-        }
-
-        private void logOff_Click(object sender, EventArgs e)
-        {
-            new MainForm().Show();
+            new UserProfile(user).Show();
             this.Hide();
-
+            */
         }
 
-        private void takeBook_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            new AvailableBooksForm(user).Show();
-            this.Hide();
-        }
-
-        //TODO return book
-        private void returnBook_Click(object sender, EventArgs e)
-        {
-            new ReturnBookForm(user).Show();
+            new UserProfile(user).Show();
             this.Hide();
         }
     }
