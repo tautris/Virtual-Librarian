@@ -18,6 +18,7 @@ namespace Virtual_Librarian
         {
             this.user = user;
             InitializeComponent();
+            listView1.View = View.Details;
 
             textBox1.AppendText(user.Name);
             TakenBooks();   
@@ -29,8 +30,7 @@ namespace Virtual_Librarian
             List<BookCopy> TakenBooksList = new List<BookCopy>(user.TakenBooks());
             foreach (BookCopy bookCopy in TakenBooksList)
             {
-                ListViewItem item = new ListViewItem();
-                item.Text = bookCopy.book.title.ToString();
+                ListViewItem item = new ListViewItem(new[] { bookCopy.book.title.ToString(), bookCopy.returnDate.ToString("m")});
                 //item.Tag = bookCopy;
                 listView1.Items.Add(item);
             }

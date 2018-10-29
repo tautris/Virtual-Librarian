@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             this.imgCamUser = new Emgu.CV.UI.ImageBox();
             this.listView1 = new System.Windows.Forms.ListView();
-            this.Pavadinimas = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label2 = new System.Windows.Forms.Label();
             this.takeBook = new System.Windows.Forms.Button();
             this.returnBook = new System.Windows.Forms.Button();
@@ -39,6 +38,8 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.textBox1 = new System.Windows.Forms.TextBox();
+            this.bookName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.returnDate = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             ((System.ComponentModel.ISupportInitialize)(this.imgCamUser)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -60,7 +61,8 @@
             // 
             this.listView1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(254)))), ((int)(((byte)(255)))), ((int)(((byte)(253)))));
             this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.Pavadinimas});
+            this.bookName,
+            this.returnDate});
             this.listView1.Font = new System.Drawing.Font("Arial", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(186)));
             this.listView1.FullRowSelect = true;
             this.listView1.GridLines = true;
@@ -71,10 +73,6 @@
             this.listView1.TabIndex = 8;
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.List;
-            // 
-            // Pavadinimas
-            // 
-            this.Pavadinimas.Width = 600;
             // 
             // label2
             // 
@@ -157,6 +155,16 @@
             this.textBox1.Size = new System.Drawing.Size(163, 25);
             this.textBox1.TabIndex = 0;
             // 
+            // bookName
+            // 
+            this.bookName.Text = "Book Name";
+            this.bookName.Width = 280;
+            // 
+            // returnDate
+            // 
+            this.returnDate.Text = "Return Date";
+            this.returnDate.Width = 150;
+            // 
             // UserProfile
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -182,7 +190,6 @@
 
         private Emgu.CV.UI.ImageBox imgCamUser;
         private System.Windows.Forms.ListView listView1;
-        private System.Windows.Forms.ColumnHeader Pavadinimas;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button takeBook;
         private System.Windows.Forms.Button returnBook;
@@ -190,5 +197,7 @@
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ColumnHeader bookName;
+        private System.Windows.Forms.ColumnHeader returnDate;
     }
 }
