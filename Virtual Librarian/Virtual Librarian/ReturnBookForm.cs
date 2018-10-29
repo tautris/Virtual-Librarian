@@ -37,15 +37,11 @@ namespace Virtual_Librarian
         //TODO return book
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
-            /*
-            BookCopy p = (BookCopy)listView1.SelectedItems[0].Tag;
-            //MessageBox.Show(p.title, "Returned book:");
-            user.ReturnBook(p);
+            int index = listView1.FocusedItem.Index;
+            user.ReturnBook(user.TakenBooks()[index]);
 
             new UserProfile(user).Show();
             this.Hide();
-            */
         }
 
         private void button1_Click(object sender, EventArgs e)
