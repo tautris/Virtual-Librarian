@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Virtual_Librarian
 {
-    sealed class FileReaderWriter : IReaderWriter
+    public sealed class FileReaderWriter : IReaderWriter
     {
         private static readonly string projectDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         private static readonly string userFilePath = projectDir + @"\FilesIO\user.txt";
@@ -74,11 +74,11 @@ namespace Virtual_Librarian
                         tw.WriteLine(data);
                     }
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Console.WriteLine("Error while trying to write to file:");
                     Console.WriteLine(e.Message);
-                }   
+                }
             }
         }
 
@@ -86,7 +86,7 @@ namespace Virtual_Librarian
         {
             // TODO handle reading from file properly, exception handling
             try
-            { 
+            {
                 using (StreamReader sr = new StreamReader(path))
                 {
                     string line = sr.ReadToEnd();
@@ -101,30 +101,44 @@ namespace Virtual_Librarian
             }
         }
 
-        public User GetUser(int id)
+        public User ParseUser(string userFileContent, int id)
         {
-            string userFileContent = ReadFile(userFilePath);
             string userEntry = userFileContent.FromToNewline(id.ToString());
             string[] userProperties = userEntry.Split(',');
 
-            return new User(id: int.Parse(userProperties[0]), 
-                name: userProperties[1], surname: userProperties[2],
-                faculty: (User.Faculty)Enum.Parse(typeof(User.Faculty), 
-                userProperties[3]));
+            return new User(
+                id: int.Parse(userProperties[0]),
+                name: userProperties[1],
+                surname: userProperties[2],
+                faculty: (User.Faculty)Enum.Parse(typeof(User.Faculty), userProperties[3]));
         }
 
-        public List<User> GetUsers()
+        public User GetUser(int id)
         {
-            List<User> users = new List<User>();
             string userFileContent = ReadFile(userFilePath);
+            return ParseUser(userFileContent, id);
+        }
+
+        public List<User> ParseUsers(string userFileContent)
+        {
             string[] userEntries = userFileContent.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+            List<User> users = new List<User>();
             foreach (string entry in userEntries)
             {
                 string[] userProperties = entry.Split(',');
-                users.Add(new User(int.Parse(userProperties[0]), userProperties[1], userProperties[2], (User.Faculty)Enum.Parse(typeof(User.Faculty), userProperties[3])));
+                users.Add(new User(
+                    int.Parse(userProperties[0]),
+                    userProperties[1],
+                    userProperties[2],
+                    (User.Faculty)Enum.Parse(typeof(User.Faculty), userProperties[3])
+                ));
             }
-
             return users;
+        }
+        public List<User> GetUsers()
+        {
+            string userFileContent = ReadFile(userFilePath);
+            return ParseUsers(userFileContent);
         }
 
         public void InsertUser(User user)
@@ -158,8 +172,8 @@ namespace Virtual_Librarian
             return books;
         }
 
-        public void InsertBook (Book book)          //TODO: Check for repeating ISBN when adding
-        {       
+        public void InsertBook(Book book)          //TODO: Check for repeating ISBN when adding
+        {
             WriteLineToFile(bookFilePath, book.ISBN + "," + book.title + "," + book.authorName + "," + book.authorSurname + "," + book.date.ToString("yyyy-MM-dd"));
         }
 
@@ -185,7 +199,7 @@ namespace Virtual_Librarian
                 DateTime datePrinting = DateTime.ParseExact(bookCopyProperties[2], "yyyy-MM-dd", CultureInfo.InvariantCulture);
                 bookCopies.Add(new BookCopy(int.Parse(bookCopyProperties[0]), GetBook(bookCopyProperties[1]), datePrinting));
             }
-        
+
             return bookCopies;
         }
 
@@ -208,7 +222,7 @@ namespace Virtual_Librarian
                 usersList.RemoveAt(0);
                 usersList.RemoveAt(0);
                 int userIndex = 0;
-                foreach(string userId in usersList)
+                foreach (string userId in usersList)
                 {
                     User currentUser = GetUser(Int32.Parse(userId));
                     currentAdmin.AddManagedUser(currentUser, userIndex);
@@ -235,10 +249,10 @@ namespace Virtual_Librarian
             }
 
             File.WriteAllText(adminsFilePath, sb.ToString());
-            sb.Clear();      
-                        
+            sb.Clear();
+
             sb.Append(admin.LoginName + "," + admin.Password);
-            foreach(User user in admin.GetAllManagedUsers())
+            foreach (User user in admin.GetAllManagedUsers())
             {
                 sb.Append("," + user.Id.ToString());
             }
