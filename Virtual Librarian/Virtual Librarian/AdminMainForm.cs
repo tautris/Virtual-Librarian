@@ -60,7 +60,7 @@ namespace Virtual_Librarian
             InitListView();
             foreach (User user in users)
             {
-                var item = new ListViewItem(new[] { user.Id.ToString(), user.Name, user.Surname });
+                var item = new ListViewItem(new[] { user.Id.ToString(), user.Name, user.Surname, user.CurrentFaculty.ToString() });
                 AdminUsersListView.Items.Add(item);
                 lastIndex++;
             }
@@ -72,6 +72,7 @@ namespace Virtual_Librarian
             AdminUsersListView.Columns.Add("Id", 50, HorizontalAlignment.Left);
             AdminUsersListView.Columns.Add("Name", 150, HorizontalAlignment.Left);
             AdminUsersListView.Columns.Add("Surname", 150, HorizontalAlignment.Left);
+            AdminUsersListView.Columns.Add("Faculty", 100, HorizontalAlignment.Left);
         }
 
         private void AdminAddUserButton_Click(object sender, EventArgs e)
@@ -85,6 +86,10 @@ namespace Virtual_Librarian
                     AddUserNameTextBox.Show();
                     AddUserSurnameTextBox.Show();
                     AddUserFacultyTextBox.Show();
+                    AddUserIdTextBoxHint.Show();
+                    AddUserNameTextBoxHint.Show();
+                    AddUserSurnameTextBoxHint.Show();
+                    AddUserFacultyTextBoxHint.Show();
                 }
                 else
                 {
@@ -119,6 +124,10 @@ namespace Virtual_Librarian
                         AddUserNameTextBox.Hide();
                         AddUserSurnameTextBox.Hide();
                         AddUserFacultyTextBox.Hide();
+                        AddUserIdTextBoxHint.Hide();
+                        AddUserNameTextBoxHint.Hide();
+                        AddUserSurnameTextBoxHint.Hide();
+                        AddUserFacultyTextBoxHint.Hide();
                     }
                 }
 
