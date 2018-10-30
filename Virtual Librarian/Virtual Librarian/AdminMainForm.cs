@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Virtual_Librarian
@@ -39,9 +33,9 @@ namespace Virtual_Librarian
         {
             FileReaderWriter fileReaderWriter = FileReaderWriter.Instance;
             List<Admin> admins = fileReaderWriter.GetAdmins();
-            foreach(Admin admin in admins)
+            foreach (Admin admin in admins)
             {
-                if(LoginName == admin.LoginName && Password == admin.Password)
+                if (LoginName == admin.LoginName && Password == admin.Password)
                 {
                     currentAdmin = admin;
                     LoginAdmin();
@@ -66,7 +60,7 @@ namespace Virtual_Librarian
             InitListView();
             foreach (User user in users)
             {
-                var item = new ListViewItem(new[] { user.Id.ToString(), user.Name, user.Surname });
+                var item = new ListViewItem(new[] { user.Id.ToString(), user.Name, user.Surname, user.CurrentFaculty.ToString() });
                 AdminUsersListView.Items.Add(item);
                 lastIndex++;
             }
@@ -78,6 +72,7 @@ namespace Virtual_Librarian
             AdminUsersListView.Columns.Add("Id", 50, HorizontalAlignment.Left);
             AdminUsersListView.Columns.Add("Name", 150, HorizontalAlignment.Left);
             AdminUsersListView.Columns.Add("Surname", 150, HorizontalAlignment.Left);
+            AdminUsersListView.Columns.Add("Faculty", 100, HorizontalAlignment.Left);
         }
 
         private void AdminAddUserButton_Click(object sender, EventArgs e)
@@ -91,6 +86,10 @@ namespace Virtual_Librarian
                     AddUserNameTextBox.Show();
                     AddUserSurnameTextBox.Show();
                     AddUserFacultyTextBox.Show();
+                    AddUserIdTextBoxHint.Show();
+                    AddUserNameTextBoxHint.Show();
+                    AddUserSurnameTextBoxHint.Show();
+                    AddUserFacultyTextBoxHint.Show();
                 }
                 else
                 {
@@ -113,7 +112,7 @@ namespace Virtual_Librarian
                         User newUser = new User(Id, Name, Surname, faculty);
                         currentAdmin.AddManagedUser(index: lastIndex + 1, user: newUser);
 
-                        var item = new ListViewItem(new[] { newUser.Id.ToString(), newUser.Name, newUser.Surname });
+                        var item = new ListViewItem(new[] { newUser.Id.ToString(), newUser.Name, newUser.Surname, newUser.CurrentFaculty.ToString() });
                         AdminUsersListView.Items.Add(item);
                         lastIndex++;
 
@@ -125,6 +124,10 @@ namespace Virtual_Librarian
                         AddUserNameTextBox.Hide();
                         AddUserSurnameTextBox.Hide();
                         AddUserFacultyTextBox.Hide();
+                        AddUserIdTextBoxHint.Hide();
+                        AddUserNameTextBoxHint.Hide();
+                        AddUserSurnameTextBoxHint.Hide();
+                        AddUserFacultyTextBoxHint.Hide();
                     }
                 }
 

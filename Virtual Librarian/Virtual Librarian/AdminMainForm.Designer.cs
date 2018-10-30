@@ -39,6 +39,10 @@
             this.AddUserNameTextBox = new System.Windows.Forms.TextBox();
             this.AddUserSurnameTextBox = new System.Windows.Forms.TextBox();
             this.AddUserFacultyTextBox = new System.Windows.Forms.TextBox();
+            this.AddUserIdTextBoxHint = new System.Windows.Forms.TextBox();
+            this.AddUserNameTextBoxHint = new System.Windows.Forms.TextBox();
+            this.AddUserSurnameTextBoxHint = new System.Windows.Forms.TextBox();
+            this.AddUserFacultyTextBoxHint = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // AdminLoginButton
@@ -93,7 +97,7 @@
             // 
             // AdminAddUserButton
             // 
-            this.AdminAddUserButton.Location = new System.Drawing.Point(596, 324);
+            this.AdminAddUserButton.Location = new System.Drawing.Point(648, 295);
             this.AdminAddUserButton.Name = "AdminAddUserButton";
             this.AdminAddUserButton.Size = new System.Drawing.Size(107, 31);
             this.AdminAddUserButton.TabIndex = 7;
@@ -104,7 +108,7 @@
             // 
             // AdminRemoveUserButton
             // 
-            this.AdminRemoveUserButton.Location = new System.Drawing.Point(596, 375);
+            this.AdminRemoveUserButton.Location = new System.Drawing.Point(648, 332);
             this.AdminRemoveUserButton.Name = "AdminRemoveUserButton";
             this.AdminRemoveUserButton.Size = new System.Drawing.Size(107, 34);
             this.AdminRemoveUserButton.TabIndex = 8;
@@ -115,7 +119,7 @@
             // 
             // AddUserIdTextBox
             // 
-            this.AddUserIdTextBox.Location = new System.Drawing.Point(596, 135);
+            this.AddUserIdTextBox.Location = new System.Drawing.Point(648, 148);
             this.AddUserIdTextBox.Name = "AddUserIdTextBox";
             this.AddUserIdTextBox.Size = new System.Drawing.Size(107, 22);
             this.AddUserIdTextBox.TabIndex = 9;
@@ -123,7 +127,7 @@
             // 
             // AddUserNameTextBox
             // 
-            this.AddUserNameTextBox.Location = new System.Drawing.Point(596, 178);
+            this.AddUserNameTextBox.Location = new System.Drawing.Point(648, 176);
             this.AddUserNameTextBox.Name = "AddUserNameTextBox";
             this.AddUserNameTextBox.Size = new System.Drawing.Size(107, 22);
             this.AddUserNameTextBox.TabIndex = 10;
@@ -131,7 +135,7 @@
             // 
             // AddUserSurnameTextBox
             // 
-            this.AddUserSurnameTextBox.Location = new System.Drawing.Point(596, 223);
+            this.AddUserSurnameTextBox.Location = new System.Drawing.Point(648, 204);
             this.AddUserSurnameTextBox.Name = "AddUserSurnameTextBox";
             this.AddUserSurnameTextBox.Size = new System.Drawing.Size(107, 22);
             this.AddUserSurnameTextBox.TabIndex = 11;
@@ -139,17 +143,57 @@
             // 
             // AddUserFacultyTextBox
             // 
-            this.AddUserFacultyTextBox.Location = new System.Drawing.Point(596, 259);
+            this.AddUserFacultyTextBox.Location = new System.Drawing.Point(648, 232);
             this.AddUserFacultyTextBox.Name = "AddUserFacultyTextBox";
             this.AddUserFacultyTextBox.Size = new System.Drawing.Size(107, 22);
             this.AddUserFacultyTextBox.TabIndex = 12;
             this.AddUserFacultyTextBox.Visible = false;
+            // 
+            // AddUserIdTextBoxHint
+            // 
+            this.AddUserIdTextBoxHint.Location = new System.Drawing.Point(563, 149);
+            this.AddUserIdTextBoxHint.Name = "AddUserIdTextBoxHint";
+            this.AddUserIdTextBoxHint.Size = new System.Drawing.Size(79, 22);
+            this.AddUserIdTextBoxHint.TabIndex = 13;
+            this.AddUserIdTextBoxHint.Text = "Id:";
+            this.AddUserIdTextBoxHint.Visible = false;
+            // 
+            // AddUserNameTextBoxHint
+            // 
+            this.AddUserNameTextBoxHint.Location = new System.Drawing.Point(563, 176);
+            this.AddUserNameTextBoxHint.Name = "AddUserNameTextBoxHint";
+            this.AddUserNameTextBoxHint.Size = new System.Drawing.Size(79, 22);
+            this.AddUserNameTextBoxHint.TabIndex = 14;
+            this.AddUserNameTextBoxHint.Text = "Name:";
+            this.AddUserNameTextBoxHint.Visible = false;
+            // 
+            // AddUserSurnameTextBoxHint
+            // 
+            this.AddUserSurnameTextBoxHint.Location = new System.Drawing.Point(563, 204);
+            this.AddUserSurnameTextBoxHint.Name = "AddUserSurnameTextBoxHint";
+            this.AddUserSurnameTextBoxHint.Size = new System.Drawing.Size(79, 22);
+            this.AddUserSurnameTextBoxHint.TabIndex = 15;
+            this.AddUserSurnameTextBoxHint.Text = "Surname:";
+            this.AddUserSurnameTextBoxHint.Visible = false;
+            // 
+            // AddUserFacultyTextBoxHint
+            // 
+            this.AddUserFacultyTextBoxHint.Location = new System.Drawing.Point(563, 232);
+            this.AddUserFacultyTextBoxHint.Name = "AddUserFacultyTextBoxHint";
+            this.AddUserFacultyTextBoxHint.Size = new System.Drawing.Size(79, 22);
+            this.AddUserFacultyTextBoxHint.TabIndex = 16;
+            this.AddUserFacultyTextBoxHint.Text = "Faculty:";
+            this.AddUserFacultyTextBoxHint.Visible = false;
             // 
             // AdminMainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.AddUserFacultyTextBoxHint);
+            this.Controls.Add(this.AddUserSurnameTextBoxHint);
+            this.Controls.Add(this.AddUserNameTextBoxHint);
+            this.Controls.Add(this.AddUserIdTextBoxHint);
             this.Controls.Add(this.AddUserFacultyTextBox);
             this.Controls.Add(this.AddUserSurnameTextBox);
             this.Controls.Add(this.AddUserNameTextBox);
@@ -181,5 +225,9 @@
         private System.Windows.Forms.TextBox AddUserNameTextBox;
         private System.Windows.Forms.TextBox AddUserSurnameTextBox;
         private System.Windows.Forms.TextBox AddUserFacultyTextBox;
+        private System.Windows.Forms.TextBox AddUserIdTextBoxHint;
+        private System.Windows.Forms.TextBox AddUserNameTextBoxHint;
+        private System.Windows.Forms.TextBox AddUserSurnameTextBoxHint;
+        private System.Windows.Forms.TextBox AddUserFacultyTextBoxHint;
     }
 }

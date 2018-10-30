@@ -10,7 +10,9 @@ using System.Threading.Tasks;
 
 namespace Virtual_Librarian
 {
+
     public sealed class FileReaderWriter : IReaderWriter
+
     {
         private static readonly string projectDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         private static readonly string userFilePath = projectDir + @"\FilesIO\user.txt";
@@ -82,6 +84,51 @@ namespace Virtual_Librarian
             }
         }
 
+        public void WriteLineToFileFixed(string path, string data)
+        {
+            if (!File.Exists(path))
+            {
+                try
+                {
+                    File.Create(path);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("The file could not be created:");
+                    Console.WriteLine(e.Message);
+                }
+
+                try
+                {
+                    using (TextWriter tw = new StreamWriter(path))
+                    {
+                        tw.Write("\r\n" + data);
+                        tw.Close();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error while trying to write to file:");
+                    Console.WriteLine(e.Message);
+                }
+            }
+            else if (File.Exists(path))
+            {
+                try
+                {
+                    using (var tw = new StreamWriter(path, true))
+                    {
+                        tw.Write("\r\n" + data);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error while trying to write to file:");
+                    Console.WriteLine(e.Message);
+                }
+            }
+        }
+
         public string ReadFile(string path)
         {
             // TODO handle reading from file properly, exception handling
@@ -113,7 +160,28 @@ namespace Virtual_Librarian
                 faculty: (User.Faculty)Enum.Parse(typeof(User.Faculty), userProperties[3]));
         }
 
+
+        public User GetUserFixed(int id)
+        {
+            string userFileContent = ReadFile(userFilePath);
+            string[] userList = userFileContent.Split('\n');
+            foreach (string user in userList)
+            {
+                string[] userProperties = user.Split(',');
+                if (userProperties[0] == id.ToString())
+                {
+                    return new User(id: int.Parse(userProperties[0]),
+                        name: userProperties[1], surname: userProperties[2],
+                        faculty: (User.Faculty)Enum.Parse(typeof(User.Faculty),
+                        userProperties[3]));
+                }
+            }
+            return null;
+        }
+
+
         public User GetUser(int id)
+
         {
             string userFileContent = ReadFile(userFilePath);
             return ParseUser(userFileContent, id);
@@ -143,7 +211,7 @@ namespace Virtual_Librarian
 
         public void InsertUser(User user)
         {
-            WriteLineToFile(userFilePath, user.Id + "," + user.Name + "," + user.Surname + "," + user.CurrentFaculty);
+            WriteLineToFileFixed(userFilePath, user.Id + "," + user.Name + "," + user.Surname + "," + user.CurrentFaculty);
         }
 
         public Book GetBook(String ISBN)
@@ -224,12 +292,11 @@ namespace Virtual_Librarian
                 int userIndex = 0;
                 foreach (string userId in usersList)
                 {
-                    User currentUser = GetUser(Int32.Parse(userId));
+                    User currentUser = GetUserFixed(Int32.Parse(userId));
                     currentAdmin.AddManagedUser(currentUser, userIndex);
                     userIndex++;
                 }
             }
-
             return admins;
         }
 
@@ -256,7 +323,25 @@ namespace Virtual_Librarian
             {
                 sb.Append("," + user.Id.ToString());
             }
-            WriteLineToFile(adminsFilePath, sb.ToString());
+            WriteLineToFileFixed(adminsFilePath, sb.ToString());
+        }
+
+        public void RemoveUser(int id)
+        {
+            StringBuilder sb = new StringBuilder();
+            string userFileContent = ReadFile(userFilePath);
+            string[] userEntries = userFileContent.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+            foreach (string entry in userEntries)
+            {
+                string[] userProperties = entry.Split(',');
+                if (userProperties[0] != id.ToString())
+                {
+                    sb.Append(entry);
+                }
+
+            }
+            File.WriteAllText(userFilePath, sb.ToString());
+            sb.Clear();
         }
     }
 }

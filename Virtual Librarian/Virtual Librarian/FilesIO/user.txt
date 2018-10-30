@@ -1,5 +1,9 @@
 1,ciuvakas,ciuvakenas,MIF
 2,darviens,darvienauskas,KF
 3,testas,testauskas,MIF
+4,vladas,vladimiras,MIF
 6,adolfas,delfinas,FF
 8,tomas,tomauskas,GMC
+9,random,useris,FF
+19,Random,Zmogus,MIF
+20,Naujas,Vartotojas,GMC
