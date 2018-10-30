@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Virtual_Librarian
 {
-    sealed class FileReaderWriter : IReaderWriter
+    public class FileReaderWriter : IReaderWriter
     {
         private static readonly string projectDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
         private static readonly string userFilePath = projectDir + @"\FilesIO\user.txt";
@@ -305,6 +305,24 @@ namespace Virtual_Librarian
                 sb.Append("," + user.Id.ToString());
             }
             WriteLineToFileFixed(adminsFilePath, sb.ToString());
+        }
+
+        public void RemoveUser(int id)
+        {
+            StringBuilder sb = new StringBuilder();
+            string userFileContent = ReadFile(userFilePath);
+            string[] userEntries = userFileContent.Split(new string[] { "\r\n" }, StringSplitOptions.None);
+            foreach (string entry in userEntries)
+            {
+                string[] userProperties = entry.Split(',');
+                if (userProperties[0] != id.ToString())
+                {
+                    sb.Append(entry);
+                }
+
+            }
+            File.WriteAllText(userFilePath, sb.ToString());
+            sb.Clear();
         }
     }
 }

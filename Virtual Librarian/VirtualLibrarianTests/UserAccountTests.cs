@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Virtual_Librarian;
 
@@ -81,5 +84,21 @@ namespace VirtualLibrarianTests
             user = null;
         }
 
-    }
+        [TestMethod]
+        public void AddAndReadUser()
+        {
+            User user = new User(10, "testinis", "useris");
+            FileReaderWriter fileReaderWriter = FileReaderWriter.Instance;
+            fileReaderWriter.InsertUser(user);
+            User newUser = fileReaderWriter.GetUserFixed(10);
+    
+            Assert.AreEqual(user.Id, newUser.Id);
+            Assert.AreEqual(user.Name, newUser.Name);
+            Assert.AreEqual(user.Surname, newUser.Surname);
+            Assert.AreEqual(user.CurrentFaculty, newUser.CurrentFaculty);
+
+            fileReaderWriter.RemoveUser(10);
+        }
+
+     }
 }

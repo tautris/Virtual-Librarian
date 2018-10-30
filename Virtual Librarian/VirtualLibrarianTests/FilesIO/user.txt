@@ -1,5 +1,1 @@
-1,ciuvakas,ciuvakenas,MIF
-2,darviens,darvienauskas,KF
-3,testas,testauskas,MIF
-6,adolfas,delfinas,FF
-8,tomas,tomauskas,GMC
+1,ciuvakas,ciuvakenas,MIF2,darviens,darvienauskas,KF3,testas,testauskas,MIF6,adolfas,delfinas,FF8,tomas,tomauskas,GMC9,testinis,useris,MIF9,testinis,useris,MIF9,testinis,useris,MIF
