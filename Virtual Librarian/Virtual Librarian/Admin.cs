@@ -2,7 +2,7 @@
 
 namespace Virtual_Librarian
 {
-    class Admin
+    public class Admin
     {
 
         //standard property
