@@ -8,19 +8,19 @@ using System.Linq;
 
 namespace Virtual_Librarian
 {
-    class RecognizerEngine
+    class Recognizer
     {
         private FaceRecognizer faceRecognizer;
         private readonly string recognizerFilePath;
 
-        public RecognizerEngine(string recognizerFilePath)
+        public Recognizer(string recognizerFilePath)
         {
             this.recognizerFilePath = recognizerFilePath;
 
-            this.faceRecognizer = new EigenFaceRecognizer(80, double.PositiveInfinity);
+            faceRecognizer = new EigenFaceRecognizer(80, double.PositiveInfinity);
         }
 
-        public void TrainRecognizerMany(List<Image<Gray, Byte>> imageList, string[] identifiers) // image list of same user ( for better accuracy)
+        public void TrainRecognizer(List<Image<Gray, Byte>> imageList, int[] ids) // image list of same user ( for better accuracy)
         {
 
             if (imageList != null)
@@ -30,42 +30,73 @@ namespace Virtual_Librarian
                 for (int i = 0; i < imageList.Count(); i++)
                 {
                     faceImages[i] = imageList[i].Resize(100, 100, Inter.Cubic);
-                    faceLabels[i] = identifiers[i].GetHashCode();
+                    faceLabels[i] = ids[i];
                 }
                 faceRecognizer.Train(faceImages, faceLabels);
-                faceRecognizer.Write(recognizerFilePath);
+                faceRecognizer.Save(recognizerFilePath);
             }
 
         }
 
-        public void TrainRecognizerSingle(List<Image<Gray, Byte>> imageList, string identifier) // image list of same user ( for better accuracy)
+        public void TrainRecognizer(List<Image<Gray, Byte>> imageList, int id) // image list of same user ( for better accuracy)
         {
-            string[] arrOfSameVal = new string[imageList.Count];
+            int[] arrOfSameVal = new int[imageList.Count];
             for (int i = 0; i < imageList.Count; i++)
             {
-                arrOfSameVal[i] = identifier;
+                arrOfSameVal[i] = id;
             }
 
-            TrainRecognizerMany(imageList, arrOfSameVal);
+            TrainRecognizer(imageList, arrOfSameVal);
+
+        }
+
+        public void TrainRecognizer(List<Image<Gray, Byte>> imageList, User user) // image list of same user ( for better accuracy)
+        {
+            TrainRecognizer(imageList, user.Id);
 
         }
 
         public void LoadRecognizerData()
         {
-            faceRecognizer.Read(recognizerFilePath);
+            faceRecognizer.Load(recognizerFilePath);
         }
 
-        public bool RecognizeUser(Image<Gray, Byte> userImage, string user)
+        public bool RecognizeUser(Image<Gray, Byte> userImage, User user)
         {
-            faceRecognizer.Read(recognizerFilePath);
+            faceRecognizer.Load(recognizerFilePath);
 
             var result = faceRecognizer.Predict(userImage.Resize(100, 100, Inter.Cubic));
-            if (result.Label == user.GetHashCode())
+            if (result.Label == user.Id)
             {
                 return true;
             }
 
             return false;
+        }
+
+        public User TryAllUsersRecognize(List<User> users, Image<Gray, Byte> inputImage)
+        {
+            foreach (User user in users)
+            {
+                if (RecognizeUser(inputImage, user))
+                {
+                    return user;
+                }
+            }
+            return null;
+        }
+
+        public User TryAllUsersRecognize(List<User> users, List<Image<Gray, Byte>> inputImages)
+        {
+            User user;
+            foreach (var image in inputImages)
+            {
+                if ((user = TryAllUsersRecognize(users, image)) != null)
+                {
+                    return user;
+                }
+            }
+            return null;
         }
     }
 }
