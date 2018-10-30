@@ -140,11 +140,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-<<<<<<< HEAD
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
-=======
     <EmbeddedResource Include="ReturnBookForm.resx">
       <DependentUpon>ReturnBookForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -152,7 +147,6 @@
       <DependentUpon>UserProfile.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
->>>>>>> master
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings1.Designer.cs</LastGenOutput>

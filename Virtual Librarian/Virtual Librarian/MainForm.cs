@@ -101,9 +101,7 @@ namespace Virtual_Librarian
 
             if (user != null)
             {
-       //        AvailableBooksForm f2 = new AvailableBooksForm(user);
-	        new UserProfile(user).Show();
-                f2.Show();
+                new UserProfile(user).Show();
                 Hide();
             }
             else
