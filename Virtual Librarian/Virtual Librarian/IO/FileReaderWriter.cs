@@ -82,6 +82,51 @@ namespace Virtual_Librarian
             }
         }
 
+        public void WriteLineToFileFixed(string path, string data)
+        {
+            if (!File.Exists(path))
+            {
+                try
+                {
+                    File.Create(path);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("The file could not be created:");
+                    Console.WriteLine(e.Message);
+                }
+
+                try
+                {
+                    using (TextWriter tw = new StreamWriter(path))
+                    {
+                        tw.Write("\r\n" + data);
+                        tw.Close();
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error while trying to write to file:");
+                    Console.WriteLine(e.Message);
+                }
+            }
+            else if (File.Exists(path))
+            {
+                try
+                {
+                    using (var tw = new StreamWriter(path, true))
+                    {
+                        tw.Write("\r\n" + data);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error while trying to write to file:");
+                    Console.WriteLine(e.Message);
+                }
+            }
+        }
+
         public string ReadFile(string path)
         {
             // TODO handle reading from file properly, exception handling
@@ -147,7 +192,7 @@ namespace Virtual_Librarian
 
         public void InsertUser(User user)
         {
-            WriteLineToFile(userFilePath, user.Id + "," + user.Name + "," + user.Surname + "," + user.CurrentFaculty);
+            WriteLineToFileFixed(userFilePath, user.Id + "," + user.Name + "," + user.Surname + "," + user.CurrentFaculty);
         }
 
         public Book GetBook(String ISBN)
@@ -226,7 +271,7 @@ namespace Virtual_Librarian
                 usersList.RemoveAt(0);
                 usersList.RemoveAt(0);
                 int userIndex = 0;
-                foreach(string userId in usersList)
+                foreach (string userId in usersList)
                 {
                     User currentUser = GetUserFixed(Int32.Parse(userId));
                     currentAdmin.AddManagedUser(currentUser, userIndex);
@@ -259,7 +304,7 @@ namespace Virtual_Librarian
             {
                 sb.Append("," + user.Id.ToString());
             }
-            WriteLineToFile(adminsFilePath, sb.ToString());
+            WriteLineToFileFixed(adminsFilePath, sb.ToString());
         }
     }
 }

@@ -33,9 +33,9 @@ namespace Virtual_Librarian
         {
             FileReaderWriter fileReaderWriter = FileReaderWriter.Instance;
             List<Admin> admins = fileReaderWriter.GetAdmins();
-            foreach(Admin admin in admins)
+            foreach (Admin admin in admins)
             {
-                if(LoginName == admin.LoginName && Password == admin.Password)
+                if (LoginName == admin.LoginName && Password == admin.Password)
                 {
                     currentAdmin = admin;
                     LoginAdmin();
