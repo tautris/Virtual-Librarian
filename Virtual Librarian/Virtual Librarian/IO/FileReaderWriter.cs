@@ -113,6 +113,24 @@ namespace Virtual_Librarian
                 userProperties[3]));
         }
 
+        public User GetUserFixed(int id)
+        {
+            string userFileContent = ReadFile(userFilePath);
+            string[] userList = userFileContent.Split('\n');
+            foreach (string user in userList)
+            {
+                string[] userProperties = user.Split(',');
+                if (userProperties[0] == id.ToString())
+                {
+                    return new User(id: int.Parse(userProperties[0]),
+                        name: userProperties[1], surname: userProperties[2],
+                        faculty: (User.Faculty)Enum.Parse(typeof(User.Faculty),
+                        userProperties[3]));
+                }
+            }
+            return null;
+        }
+
         public List<User> GetUsers()
         {
             List<User> users = new List<User>();
@@ -210,12 +228,11 @@ namespace Virtual_Librarian
                 int userIndex = 0;
                 foreach(string userId in usersList)
                 {
-                    User currentUser = GetUser(Int32.Parse(userId));
+                    User currentUser = GetUserFixed(Int32.Parse(userId));
                     currentAdmin.AddManagedUser(currentUser, userIndex);
                     userIndex++;
                 }
             }
-
             return admins;
         }
 
