@@ -112,7 +112,7 @@ namespace Virtual_Librarian
                         User newUser = new User(Id, Name, Surname, faculty);
                         currentAdmin.AddManagedUser(index: lastIndex + 1, user: newUser);
 
-                        var item = new ListViewItem(new[] { newUser.Id.ToString(), newUser.Name, newUser.Surname });
+                        var item = new ListViewItem(new[] { newUser.Id.ToString(), newUser.Name, newUser.Surname, newUser.CurrentFaculty.ToString() });
                         AdminUsersListView.Items.Add(item);
                         lastIndex++;
 
