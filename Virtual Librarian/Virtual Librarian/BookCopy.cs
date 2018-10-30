@@ -11,7 +11,8 @@ namespace Virtual_Librarian
         public DateTime dateOfPrinting { get; }
         //private DateTime dateOfPrinting { get; }
         private DateTime takenDate { get; set; }
-        private DateTime? lastReturnDate { get; set; }
+        public DateTime returnDate { get; set; }
+        public DateTime? lastReturnDate { get; set; }
         public Book book { get; set; }
         public int Id { get; set; }
         public BookCopy (int id, Book book, DateTime dateOfPrinting)
@@ -29,6 +30,7 @@ namespace Virtual_Librarian
             if (IsAvailable())
             {
                 takenDate = DateTime.Now;
+                returnDate = takenDate.AddMonths(1);
                 lastReturnDate = null;
             }
         }

@@ -98,9 +98,11 @@ namespace Virtual_Librarian
 
             User user = recognizer.TryAllUsersRecognize(userList, detectedImages);
             //Console.WriteLine(user.Id + user.Name + user.Surname + user.CurrentFaculty);
+
             if (user != null)
             {
-                AvailableBooksForm f2 = new AvailableBooksForm(user);
+       //        AvailableBooksForm f2 = new AvailableBooksForm(user);
+	        new UserProfile(user).Show();
                 f2.Show();
                 Hide();
             }
