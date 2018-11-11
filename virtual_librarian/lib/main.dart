@@ -16,7 +16,7 @@ class LibrarianApp extends StatelessWidget {
           color: Colors.black
         ),
         accentColor: Colors.red,
-        primaryColor: Colors.white,
+        primaryColor: Colors.green,
         primaryIconTheme: Theme.of(context).primaryIconTheme.copyWith(
           color: Colors.white
         ),

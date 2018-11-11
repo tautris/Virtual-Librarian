@@ -12,6 +12,7 @@ class DetailPage extends StatelessWidget {
         iconTheme: IconThemeData(
           color: Colors.black,
         ),
+        backgroundColor: Colors.white,
         title: new Text(book["title"]),
       ),
       body: new Center(
