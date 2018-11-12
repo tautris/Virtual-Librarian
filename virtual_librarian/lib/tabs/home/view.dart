@@ -30,11 +30,13 @@ class HomeTab extends State<RefreshState> {
       booksJson.forEach((book) {
         print(book["title"]);
       });
-
-      setState(() {
-        _isLoading = false;
-        this.books = booksJson;
-      });
+      
+      if (this.mounted) {
+        setState(() {
+          _isLoading = false;
+          this.books = booksJson;
+        });
+      }
     }
   }
   

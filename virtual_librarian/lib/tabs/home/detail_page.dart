@@ -9,6 +9,10 @@ class DetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.black,
+        ),
+        backgroundColor: Colors.white,
         title: new Text(book["title"]),
       ),
       body: new Center(
