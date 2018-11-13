@@ -4,5 +4,5 @@ import 'package:virtual_librarian/login_screen.dart';
 
   final routes = <String, WidgetBuilder> {
      LoginPage.tag: (context) => LoginPage(),
-     HomePage.tag: (context) => HomePage(),
+     HomeScreenState.tag: (context) => HomeScreen(),
   };
