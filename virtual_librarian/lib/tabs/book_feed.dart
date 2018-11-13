@@ -19,7 +19,7 @@ class BookFeed2 extends State<BookFeedState> {
   _fetchBookData() async {
     print("Fetching book data");
 
-    final url = "https://api.myjson.com/bins/1aiwbu";
+    final url = "https://api.myjson.com/bins/xmt8a";
     final response = await http.get(url);
     if (response.statusCode == 200) {
       print(response.body);
@@ -49,21 +49,30 @@ class BookFeed2 extends State<BookFeedState> {
       );
       _fetchBookData();
     } else {
-      childView = (
-        new Feed()
-      );
+     childView = (
+       new ListView.builder(
+         itemCount: this.books != null ? this.books.length : 0,
+         itemBuilder: (context, i) {
+           final book = this.books[i];
+           var author = book["author"];
+           var likes = book["likes"];
+           var title = book["title"];
+           return new BookFeed(author: book["author"], likes: book["likes"], title: book["title"], imageURL: book["image"]);
+         }
+       )
+     );
     }
     return childView;
   }
-
 }
 
 class BookFeed extends StatelessWidget {
-  const BookFeed({ this.title, this.author, this.likes });
+  const BookFeed({ this.title, this.author, this.likes, this.imageURL });
 
   final String title;
   final String author;
   final int likes;
+  final String imageURL;
 
   @override
   Widget build(BuildContext context) {
@@ -84,10 +93,7 @@ class BookFeed extends StatelessWidget {
             new Container(
               margin: const EdgeInsets.only(top: 4.0, bottom: 4.0, right: 10.0),
               child: new CircleAvatar(
-                backgroundImage: new NetworkImage(
-                  'http://thecatapi.com/api/images/get?format=src'
-                    '&size=small&type=jpg#${title.hashCode}'
-                ),
+                backgroundImage: new NetworkImage(imageURL),
                 radius: 20.0,
               ),
             ),
@@ -131,19 +137,6 @@ class BookFeed extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class Feed extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new ListView(
-      children: [
-        new BookFeed(title: 'Notes From Underground', author: 'Feodor Dostoyevsky', likes: 4),
-        new BookFeed(title: 'Crime and Punishment', author: 'Feodor Dostoyevsky', likes: 13),
-        new BookFeed(title: '1984', author: 'George Orwell', likes: 3),
-      ],
     );
   }
 }
