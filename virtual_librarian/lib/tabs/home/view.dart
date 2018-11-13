@@ -42,30 +42,42 @@ class HomeTab extends State<RefreshState> {
   
   @override
   Widget build(BuildContext context) {
+    Widget childView;
+    if (_isLoading) {
+      _fetchBookData();
+        childView = (
+          Image.asset('assets/loading.gif')
+        );
+    } else {
+      if (this.books != null) {
+        childView = (
+          new ListView.builder(
+            itemCount: this.books.length,
+            itemBuilder: (context, i) {
+              final book = this.books[i];
+              return new FlatButton(
+                padding: new EdgeInsets.all(0.0),
+                child: new BookCell(book),
+                onPressed: () {
+                  print("Book cell tapped: $i");
+                  Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                        builder: (context) => new DetailPage(book),
+                      )
+                  );
+                },
+              );
+            }
+          )
+        );
+      }
+    }
     return new Scaffold(
       backgroundColor: Colors.white,
       body: new Center (
-        child: _isLoading
-              ? _fetchBookData()
-              : new ListView.builder(
-                  itemCount: this.books != null ? this.books.length : 0,
-                  itemBuilder: (context, i) {
-                    final book = this.books[i];
-                    return new FlatButton(
-                      padding: new EdgeInsets.all(0.0),
-                      child: new BookCell(book),
-                      onPressed: () {
-                        print("Book cell tapped: $i");
-                        Navigator.push(
-                            context,
-                            new MaterialPageRoute(
-                              builder: (context) => new DetailPage(book),
-                            ));
-                      },
-                    );
-                    }
-                ),
-        ),
+        child: childView,
+      )
     );
   }
 }
