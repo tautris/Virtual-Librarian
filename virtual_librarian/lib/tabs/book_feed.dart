@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class BookFeedState extends StatefulWidget {  
   @override
@@ -57,7 +58,7 @@ class BookFeed2 extends State<BookFeedState> {
            var author = book["author"];
            var likes = book["likes"];
            var title = book["title"];
-           return new BookFeed(author: book["author"], likes: book["likes"], title: book["title"], imageURL: book["image"]);
+           return new BookFeed(author: book["author"], likes: book["likes"], title: book["title"], imageURL: book["image"], description: book["description"]);
          }
        )
      );
@@ -66,16 +67,68 @@ class BookFeed2 extends State<BookFeedState> {
   }
 }
 
+class FunkyOverlay extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => FunkyOverlayState();
+}
+
+class FunkyOverlayState extends State<FunkyOverlay> with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  Animation<double> opacityAnimation;
+  Animation<double> scaleAnimatoin;
+
+  @override
+  void initState() {
+    super.initState();
+
+    controller = AnimationController(vsync: this, duration: Duration(milliseconds: 450));
+    opacityAnimation = Tween<double>(begin: 0.0, end: 0.4).animate(CurvedAnimation(parent: controller, curve: Curves.fastOutSlowIn));
+    scaleAnimatoin = CurvedAnimation(parent: controller, curve: Curves.elasticInOut);
+
+    controller.addListener(() {
+      setState(() {
+      });
+    });
+
+    controller.forward();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.black.withOpacity(opacityAnimation.value),
+      child: Center(
+        child: ScaleTransition(
+          scale: scaleAnimatoin,
+          child: Container(
+            decoration: ShapeDecoration(
+                color: Colors.brown,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15.0))),
+            child: Padding(
+              padding: const EdgeInsets.all(50.0),
+              child: Text("Well hello there!"),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+
 class BookFeed extends StatelessWidget {
-  const BookFeed({ this.title, this.author, this.likes, this.imageURL });
+  const BookFeed({ this.title, this.author, this.likes, this.imageURL, this.description });
 
   final String title;
   final String author;
   final int likes;
   final String imageURL;
+  final String description;
 
   @override
   Widget build(BuildContext context) {
+
     TextTheme textTheme = Theme
       .of(context)
       .textTheme;
@@ -87,55 +140,77 @@ class BookFeed extends StatelessWidget {
         borderRadius: new BorderRadius.circular(5.0),
       ),
       child: new IntrinsicHeight(
-        child: new Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            new Container(
-              margin: const EdgeInsets.only(top: 4.0, bottom: 4.0, right: 10.0),
-              child: new CircleAvatar(
-                backgroundImage: new NetworkImage(imageURL),
-                radius: 20.0,
-              ),
-            ),
-            new Expanded(
-              child: new Container(
-                child: new Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    new Text(title, style: textTheme.subhead),
-                    new Text(author, style: textTheme.caption),
-                  ],
+        child: new GestureDetector(
+          onTap: () {
+            print("AAA");
+            // Navigator.of(context)
+            //   .overlay
+            //   .insert(OverlayEntry(
+            //     builder: (BuildContext context) {
+            //      return FunkyOverlay();
+            //     }
+            //   )
+            // );
+          },
+          child: new Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              new Container(
+                margin: const EdgeInsets.only(top: 4.0, bottom: 4.0, right: 10.0),
+                child: new CircleAvatar(
+                  backgroundImage: new NetworkImage(imageURL),
+                  radius: 20.0,
                 ),
               ),
-            ),
-            new Container(
-              margin: new EdgeInsets.symmetric(horizontal: 5.0),
-              child: new InkWell(
-                child: new Icon(Icons.backup, size: 40.0),
-                onTap: () {
-                  // TODO(implement)
-                },
-              ),
-            ),
-            new Container(
-              margin: new EdgeInsets.symmetric(horizontal: 5.0),
-              child: new InkWell(
-                child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    new Icon(Icons.favorite, size: 25.0),
-                    new Text('${likes ?? ''}'),
-                  ],
+              new Expanded(
+                child: new Container(
+                  child: new Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      new Text(title, style: textTheme.subhead),
+                      new Text(author, style: textTheme.caption),
+                    ],
+                  ),
                 ),
-                onTap: () {
-                  // TODO(implement)
-                },
               ),
-            ),
-          ],
-        ),
+              new Container(
+                margin: new EdgeInsets.symmetric(horizontal: 5.0),
+                child: new InkWell(
+                  child: new Icon(Icons.backup, size: 40.0),
+                  onTap: () {
+                    // TODO
+                    // Fluttertoast.showToast(
+                    //   msg: "This is Toast messaget",
+                    //   toastLength: Toast.LENGTH_SHORT,
+                    //   gravity: ToastGravity.CENTER,
+                    //   timeInSecForIos: 1
+                    // );
+                  },
+                ),
+              ),
+              new Container(
+                margin: new EdgeInsets.symmetric(horizontal: 5.0),
+                child: new InkWell(
+                  child: new Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      new Icon(Icons.favorite, size: 25.0),
+                      new Text('${likes ?? ''}'),
+                    ],
+                  ),
+                  onTap: () {
+                    // TODO(implement)
+                    Scaffold.of(context).showSnackBar(new SnackBar(
+                      content: new Text("You have liked the Book"),
+                    ));
+                  },
+                ),
+              ),
+            ],
+          ),
+        )
       ),
     );
   }

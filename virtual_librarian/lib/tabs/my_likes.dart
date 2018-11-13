@@ -106,6 +106,9 @@ class BookFeed extends StatelessWidget {
                 child: new Icon(Icons.delete_sweep, size: 40.0),
                 onTap: () {
                   // TODO(implement)
+                  Scaffold.of(context).showSnackBar(new SnackBar(
+                    content: new Text("Deleting PDF from local memory (lol not)"),
+                  ));
                 },
               ),
             ),

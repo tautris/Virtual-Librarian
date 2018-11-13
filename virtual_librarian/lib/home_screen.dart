@@ -41,7 +41,7 @@ class CustomTabBar extends AnimatedWidget implements PreferredSizeWidget {
               pageNames[index],
               style: textTheme.subhead.copyWith(
                 color: Colors.white.withOpacity(
-                  index == pageController.page ? 1.0 : 0.2,
+                  index == pageController.page || (pageController.page == null && index == 0) ? 1.0 : 0.2,
                 ),
               )
             ),
@@ -100,9 +100,9 @@ class _HomeScreenState extends State<HomeScreen> {
             child: new Container(
               padding: const EdgeInsets.all(10.0),
               child: new Text(
-                'P  I  R  M  A  G  R  U  P  E',
+                'P   I   R   M   A   G   R   U   P   E',
                 style: textTheme.headline.copyWith(
-                  color: Colors.grey.shade800.withOpacity(0.8),
+                  color:  Color.fromARGB(55, 20, 72, 72).withOpacity(0.8),//Colors.grey.shade800.withOpacity(0.8),
                   fontWeight: FontWeight.bold,
                 ),
               ),

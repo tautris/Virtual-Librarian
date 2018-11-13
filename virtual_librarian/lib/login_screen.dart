@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
       child: CircleAvatar(
         backgroundColor: Colors.transparent,
         radius: 48.0,
-        child: Image.asset('assets/login_icon.png'),
+        child: new Icon(Icons.face)//Image.asset('assets/login_icon.png'),
       ),
     );
 
@@ -46,7 +46,7 @@ class _LoginPageState extends State<LoginPage> {
         height: 50.0,
         child: RaisedButton(
           elevation: 20,
-          color: Colors.blueAccent,
+          color: Color.fromARGB(255, 60, 112, 112),
           splashColor: Colors.white54,
           textColor: Colors.white,
           shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
@@ -72,8 +72,8 @@ class _LoginPageState extends State<LoginPage> {
             begin: FractionalOffset.topCenter,
             end: FractionalOffset.bottomCenter,
             colors: [
-              const Color.fromARGB(155, 255, 172, 172),
-              const Color.fromARGB(155, 187, 155, 249),
+              const Color.fromARGB(55, 20, 72, 72),
+              const Color.fromARGB(155, 87, 155, 149),
             ],
             stops: [0.0, 1.0],
           )
@@ -84,10 +84,8 @@ class _LoginPageState extends State<LoginPage> {
           padding: EdgeInsets.only(left: 30.0, right: 30.0),
           children: <Widget>[
             logo,
-            SizedBox(height: 30.0),
+            SizedBox(height: 90.0),
             email,
-            SizedBox(height: 8.0),
-            password,
             SizedBox(height: 24.0),
             loginButton,
             registerLabel,
