@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:dio/dio.dart';
 
 class BookFeedState extends StatefulWidget {  
   @override
@@ -36,6 +36,22 @@ class BookFeed2 extends State<BookFeedState> {
           this.books = booksJson;
         });
       }
+    }
+  }
+
+  var url = "http://www.africau.edu/images/default/sample.pdf";
+
+  Future <void> downloadTask () async {
+    Dio dio = Dio();
+
+    try {
+      var dir;
+
+      await dio.download(url, "something", onProgress: (rec, total) {
+        print ("Rec: $rec , Total: $total");
+      });
+    } catch (e) {
+      print (e);
     }
   }
 
@@ -180,12 +196,6 @@ class BookFeed extends StatelessWidget {
                   child: new Icon(Icons.backup, size: 40.0),
                   onTap: () {
                     // TODO
-                    // Fluttertoast.showToast(
-                    //   msg: "This is Toast messaget",
-                    //   toastLength: Toast.LENGTH_SHORT,
-                    //   gravity: ToastGravity.CENTER,
-                    //   timeInSecForIos: 1
-                    // );
                   },
                 ),
               ),

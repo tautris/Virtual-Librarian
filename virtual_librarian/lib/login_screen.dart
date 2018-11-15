@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:virtual_librarian/home_screen.dart';
+import 'package:virtual_librarian/register_screen.dart';
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';
@@ -12,33 +13,23 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
-    final logo = Hero(
+    final face = Hero(
       tag: 'UserFace',
       child: CircleAvatar(
-        backgroundColor: Colors.transparent,
-        radius: 48.0,
-        child: new Icon(Icons.face)//Image.asset('assets/login_icon.png'),
+        backgroundColor: Colors.black,
+        radius: 150.0,
+        child: new CircularProgressIndicator(),//Image.asset('assets/login_icon.png'),
       ),
     );
 
-    final email = TextFormField(
+    final nickname = TextFormField(
       keyboardType: TextInputType.emailAddress,
       autofocus: false,
       decoration: InputDecoration(
-        hintText: 'Email',
+        hintText: 'Nickname',
         contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
         fillColor: Colors.white,
-      ),
-    );
-
-    final password = TextFormField(
-      autofocus: false,
-      obscureText: true,
-      decoration: InputDecoration(
-        hintText: 'Password',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
       ),
     );
 
@@ -62,7 +53,10 @@ class _LoginPageState extends State<LoginPage> {
         'Want to join?',
         style: TextStyle(color: Colors.white),
       ),
-      onPressed: () {},
+      onPressed: () {
+        print("register");
+        Navigator.of(context).pushNamed(RegisterPage.tag);
+      },
     );
 
     return new Scaffold (
@@ -72,8 +66,8 @@ class _LoginPageState extends State<LoginPage> {
             begin: FractionalOffset.topCenter,
             end: FractionalOffset.bottomCenter,
             colors: [
-              const Color.fromARGB(55, 20, 72, 72),
-              const Color.fromARGB(155, 87, 155, 149),
+              const Color.fromARGB(55, 120, 72, 72),
+              const Color.fromARGB(155, 187, 85, 99),
             ],
             stops: [0.0, 1.0],
           )
@@ -83,9 +77,9 @@ class _LoginPageState extends State<LoginPage> {
           shrinkWrap: true,
           padding: EdgeInsets.only(left: 30.0, right: 30.0),
           children: <Widget>[
-            logo,
-            SizedBox(height: 90.0),
-            email,
+            face,
+            SizedBox(height: 20.0),
+            nickname,
             SizedBox(height: 24.0),
             loginButton,
             registerLabel,

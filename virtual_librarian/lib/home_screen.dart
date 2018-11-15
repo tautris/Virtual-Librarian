@@ -89,8 +89,8 @@ class _HomeScreenState extends State<HomeScreen> {
               begin: FractionalOffset.topCenter,
               end: FractionalOffset.bottomCenter,
               colors: [
-                const Color.fromARGB(55, 20, 72, 72),
-                const Color.fromARGB(155, 87, 155, 149),
+              const Color.fromARGB(25, 220, 72, 72),
+              const Color.fromARGB(75, 137, 235, 199),
               ],
               stops: [0.0, 1.0],
             )
@@ -100,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: new Container(
               padding: const EdgeInsets.all(10.0),
               child: new Text(
-                'P   I   R   M   A   G   R   U   P   E',
+                'P  I  R  M  A  G  R  U  P  E',
                 style: textTheme.headline.copyWith(
                   color:  Color.fromARGB(55, 20, 72, 72).withOpacity(0.8),//Colors.grey.shade800.withOpacity(0.8),
                   fontWeight: FontWeight.bold,
