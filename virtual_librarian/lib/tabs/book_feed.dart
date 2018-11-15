@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:open_file/open_file.dart';
+import 'package:virtual_librarian/tabs/my_likes.dart';
 
 class BookFeedState extends StatefulWidget {  
   @override
@@ -23,11 +26,11 @@ class BookFeed2 extends State<BookFeedState> {
     final url = "https://api.myjson.com/bins/xmt8a";
     final response = await http.get(url);
     if (response.statusCode == 200) {
-      print(response.body);
+      //print(response.body);
 
       final booksJson = json.decode(response.body);
       booksJson.forEach((book) {
-        print(book["title"]);
+        //print(book["title"]);
       });
       
       if (this.mounted) {
@@ -39,20 +42,24 @@ class BookFeed2 extends State<BookFeedState> {
     }
   }
 
-  var url = "http://www.africau.edu/images/default/sample.pdf";
+  var pdfUrl = "http://www.africau.edu/images/default/sample.pdf";
+  bool downloading = false;
+  var progressString = "";
+  var location;
 
   Future <void> downloadTask () async {
     Dio dio = Dio();
 
     try {
-      var dir;
+      var dir = await getApplicationDocumentsDirectory();
 
-      await dio.download(url, "something", onProgress: (rec, total) {
+      await dio.download(pdfUrl, "${dir.path}/file.pdf", onProgress: (rec, total) {
         print ("Rec: $rec , Total: $total");
       });
     } catch (e) {
       print (e);
     }
+    //Pass info to My Books
   }
 
   @override
@@ -65,6 +72,8 @@ class BookFeed2 extends State<BookFeedState> {
         )        
       );
       _fetchBookData();
+      downloadTask();
+      //readFile();
     } else {
      childView = (
        new ListView.builder(
@@ -82,56 +91,6 @@ class BookFeed2 extends State<BookFeedState> {
     return childView;
   }
 }
-
-class FunkyOverlay extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => FunkyOverlayState();
-}
-
-class FunkyOverlayState extends State<FunkyOverlay> with SingleTickerProviderStateMixin {
-  AnimationController controller;
-  Animation<double> opacityAnimation;
-  Animation<double> scaleAnimatoin;
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(vsync: this, duration: Duration(milliseconds: 450));
-    opacityAnimation = Tween<double>(begin: 0.0, end: 0.4).animate(CurvedAnimation(parent: controller, curve: Curves.fastOutSlowIn));
-    scaleAnimatoin = CurvedAnimation(parent: controller, curve: Curves.elasticInOut);
-
-    controller.addListener(() {
-      setState(() {
-      });
-    });
-
-    controller.forward();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      color: Colors.black.withOpacity(opacityAnimation.value),
-      child: Center(
-        child: ScaleTransition(
-          scale: scaleAnimatoin,
-          child: Container(
-            decoration: ShapeDecoration(
-                color: Colors.brown,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0))),
-            child: Padding(
-              padding: const EdgeInsets.all(50.0),
-              child: Text("Well hello there!"),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
 
 class BookFeed extends StatelessWidget {
   const BookFeed({ this.title, this.author, this.likes, this.imageURL, this.description });
@@ -196,6 +155,7 @@ class BookFeed extends StatelessWidget {
                   child: new Icon(Icons.backup, size: 40.0),
                   onTap: () {
                     // TODO
+                    //_fetchBookData();
                   },
                 ),
               ),

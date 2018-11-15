@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:open_file/open_file.dart';
+
 class MyLikesState extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
@@ -75,46 +77,52 @@ class BookFeed extends StatelessWidget {
         borderRadius: new BorderRadius.circular(5.0),
       ),
       child: new IntrinsicHeight(
-        child: new Row(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            new Container(
-              margin: const EdgeInsets.only(top: 4.0, bottom: 4.0, right: 10.0),
-              child: new CircleAvatar(
-                backgroundImage: new NetworkImage(
-                  'http://thecatapi.com/api/images/get?format=src'
-                    '&size=small&type=jpg#${title.hashCode}'
-                ),
-                radius: 20.0,
-              ),
-            ),
-            new Expanded(
-              child: new Container(
-                child: new Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    new Text(title, style: textTheme.subhead),
-                    new Text(author, style: textTheme.caption),
-                  ],
+        child: new GestureDetector(
+          onTap: () {
+            print("AA");
+            OpenFile.open("/data/user/0/com.example.virtuallibrarian/app_flutter/file.pdf");
+          },
+          child: new Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              new Container(
+                margin: const EdgeInsets.only(top: 4.0, bottom: 4.0, right: 10.0),
+                child: new CircleAvatar(
+                  // backgroundImage: new NetworkImage(
+                  //   'http://thecatapi.com/api/images/get?format=src'
+                  //     '&size=small&type=jpg#${title.hashCode}'
+                  // ),
+                  radius: 20.0,
                 ),
               ),
-            ),
-            new Container(
-              margin: new EdgeInsets.symmetric(horizontal: 5.0),
-              child: new InkWell(
-                child: new Icon(Icons.delete_sweep, size: 40.0),
-                onTap: () {
-                  // TODO(implement)
-                  Scaffold.of(context).showSnackBar(new SnackBar(
-                    content: new Text("Deleting PDF from local memory (lol not)"),
-                  ));
-                },
+              new Expanded(
+                child: new Container(
+                  child: new Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      new Text(title, style: textTheme.subhead),
+                      new Text(author, style: textTheme.caption),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ],
+              new Container(
+                margin: new EdgeInsets.symmetric(horizontal: 5.0),
+                child: new InkWell(
+                  child: new Icon(Icons.delete_sweep, size: 40.0),
+                  onTap: () {
+                    // TODO(implement)
+                    Scaffold.of(context).showSnackBar(new SnackBar(
+                      content: new Text("Deleting PDF from local memory (lol not)"),
+                    ));
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
-      ),
+      )
     );
   }
 }
