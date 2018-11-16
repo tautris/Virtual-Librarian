@@ -117,10 +117,7 @@ class _RegisterPageState extends State<RegisterPage> {
               gradient: new LinearGradient(
                 begin: FractionalOffset.topCenter,
                 end: FractionalOffset.bottomCenter,
-                colors: [
-                  const Color.fromARGB(55, 120, 72, 72),
-                  const Color.fromARGB(155, 187, 85, 99),
-                ],
+                colors:  [const Color(0xFF915FB5), const Color(0xFFCA436B)],
                 stops: [0.0, 1.0],
               )
             ),
@@ -152,10 +149,7 @@ class _RegisterPageState extends State<RegisterPage> {
               gradient: new LinearGradient(
                 begin: FractionalOffset.topCenter,
                 end: FractionalOffset.bottomCenter,
-                colors: [
-                  const Color.fromARGB(55, 120, 72, 72),
-                  const Color.fromARGB(155, 187, 85, 99),
-                ],
+                colors:  [const Color(0xFF915FB5), const Color(0xFFCA436B)],
                 stops: [0.0, 1.0],
               )
             ),

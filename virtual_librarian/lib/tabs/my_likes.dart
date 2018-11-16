@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
 
 class MyLikesState extends StatefulWidget {
   @override
@@ -69,19 +72,35 @@ class BookFeed extends StatelessWidget {
     TextTheme textTheme = Theme
       .of(context)
       .textTheme;
-    return new Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
-      padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-      decoration: new BoxDecoration(
-        color: Colors.grey.shade200.withOpacity(0.3),
-        borderRadius: new BorderRadius.circular(5.0),
-      ),
-      child: new IntrinsicHeight(
-        child: new GestureDetector(
-          onTap: () {
-            print("AA");
-            OpenFile.open("/data/user/0/com.example.virtuallibrarian/app_flutter/file.pdf");
-          },
+    return new GestureDetector (
+      onTap: () async {
+        var dir = await getApplicationDocumentsDirectory();
+        var fileName = title.replaceAll(" ", "");
+
+        //FIXME: check if file exists
+        if (File("${dir.path}/$fileName.pdf").existsSync() != true) {
+          try {
+            OpenFile.open("${dir.path}/$fileName.pdf");
+            Scaffold.of(context).showSnackBar(new SnackBar(
+              content: new Text("Opening PDF..."),
+            ));
+          } catch (e) {
+            print (e);
+          }
+        } else {
+          Scaffold.of(context).showSnackBar(new SnackBar(
+            content: new Text("$fileName.pdf does not exist"),
+          ));
+        }
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
+        padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
+        decoration: new BoxDecoration(
+          color: Colors.grey.shade200.withOpacity(0.3),
+          borderRadius: new BorderRadius.circular(5.0),
+        ),
+        child: new IntrinsicHeight(
           child: new Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
@@ -111,11 +130,26 @@ class BookFeed extends StatelessWidget {
                 margin: new EdgeInsets.symmetric(horizontal: 5.0),
                 child: new InkWell(
                   child: new Icon(Icons.delete_sweep, size: 40.0),
-                  onTap: () {
-                    // TODO(implement)
+                  onTap: () async {
+                    //FIXME: check if file exists
+                    var dir = await getApplicationDocumentsDirectory();
+                    var fileName = title.replaceAll(" ", "");
                     Scaffold.of(context).showSnackBar(new SnackBar(
-                      content: new Text("Deleting PDF from local memory (lol not)"),
+                      content: new Text("Deleting $title.pdf from local memory (lol not)"),
                     ));
+                    File selectedFile = File("${dir.path}/$fileName.pdf");
+                    if (selectedFile.existsSync() == true) {
+                      try {
+                        selectedFile.delete();
+                      } catch (e) {
+                        print(e);
+                      }
+                      
+                    } else {
+                      Scaffold.of(context).showSnackBar(new SnackBar(
+                        content: new Text("Deleting $title.pdf from local memory (lol not)"),
+                      ));
+                    }
                   },
                 ),
               ),

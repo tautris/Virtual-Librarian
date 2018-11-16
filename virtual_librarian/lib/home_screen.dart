@@ -88,10 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
             gradient: new LinearGradient(
               begin: FractionalOffset.topCenter,
               end: FractionalOffset.bottomCenter,
-              colors: [
-              const Color.fromARGB(25, 220, 72, 72),
-              const Color.fromARGB(75, 137, 235, 199),
-              ],
+              colors:  [const Color(0xFF915FB5), const Color(0xFFCA436B)],
               stops: [0.0, 1.0],
             )
           ),
@@ -116,9 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
             elevation: 0.0,
             leading: new Center(
               child: new ClipOval(
-                child: new Image.network(
-                  'https://www.mif.vu.lt/katedros/cs/Faces/amitas_1.gif',
-                ),
+                child: Image.asset('assets/profile.jpg'),
               ),
             ),
             actions: [

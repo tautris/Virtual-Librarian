@@ -1,25 +1,61 @@
+import 'dart:math';
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:camera/camera.dart';
+
 import 'package:virtual_librarian/home_screen.dart';
 import 'package:virtual_librarian/register_screen.dart';
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';
+
+  List<CameraDescription> cameras;
+
+  LoginPage(this.cameras);
+
   @override
   _LoginPageState createState() => new _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+  CameraController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = new CameraController(widget.cameras[1], ResolutionPreset.medium);
+    controller.initialize().then((_) {
+      if (!mounted) {
+        return;
+      }
+      setState((){});
+    });
+  }
+
+  @override
+  void dispose() {
+    controller?.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final face = Hero(
       tag: 'UserFace',
-      child: CircleAvatar(
-        backgroundColor: Colors.black,
-        radius: 150.0,
-        child: new CircularProgressIndicator(),//Image.asset('assets/login_icon.png'),
-      ),
+      child: Container(
+        height: 250.0,
+        padding: new EdgeInsets.only(left: 25.0, right: 25.0),
+        child: ClipOval (
+          child: new CustomPaint (
+            foregroundPainter: new GuidelinePainter(),
+            child: new AspectRatio(
+              aspectRatio: controller.value.aspectRatio,
+              child: new CameraPreview(controller)
+            )
+          )
+        )
+      //new CircularProgressIndicator(),//Image.asset('assets/login_icon.png'),
+      )
     );
 
     final nickname = TextFormField(
@@ -63,13 +99,11 @@ class _LoginPageState extends State<LoginPage> {
       body: Container(
         decoration: new BoxDecoration(
           gradient: new LinearGradient(
-            begin: FractionalOffset.topCenter,
-            end: FractionalOffset.bottomCenter,
-            colors: [
-              const Color.fromARGB(55, 120, 72, 72),
-              const Color.fromARGB(155, 187, 85, 99),
-            ],
-            stops: [0.0, 1.0],
+            begin: FractionalOffset.topLeft,
+            end: FractionalOffset.bottomRight,
+            colors:  [const Color(0xFF915FB5), const Color(0xFFCA436B)],
+            stops: [0.0,1.0],
+            tileMode: TileMode.clamp
           )
         ),
         child: Center(
@@ -78,9 +112,9 @@ class _LoginPageState extends State<LoginPage> {
           padding: EdgeInsets.only(left: 30.0, right: 30.0),
           children: <Widget>[
             face,
-            SizedBox(height: 20.0),
+            SizedBox(height: 30.0),
             nickname,
-            SizedBox(height: 24.0),
+            SizedBox(height: 20.0),
             loginButton,
             registerLabel,
           ],
@@ -88,101 +122,27 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
-
-    /*return new Container(
-          decoration: new BoxDecoration(
-            gradient: new LinearGradient(
-              begin: FractionalOffset.topCenter,
-              end: FractionalOffset.bottomCenter,
-              colors: [
-                const Color.fromARGB(55, 255, 72, 72),
-                const Color.fromARGB(155, 87, 155, 149),
-              ],
-              stops: [0.0, 1.0],
-            )
-          ),
-          child: new Align(
-            child: new Container(
-              child: Center(
-                child: ListView(
-                  shrinkWrap: true,
-                  padding: EdgeInsets.only(left: 30.0, right: 30.0),
-                  children: <Widget>[
-                    logo,
-                    //email,
-                    loginButton,
-                    // SizedBox(height: 60.0),
-                    // email,
-                  ],
-                ),
-              ),
-            ),
-            // child: ListView(
-            //   shrinkWrap: true,
-            //   children: <Widget>[
-            //     logo,
-            //     SizedBox(height: 60.0),
-            //     email,
-            //     SizedBox(height: 8.0),
-            //     loginButton,
-            //     forgotLabel,
-            //   ],
-            // )
-          ),
-    );
-          // child: new Scaffold(
-          //   body: Center(
-          //     child: ListView(
-          //       shrinkWrap: true,
-          //       padding: EdgeInsets.only(left: 30.0, right: 30.0),
-          //       children: <Widget>[
-          //         logo,
-          //         SizedBox(height: 60.0),
-          //         email,
-          //         SizedBox(height: 8.0),
-          //         password,
-          //         SizedBox(height: 24.0),
-          //         loginButton,
-          //         forgotLabel
-          //       ],
-          //     ),
-          //   ),
-          // )
-
-        //   child: new Align(
-        //     alignment: FractionalOffset.bottomCenter,
-        //     child: new Container(
-        //       padding: const EdgeInsets.all(10.0),
-        //       child: new Text(
-        //         'B  O  O  K  S',
-        //         style: textTheme.headline.copyWith(
-        //           color: Colors.grey.shade800.withOpacity(0.8),
-        //           fontWeight: FontWeight.bold,
-        //         ),
-        //       ),
-        //     )
-        //   )
-        // );
-
-    // return Scaffold(
-    //   backgroundColor: Colors.white,
-    //   body: Center(
-    //     child: ListView(
-    //       shrinkWrap: true,
-    //       padding: EdgeInsets.only(left: 30.0, right: 30.0),
-    //       children: <Widget>[
-    //         logo,
-    //         SizedBox(height: 60.0),
-    //         email,
-    //         SizedBox(height: 8.0),
-    //         password,
-    //         SizedBox(height: 24.0),
-    //         loginButton,
-    //         forgotLabel
-    //       ],
-    //     ),
-    //   ),
-    // );
-    */
   }
+}
+
+class GuidelinePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    Paint line = new Paint()
+      ..strokeWidth = 3.0
+      ..color = Colors.white
+      ..style = PaintingStyle.stroke
+      ..strokeCap = StrokeCap.round
+      ..blendMode = BlendMode.clear;
+
+    Offset center = new Offset(size.width/2, size.height/2);
+    double radius = min (size.width/2, size.height/2);
+    
+    //TODO: draw face lines
+
+    //canvas.drawCircle(center, radius, line);
+  }
+
+  @override
+  bool shouldRepaint(CustomPainter oldDelegate) => true;
 }

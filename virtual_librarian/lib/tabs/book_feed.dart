@@ -42,26 +42,6 @@ class BookFeed2 extends State<BookFeedState> {
     }
   }
 
-  var pdfUrl = "http://www.africau.edu/images/default/sample.pdf";
-  bool downloading = false;
-  var progressString = "";
-  var location;
-
-  Future <void> downloadTask () async {
-    Dio dio = Dio();
-
-    try {
-      var dir = await getApplicationDocumentsDirectory();
-
-      await dio.download(pdfUrl, "${dir.path}/file.pdf", onProgress: (rec, total) {
-        print ("Rec: $rec , Total: $total");
-      });
-    } catch (e) {
-      print (e);
-    }
-    //Pass info to My Books
-  }
-
   @override
   Widget build(BuildContext context) {
     Widget childView;
@@ -72,18 +52,13 @@ class BookFeed2 extends State<BookFeedState> {
         )        
       );
       _fetchBookData();
-      downloadTask();
-      //readFile();
     } else {
      childView = (
        new ListView.builder(
          itemCount: this.books != null ? this.books.length : 0,
          itemBuilder: (context, i) {
            final book = this.books[i];
-           var author = book["author"];
-           var likes = book["likes"];
-           var title = book["title"];
-           return new BookFeed(author: book["author"], likes: book["likes"], title: book["title"], imageURL: book["image"], description: book["description"]);
+           return new BookFeed(author: book["author"], likes: book["likes"], title: book["title"], imageURL: book["image"], description: book["description"], pdfURL: "http://www.africau.edu/images/default/sample.pdf",);
          }
        )
      );
@@ -93,13 +68,14 @@ class BookFeed2 extends State<BookFeedState> {
 }
 
 class BookFeed extends StatelessWidget {
-  const BookFeed({ this.title, this.author, this.likes, this.imageURL, this.description });
+  const BookFeed({ this.title, this.author, this.likes, this.imageURL, this.description, this.pdfURL });
 
   final String title;
   final String author;
   final int likes;
   final String imageURL;
   final String description;
+  final String pdfURL;
 
   @override
   Widget build(BuildContext context) {
@@ -153,9 +129,29 @@ class BookFeed extends StatelessWidget {
                 margin: new EdgeInsets.symmetric(horizontal: 5.0),
                 child: new InkWell(
                   child: new Icon(Icons.backup, size: 40.0),
-                  onTap: () {
-                    // TODO
-                    //_fetchBookData();
+                  onTap: () async {
+                    //FIXME: check if file exists
+                    Dio dio = Dio();
+                    var dir = await getApplicationDocumentsDirectory();
+                    var fileName = title.replaceAll(" ", "");
+                    try {
+                      print("${dir.path}/$fileName.pdf");
+                      await dio.download(pdfURL, "${dir.path}/$fileName.pdf", onProgress: (rec, total) {
+                        print ("Rec: $rec , Total: $total");
+                      });
+                    } catch (e) {
+                      print (e);
+                    }
+                    if (File("${dir.path}/$fileName.pdf").existsSync()) {
+                      Scaffold.of(context).showSnackBar(new SnackBar(
+                        content: new Text("File $title.pdf was successfully downloaded."),
+                      ));
+                    } else {
+                      Scaffold.of(context).showSnackBar(new SnackBar(
+                        content: new Text("Something Went Wrong. File was not downloaded."),
+                      ));
+                    }
+                    print("downloaded: ${dir.path}/$fileName.pdf");
                   },
                 ),
               ),
