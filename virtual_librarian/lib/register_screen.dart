@@ -8,7 +8,6 @@ class RegisterPage extends StatefulWidget {
   State<StatefulWidget> createState() {
     return _RegisterPageState();
   }
-  //_RegisterPageState createState() => new _RegisterPageState();
 }
 
 class _RegisterPageState extends State<RegisterPage> {
@@ -74,7 +73,7 @@ class _RegisterPageState extends State<RegisterPage> {
       height: 50.0,
       child: RaisedButton(
         elevation: 20,
-        color: Color.fromARGB(255, 160, 112, 112),
+        color: Color.fromARGB(255, 60, 112, 112),
         splashColor: Colors.white54,
         textColor: Colors.white,
         shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
@@ -91,7 +90,7 @@ class _RegisterPageState extends State<RegisterPage> {
       height: 50.0,
       child: RaisedButton(
         elevation: 20,
-        color: Color.fromARGB(_progress == 1.0 ? 255 : 50, 160, 112, 112),
+        color: Color.fromARGB(255, 60, 112, 112),
         splashColor: Colors.white54,
         textColor: Colors.white,
         shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),

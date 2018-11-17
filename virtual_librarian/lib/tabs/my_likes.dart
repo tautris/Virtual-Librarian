@@ -76,19 +76,21 @@ class BookFeed extends StatelessWidget {
       onTap: () async {
         var dir = await getApplicationDocumentsDirectory();
         var fileName = title.replaceAll(" ", "");
-
+        var path = "${dir.path}/$fileName.pdf";
         //FIXME: check if file exists
-        if (File("${dir.path}/$fileName.pdf").existsSync() != true) {
+        if (FileSystemEntity.typeSync(path) != FileSystemEntityType.notFound) {
           try {
-            OpenFile.open("${dir.path}/$fileName.pdf");
             Scaffold.of(context).showSnackBar(new SnackBar(
+              duration: Duration(seconds: 1),
               content: new Text("Opening PDF..."),
             ));
+            OpenFile.open("${dir.path}/$fileName.pdf");
           } catch (e) {
             print (e);
           }
         } else {
           Scaffold.of(context).showSnackBar(new SnackBar(
+            duration: Duration(seconds: 1),
             content: new Text("$fileName.pdf does not exist"),
           ));
         }
@@ -134,20 +136,18 @@ class BookFeed extends StatelessWidget {
                     //FIXME: check if file exists
                     var dir = await getApplicationDocumentsDirectory();
                     var fileName = title.replaceAll(" ", "");
-                    Scaffold.of(context).showSnackBar(new SnackBar(
-                      content: new Text("Deleting $title.pdf from local memory (lol not)"),
-                    ));
-                    File selectedFile = File("${dir.path}/$fileName.pdf");
-                    if (selectedFile.existsSync() == true) {
-                      try {
-                        selectedFile.delete();
-                      } catch (e) {
-                        print(e);
-                      }
-                      
+                    var path = "${dir.path}/$fileName.pdf";
+                    //FIXME: check if file exists
+                    if (FileSystemEntity.typeSync(path) != FileSystemEntityType.notFound) {
+                      Scaffold.of(context).showSnackBar(new SnackBar(
+                        duration: Duration(seconds: 1),
+                        content: new Text("Deleting $title.pdf from local memory (lol not)"),
+                      ));
+                      File(path).delete();
                     } else {
                       Scaffold.of(context).showSnackBar(new SnackBar(
-                        content: new Text("Deleting $title.pdf from local memory (lol not)"),
+                        duration: Duration(seconds: 1), 
+                        content: new Text("Error. File was not found."),
                       ));
                     }
                   },

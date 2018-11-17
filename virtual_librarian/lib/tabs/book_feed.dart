@@ -48,7 +48,7 @@ class BookFeed2 extends State<BookFeedState> {
     if (_isLoading) {
       childView = (
         new Center(
-          child: CircularProgressIndicator()//Image.asset('assets/loading.gif')
+          child: CircularProgressIndicator()
         )        
       );
       _fetchBookData();
@@ -93,15 +93,7 @@ class BookFeed extends StatelessWidget {
       child: new IntrinsicHeight(
         child: new GestureDetector(
           onTap: () {
-            print("AAA");
-            // Navigator.of(context)
-            //   .overlay
-            //   .insert(OverlayEntry(
-            //     builder: (BuildContext context) {
-            //      return FunkyOverlay();
-            //     }
-            //   )
-            // );
+            print("expand?");
           },
           child: new Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -134,24 +126,29 @@ class BookFeed extends StatelessWidget {
                     Dio dio = Dio();
                     var dir = await getApplicationDocumentsDirectory();
                     var fileName = title.replaceAll(" ", "");
+                    var path = "${dir.path}/$fileName.pdf";
                     try {
-                      print("${dir.path}/$fileName.pdf");
-                      await dio.download(pdfURL, "${dir.path}/$fileName.pdf", onProgress: (rec, total) {
+                      //print("${dir.path}/$fileName.pdf");
+                      await dio.download(pdfURL, path, onProgress: (rec, total) {
                         print ("Rec: $rec , Total: $total");
                       });
                     } catch (e) {
                       print (e);
                     }
-                    if (File("${dir.path}/$fileName.pdf").existsSync()) {
+
+                    
+                    if (FileSystemEntity.typeSync(path) != FileSystemEntityType.notFound) {
                       Scaffold.of(context).showSnackBar(new SnackBar(
                         content: new Text("File $title.pdf was successfully downloaded."),
+                        duration: Duration(seconds: 1),
                       ));
                     } else {
                       Scaffold.of(context).showSnackBar(new SnackBar(
                         content: new Text("Something Went Wrong. File was not downloaded."),
+                        duration: Duration(seconds: 1),
                       ));
                     }
-                    print("downloaded: ${dir.path}/$fileName.pdf");
+                    //print("downloaded: ${dir.path}/$fileName.pdf");
                   },
                 ),
               ),
@@ -170,6 +167,7 @@ class BookFeed extends StatelessWidget {
                     // TODO(implement)
                     Scaffold.of(context).showSnackBar(new SnackBar(
                       content: new Text("You have liked the Book"),
+                      duration: Duration(seconds: 1),
                     ));
                   },
                 ),
