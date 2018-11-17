@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Windows.Forms;
+using VirtualLibrarian.Domain;
 
 namespace Virtual_Librarian
 {
     public partial class AdminMainForm : Form
     {
+        static HttpClient client = new HttpClient();
+
         public AdminMainForm()
         {
             InitializeComponent();
@@ -17,7 +21,7 @@ namespace Virtual_Librarian
         Admin currentAdmin;
         int selectedUserIndex = -1;
         int lastIndex = -1;
- 
+
 
         private void AdminLoginTextBox_TextChanged(object sender, EventArgs e)
         {
@@ -29,21 +33,21 @@ namespace Virtual_Librarian
             Password = AdminPasswordTextBox.Text;
         }
 
-        private void AdminLoginButton_Click(object sender, EventArgs e)
-        {
-            FileReaderWriter fileReaderWriter = FileReaderWriter.Instance;
-            List<Admin> admins = fileReaderWriter.GetAdmins();
-            foreach (Admin admin in admins)
-            {
-                if (LoginName == admin.LoginName && Password == admin.Password)
-                {
-                    currentAdmin = admin;
-                    LoginAdmin();
-                   
-                }
+        //private void AdminLoginButton_Click(object sender, EventArgs e)
+        //{
+        //    FileReaderWriter fileReaderWriter = FileReaderWriter.Instance;
+        //    List<Admin> admins = fileReaderWriter.GetAdmins();
+        //    foreach (Admin admin in admins)
+        //    {
+        //        if (LoginName == admin.LoginName && Password == admin.Password)
+        //        {
+        //            currentAdmin = admin;
+        //            LoginAdmin();
 
-            }
-        }
+        //        }
+
+        //    }
+        //}
 
         private void LoginAdmin()
         {
@@ -75,80 +79,81 @@ namespace Virtual_Librarian
             AdminUsersListView.Columns.Add("Faculty", 100, HorizontalAlignment.Left);
         }
 
-        private void AdminAddUserButton_Click(object sender, EventArgs e)
-        {
-            List<User> users = currentAdmin.GetAllManagedUsers();
-            if(users.Count < 10)
-            {
-                if (!AddUserIdTextBox.Visible)
-                {
-                    AddUserIdTextBox.Show();
-                    AddUserNameTextBox.Show();
-                    AddUserSurnameTextBox.Show();
-                    AddUserFacultyTextBox.Show();
-                    AddUserIdTextBoxHint.Show();
-                    AddUserNameTextBoxHint.Show();
-                    AddUserSurnameTextBoxHint.Show();
-                    AddUserFacultyTextBoxHint.Show();
-                }
-                else
-                {
-                    
-                    int Id = Int32.Parse(AddUserIdTextBox.Text);
-                    string Name = AddUserNameTextBox.Text;
-                    string Surname = AddUserSurnameTextBox.Text;
-                    User.Faculty faculty = 0;
-                    try
-                    {
-                        Enum.TryParse(AddUserFacultyTextBox.Text, out faculty);
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Faculty does not exist", "Error",
-                            MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                    if (Id != 0 && Name != null && Surname != null && Enum.IsDefined(typeof (User.Faculty), faculty))
-                    {
-                        User newUser = new User(Id, Name, Surname, faculty);
-                        currentAdmin.AddManagedUser(index: lastIndex + 1, user: newUser);
+        //private void AdminAddUserButton_Click(object sender, EventArgs e)
+        //{
+        //    List<User> users = currentAdmin.GetAllManagedUsers();
+        //    if (users.Count < 10)
+        //    {
+        //        if (!AddUserIdTextBox.Visible)
+        //        {
+        //            AddUserIdTextBox.Show();
+        //            AddUserNameTextBox.Show();
+        //            AddUserSurnameTextBox.Show();
+        //            AddUserFacultyTextBox.Show();
+        //            AddUserIdTextBoxHint.Show();
+        //            AddUserNameTextBoxHint.Show();
+        //            AddUserSurnameTextBoxHint.Show();
+        //            AddUserFacultyTextBoxHint.Show();
+        //        }
+        //        else
+        //        {
 
-                        var item = new ListViewItem(new[] { newUser.Id.ToString(), newUser.Name, newUser.Surname, newUser.CurrentFaculty.ToString() });
-                        AdminUsersListView.Items.Add(item);
-                        lastIndex++;
+        //            int Id = Int32.Parse(AddUserIdTextBox.Text);
+        //            string Name = AddUserNameTextBox.Text;
+        //            string Surname = AddUserSurnameTextBox.Text;
+        //            User.Faculty faculty = 0;
+        //            try
+        //            {
+        //                Enum.TryParse(AddUserFacultyTextBox.Text, out faculty);
+        //            }
+        //            catch
+        //            {
+        //                MessageBox.Show("Faculty does not exist", "Error",
+        //                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //            }
+        //            if (Id != 0 && Name != null && Surname != null && Enum.IsDefined(typeof(User.Faculty), faculty))
+        //            {
+        //                User newUser = new User(Id, Name, Surname, faculty);
+        //                currentAdmin.AddManagedUser(index: lastIndex + 1, user: newUser);
 
-                        FileReaderWriter fileReaderWriter = FileReaderWriter.Instance;
-                        fileReaderWriter.UpdateAdminUsers(currentAdmin);
-                        fileReaderWriter.InsertUser(newUser);
+        //                var item = new ListViewItem(new[] { newUser.Id.ToString(), newUser.Name, newUser.Surname, newUser.CurrentFaculty.ToString() });
+        //                AdminUsersListView.Items.Add(item);
+        //                lastIndex++;
 
-                        AddUserIdTextBox.Hide();
-                        AddUserNameTextBox.Hide();
-                        AddUserSurnameTextBox.Hide();
-                        AddUserFacultyTextBox.Hide();
-                        AddUserIdTextBoxHint.Hide();
-                        AddUserNameTextBoxHint.Hide();
-                        AddUserSurnameTextBoxHint.Hide();
-                        AddUserFacultyTextBoxHint.Hide();
-                    }
-                }
+        //                FileReaderWriter fileReaderWriter = FileReaderWriter.Instance;
+        //                client.PutAsync("http://localhost:50863/UpdateAdminUsers", currentAdmin);
+        //                fileReaderWriter.UpdateAdminUsers(currentAdmin);
+        //                fileReaderWriter.InsertUser(newUser);
 
-            }
+        //                AddUserIdTextBox.Hide();
+        //                AddUserNameTextBox.Hide();
+        //                AddUserSurnameTextBox.Hide();
+        //                AddUserFacultyTextBox.Hide();
+        //                AddUserIdTextBoxHint.Hide();
+        //                AddUserNameTextBoxHint.Hide();
+        //                AddUserSurnameTextBoxHint.Hide();
+        //                AddUserFacultyTextBoxHint.Hide();
+        //            }
+        //        }
 
-        }
+        //    }
 
-        private void AdminRemoveUserButton_Click(object sender, EventArgs e)
-        {
-            if(selectedUserIndex > -1)
-            {
-                currentAdmin.RemoveManagedUser(selectedUserIndex);
-                AdminUsersListView.Items.RemoveAt(selectedUserIndex);
-                selectedUserIndex = -1;
-                lastIndex--;
+        //}
 
-                FileReaderWriter fileReaderWriter = FileReaderWriter.Instance;
-                fileReaderWriter.UpdateAdminUsers(currentAdmin);
-            }
+        //private void AdminRemoveUserButton_Click(object sender, EventArgs e)
+        //{
+        //    if (selectedUserIndex > -1)
+        //    {
+        //        currentAdmin.RemoveManagedUser(selectedUserIndex);
+        //        AdminUsersListView.Items.RemoveAt(selectedUserIndex);
+        //        selectedUserIndex = -1;
+        //        lastIndex--;
 
-        }
+        //        FileReaderWriter fileReaderWriter = FileReaderWriter.Instance;
+        //        fileReaderWriter.UpdateAdminUsers(currentAdmin);
+        //    }
+
+        //}
 
         private void AdminUsersListView_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -156,7 +161,7 @@ namespace Virtual_Librarian
                 return;
 
             selectedUserIndex = AdminUsersListView.SelectedItems[0].Index;
-           
+
         }
     }
 }

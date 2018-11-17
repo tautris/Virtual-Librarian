@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Virtual_Librarian
+namespace VirtualLibrarian.Domain
 {
     public class BookCopy
     {
@@ -15,7 +15,7 @@ namespace Virtual_Librarian
         public DateTime? lastReturnDate { get; set; }
         public Book book { get; set; }
         public int Id { get; set; }
-        public BookCopy (int id, Book book, DateTime dateOfPrinting)
+        public BookCopy(int id, Book book, DateTime dateOfPrinting)
         {
             this.book = book;
             book.AddBookCopy(this);
@@ -25,7 +25,7 @@ namespace Virtual_Librarian
             lastReturnDate = DateTime.Now;
             takenDate = DateTime.Now.AddSeconds(-1);
         }
-        public void TakeCopy ()
+        public void TakeCopy()
         {
             if (IsAvailable())
             {
@@ -34,7 +34,7 @@ namespace Virtual_Librarian
                 lastReturnDate = null;
             }
         }
-        public void ReturnCopy ()
+        public void ReturnCopy()
         {
             if (!IsAvailable())
             {
@@ -50,3 +50,4 @@ namespace Virtual_Librarian
         }
     }
 }
+

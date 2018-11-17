@@ -3,9 +3,9 @@ using System.CodeDom.Compiler;
 using System.IO;
 using System.Text.RegularExpressions;
 
-namespace Virtual_Librarian
+namespace VirtualLibrarian.API.Core.Utilities
 {
-    static class StringUtils
+    public static class StringUtils
     {
         /// <summary>
         /// Helper for getting string from specified string to end of line.
@@ -16,7 +16,8 @@ namespace Virtual_Librarian
             Regex newLineRegex = new Regex("(" + from + @".+?(?=\r\n))");
 
             //Check if not last entry
-            if (newLineRegex.IsMatch(value)){
+            if (newLineRegex.IsMatch(value))
+            {
                 int posTo = value.IndexOf("\r\n");
                 return value.Substring(posFrom, posTo);
             }

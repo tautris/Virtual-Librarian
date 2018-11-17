@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Virtual_Librarian
+namespace VirtualLibrarian.Domain
 {
     public class Admin
     {
@@ -54,7 +54,7 @@ namespace Virtual_Librarian
         public List<User> GetAllManagedUsers()
         {
             List<User> UserList = new List<User>();
-            for(int i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++)
             {
                 User TempUser = GetManagedUser(i);
                 if (TempUser != null)
@@ -65,7 +65,7 @@ namespace Virtual_Librarian
             return UserList;
         }
 
-        
+
         public Admin(string LoginName, string Password)
         {
             this.LoginName = LoginName;

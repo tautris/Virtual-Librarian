@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VirtualLibrarian.Domain;
 
-namespace Virtual_Librarian
+namespace VirtualLibrarian.API.Core
 {
-    interface IReaderWriter
+    public interface IReaderWriter
     {
         User GetUser(int id);
         List<User> GetUsers();

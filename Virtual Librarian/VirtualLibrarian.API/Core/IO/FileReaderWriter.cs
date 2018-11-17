@@ -7,14 +7,17 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
+using VirtualLibrarian.API.Core.Utilities;
+using VirtualLibrarian.Domain;
 
-namespace Virtual_Librarian
+namespace VirtualLibrarian.API.Core
 {
 
     public sealed class FileReaderWriter : IReaderWriter
 
     {
-        private static readonly string projectDir = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
+        private static readonly string projectDir = HttpContext.Current.Server.MapPath("~");
         private static readonly string userFilePath = projectDir + @"\FilesIO\user.txt";
         private static readonly string bookCopyFilePath = projectDir + @"\FilesIO\bookCopies.txt";
         private static readonly string bookFilePath = projectDir + @"\FilesIO\books.txt";

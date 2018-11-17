@@ -4,6 +4,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
+using VirtualLibrarian.Domain;
 
 namespace Virtual_Librarian
 {
@@ -71,8 +72,9 @@ namespace Virtual_Librarian
         private void LearnNewFace_Click(object sender, EventArgs e)
         {
             //Fake login 
-            User user = FileReaderWriter.Instance.GetUser(3);
+            //User user = FileReaderWriter.Instance.GetUser(3);
             //Console.WriteLine(user.Id + user.Name + user.Surname + user.CurrentFaculty);
+            var user = new User(1, "cuvakas", "ciuvakenas", User.Faculty.CGF);
             new UserProfile(user).Show();
             this.Hide();
         }
