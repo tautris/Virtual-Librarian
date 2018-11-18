@@ -9,18 +9,26 @@ namespace VirtualLibrarian.Domain
     public class Book
     {
         //public string title;
+        public int id { get; set; }
+        public string author { get; }
         public string title { get; }
+        public string description { get; }
+        public int likes { get; set; }
+        public string pdf { get; set; }
+        public string image { get; set; }
         public string ISBN { get; }
-        public string authorName { get; }
-        public string authorSurname { get; }
         public DateTime date { get; set; }
         public List<BookCopy> copies = new List<BookCopy>();
-        public Book(string ISBN, string title, string authorName, string authorSurname, DateTime date)
+
+        public Book(string ISBN, string title, string author, string id, string pdf, string image)
         {
             this.title = title;
-            this.authorName = authorName;
-            this.authorSurname = authorSurname;
-            this.date = date;
+            this.author = author;
+            description = "very nice";
+            this.id = Int32.Parse(id);
+            likes = 1;
+            this.pdf = pdf;
+            this.image = image;
             if (!Validators.IsValidISBN(ISBN))
             {
                 throw new ArgumentException("ISBN is not valid");

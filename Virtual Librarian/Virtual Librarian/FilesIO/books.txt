@@ -1,2 +1,2 @@
-978-0486454115,Crime and Punishment,Feodor,Dostoyevsky,1866-01-18
-978-0679734529,Notes from Underground,Feodor,Dostoyevsky,1864-01-18
+978-0486454115,Crime and Punishment2,Feodor Dostoyevsky,1,http://www.planetpdf.com/planetpdf/pdfs/free_ebooks/Crime_and_Punishment_NT.pdf,https://upload.wikimedia.org/wikipedia/en/4/4b/Crimeandpunishmentcover.png
+978-0679734529,1984,George Orwell,2,https://www.planetebook.com/free-ebooks/1984.pdf,https://upload.wikimedia.org/wikipedia/en/c/c3/1984first.jpg
