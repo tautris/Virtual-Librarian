@@ -97,5 +97,10 @@ namespace VirtualLibrarian.API.Core
             }
             return availableBookCopies;
         }
+        public List<User> GetAllUsers()
+        {
+            return allUsers;
+        }
+
     }
 }
