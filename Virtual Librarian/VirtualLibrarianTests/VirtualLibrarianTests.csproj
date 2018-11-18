@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>VirtualLibrarianTests</RootNamespace>
     <AssemblyName>VirtualLibrarianTests</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
@@ -19,6 +19,7 @@
     <TestProjectType>UnitTest</TestProjectType>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,13 +55,23 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Virtual Librarian\Virtual Librarian.csproj">
       <Project>{8b4182e1-aa27-4e67-b1da-b2a6b45ccffa}</Project>
       <Name>Virtual Librarian</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VirtualLibrarian.API\VirtualLibrarian.API.csproj">
+      <Project>{62d014e1-707e-4d12-80cf-e3bc462f63e0}</Project>
+      <Name>VirtualLibrarian.API</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VirtualLibrarian.Domain\VirtualLibrarian.Domain.csproj">
+      <Project>{151E26FB-08B1-4C31-9061-F98F1E0669EA}</Project>
+      <Name>VirtualLibrarian.Domain</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

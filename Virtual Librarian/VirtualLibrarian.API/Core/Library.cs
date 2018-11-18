@@ -1,19 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using VirtualLibrarian.Domain;
 
-namespace Virtual_Librarian
+namespace VirtualLibrarian.API.Core
 {
     public sealed class Library
     {
         private static Library instance = null;
         private static readonly object padLock = new object();
+        private List<Book> allBooks = new List<Book>();
+        private List<User> allUsers = new List<User>();
+
         Library()
         {
             allBooks = FileReaderWriter.Instance.GetBooks();
-            List<BookCopy> bookCopies = new List<BookCopy>();
+            allUsers = FileReaderWriter.Instance.GetUsers();
+            List <BookCopy> bookCopies = new List<BookCopy>();
             bookCopies = FileReaderWriter.Instance.GetBookCopies();
             foreach (BookCopy bookCopy in bookCopies)
             {
@@ -35,7 +37,6 @@ namespace Virtual_Librarian
             }
         }
 
-        private List<Book> allBooks = new List<Book>();
         public void AddBook(Book book)
         {
             allBooks.Add(book);
@@ -56,7 +57,7 @@ namespace Virtual_Librarian
         {
             book.RemoveBookCopy(bookCopy);
         }
-        public List<Book> GetAvailableBooksList()
+        public List<Book> GetAvailableBooksSorted()
         {
             List<Book> availableBooks = new List<Book>();
             foreach (Book book in allBooks)
@@ -73,15 +74,15 @@ namespace Virtual_Librarian
             return sortedAvailableBooks;
         }
 
-        public List<Book> GetAllBooks()    
+        public List<Book> GetAllBooks()
         {
             return allBooks;
         }
-        public List<BookCopy> GetAllBookCopies()
+        public List<BookCopy> GetAvailableBookCopies()
         {
             List<BookCopy> availableBookCopies = new List<BookCopy>();
             List<Book> availableBooks = new List<Book>();
-            availableBooks = GetAvailableBooksList();
+            availableBooks = GetAvailableBooksSorted();
             foreach (Book book in availableBooks)
             {
                 foreach (BookCopy bookCopy in book.copies)

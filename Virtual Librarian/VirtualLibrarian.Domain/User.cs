@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VirtualLibrarian.Domain;
 
-namespace Virtual_Librarian
+namespace VirtualLibrarian.Domain
 {
     public class User
     {
@@ -24,14 +25,15 @@ namespace Virtual_Librarian
         public Faculty CurrentFaculty { get; set; }
         public int Id { get; }
         public List<BookCopy> takenBooks = new List<BookCopy>();
-        public User (int id, string name, string surname, Faculty faculty = Faculty.MIF) {
+        public User(int id, string name, string surname, Faculty faculty = Faculty.MIF)
+        {
             Id = id;
             Name = name;
             Surname = surname;
             CurrentFaculty = faculty;
         }
 
-        public void TakeBook (Book book)
+        public void TakeBook(Book book)
         {
             foreach (BookCopy bookCopy in book.copies)
             {
@@ -48,18 +50,18 @@ namespace Virtual_Librarian
             bookCopy.TakeCopy();
         }
 
-        public void ReturnBook (BookCopy bookCopy)
+        public void ReturnBook(BookCopy bookCopy)
         {
             takenBooks.Remove(bookCopy);
             bookCopy.ReturnCopy();
         }
-  
-        public List<BookCopy> TakenBooks ()
+
+        public List<BookCopy> TakenBooks()
         {
             return takenBooks;
         }
 
-        public void PrintTakenBooks () //Temporary, just for testing purposes
+        public void PrintTakenBooks() //Temporary, just for testing purposes
         {
             takenBooks.ForEach(Console.WriteLine);
         }

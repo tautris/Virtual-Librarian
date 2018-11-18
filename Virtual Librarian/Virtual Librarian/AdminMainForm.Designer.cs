@@ -53,7 +53,7 @@
             this.AdminLoginButton.TabIndex = 2;
             this.AdminLoginButton.Text = "Login";
             this.AdminLoginButton.UseVisualStyleBackColor = true;
-            this.AdminLoginButton.Click += new System.EventHandler(this.AdminLoginButton_Click);
+            //this.AdminLoginButton.Click += new System.EventHandler(this.AdminLoginButton_Click);
             // 
             // AdminLoginTextBox
             // 
@@ -104,7 +104,7 @@
             this.AdminAddUserButton.Text = "Add User";
             this.AdminAddUserButton.UseVisualStyleBackColor = true;
             this.AdminAddUserButton.Visible = false;
-            this.AdminAddUserButton.Click += new System.EventHandler(this.AdminAddUserButton_Click);
+            //this.AdminAddUserButton.Click += new System.EventHandler(this.AdminAddUserButton_Click);
             // 
             // AdminRemoveUserButton
             // 
@@ -115,7 +115,7 @@
             this.AdminRemoveUserButton.Text = "Remove User";
             this.AdminRemoveUserButton.UseVisualStyleBackColor = true;
             this.AdminRemoveUserButton.Visible = false;
-            this.AdminRemoveUserButton.Click += new System.EventHandler(this.AdminRemoveUserButton_Click);
+            //this.AdminRemoveUserButton.Click += new System.EventHandler(this.AdminRemoveUserButton_Click);
             // 
             // AddUserIdTextBox
             // 
