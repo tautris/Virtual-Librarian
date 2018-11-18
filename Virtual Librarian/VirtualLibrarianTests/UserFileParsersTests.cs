@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Virtual_Librarian;
+using VirtualLibrarian.API.Core;
+using VirtualLibrarian.Domain;
 
 namespace VirtualLibrarianTests
 {
