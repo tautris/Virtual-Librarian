@@ -1,9 +1,19 @@
+import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
 import 'package:virtual_librarian/routes.dart';
 import 'package:virtual_librarian/login_screen.dart';
+import 'package:flutter/services.dart';
 
-void main() => runApp(new LibrarianApp());
+List<CameraDescription> cameras;
+
+Future<Null> main() async {
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+  cameras = await availableCameras();
+  runApp(new LibrarianApp());
+} 
 
 class LibrarianApp extends StatelessWidget {
 
@@ -11,23 +21,13 @@ class LibrarianApp extends StatelessWidget {
   Widget build(BuildContext context) {
     //return new LoginScreen();
     return new MaterialApp(
-      theme: Theme.of(context).copyWith(
-        accentIconTheme: Theme.of(context).accentIconTheme.copyWith(
-          color: Colors.black
-        ),
-        accentColor: Colors.red,
-        primaryColor: Colors.green,
-        primaryIconTheme: Theme.of(context).primaryIconTheme.copyWith(
-          color: Colors.white
-        ),
-        primaryTextTheme: Theme
-            .of(context)
-            .primaryTextTheme
-            .apply(bodyColor: Colors.black)
+      theme: new ThemeData(
+        brightness: Brightness.dark,
+        primaryColorBrightness: Brightness.dark,
       ),
       title: 'Virtual Librarian',
       debugShowCheckedModeBanner: false,
-      home: LoginPage(),
+      home: LoginPage(cameras),
       routes: routes,
     ); 
   }
