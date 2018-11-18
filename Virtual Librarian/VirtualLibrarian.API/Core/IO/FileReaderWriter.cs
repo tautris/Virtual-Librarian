@@ -20,7 +20,7 @@ namespace VirtualLibrarian.API.Core
         private static readonly string projectDir = HttpContext.Current.Server.MapPath("~");
         private static readonly string userFilePath = projectDir + @"\FilesIO\user.txt";
         private static readonly string bookCopyFilePath = projectDir + @"\FilesIO\bookCopies.txt";
-        private static readonly string bookFilePath = projectDir + @"..\Virtual Librarian\FilesIO\books.txt"; //\Virtual-Librarian\Virtual Librarian\Virtual Librarian\FilesIO
+        private static readonly string bookFilePath = projectDir + @"\FilesIO\books.txt";
         private static readonly string adminsFilePath = projectDir + @"\FilesIO\admins.txt";
 
         private static FileReaderWriter instance = null;
