@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace VirtualLibrarian.Domain
 {
@@ -19,7 +20,10 @@ namespace VirtualLibrarian.Domain
         public string ISBN { get; }
         public DateTime date { get; set; }
         public List<BookCopy> copies = new List<BookCopy>();
-    
+        public List<string> comments = new List<string>();
+        public int reviewers { get; set; }
+        public double stars { get; set; }
+
         public Book(string ISBN, string title, string author, string id, string pdf, string image)
         {
             this.title = title;
@@ -37,6 +41,8 @@ namespace VirtualLibrarian.Domain
             {
                 this.ISBN = ISBN.Replace("-", "");
             }
+            reviewers = 0;
+            stars = 0;
         }
         public void AddBookCopy(BookCopy copy)
         {
@@ -53,6 +59,34 @@ namespace VirtualLibrarian.Domain
         public override string ToString()
         {
             return this.ISBN;
+        }
+        public void ReviewBook(string comment, double star)
+        {
+            ParameterizedThreadStart staring = new ParameterizedThreadStart(CountStars);
+            ParameterizedThreadStart commenting = new ParameterizedThreadStart(AddComment);
+
+            Thread thread1 = new Thread(staring);
+            Thread thread2 = new Thread(commenting);
+
+            thread1.Start(star);
+            thread2.Start(comment);
+
+            thread1.Join();
+            thread2.Join();
+
+        }
+
+        public void CountStars(object star)
+        {
+            stars = stars * reviewers;
+            reviewers++;
+            stars = stars + Convert.ToInt32(star);
+            stars = stars / reviewers;
+        }
+
+        public void AddComment(object comment)
+        {
+            comments.Add(comment.ToString());
         }
     }
 }
