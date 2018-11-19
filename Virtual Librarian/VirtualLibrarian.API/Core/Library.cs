@@ -102,5 +102,28 @@ namespace VirtualLibrarian.API.Core
             return allUsers;
         }
 
+        public Book GetBook(int id)
+        {
+            foreach(Book book in allBooks )
+            {
+                if (book.id == id)
+                {
+                    return book;
+                }
+            }
+            return null;
+        }
+
+        public Book LikeBook(int id)
+        {
+            Book book = GetBook(id);
+            if (book != null)
+            {
+                book.likes++;
+                return book;
+            }
+            return null;
+        }
+
     }
 }

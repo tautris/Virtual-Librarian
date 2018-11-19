@@ -19,14 +19,14 @@ namespace VirtualLibrarian.Domain
         public string ISBN { get; }
         public DateTime date { get; set; }
         public List<BookCopy> copies = new List<BookCopy>();
-
+    
         public Book(string ISBN, string title, string author, string id, string pdf, string image)
         {
             this.title = title;
             this.author = author;
             description = "very nice";
             this.id = Int32.Parse(id);
-            likes = 1;
+            likes = 0;
             this.pdf = pdf;
             this.image = image;
             if (!Validators.IsValidISBN(ISBN))
