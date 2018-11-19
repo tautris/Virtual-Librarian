@@ -299,7 +299,11 @@ namespace VirtualLibrarian.API.Core
             string adminFileContent = ReadFile(adminsFilePath);
             if(adminFileContent == "Error")
             {
-                return null;
+                adminFileContent = Retry<string>(ReadFile, adminsFilePath);
+                if(adminFileContent == "Error")
+                {
+                    return null;
+                }
             }
             string[] adminEntries = adminFileContent.Split(new string[] { "\r\n" }, StringSplitOptions.None);
             foreach (string entry in adminEntries)
@@ -361,6 +365,12 @@ namespace VirtualLibrarian.API.Core
             }
             File.WriteAllText(userFilePath, sb.ToString());
             sb.Clear();
+        }
+
+        //allows to retry calling method with generic return type and 1 generic argument 
+        public T Retry<T>(Func<T, T> func, T parameter)
+        {
+            return func(parameter);
         }
     }
 }
