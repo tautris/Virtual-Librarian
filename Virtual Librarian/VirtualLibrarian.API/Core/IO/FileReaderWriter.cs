@@ -17,8 +17,6 @@ namespace VirtualLibrarian.API.Core
     public sealed class FileReaderWriter : IReaderWriter
 
     {
-        public delegate string[] anonMethod(char seperator);
-
         private static readonly string projectDir = HttpContext.Current.Server.MapPath("~");
         private static readonly string userFilePath = projectDir + @"\FilesIO\user.txt";
         private static readonly string bookCopyFilePath = projectDir + @"\FilesIO\bookCopies.txt";
