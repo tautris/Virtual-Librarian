@@ -143,10 +143,24 @@ namespace VirtualLibrarian.API.Core
                     return line;
                 }
             }
-            catch (Exception e)
+            catch(FileNotFoundException)
             {
-                Console.WriteLine("The file could not be read:");
-                Console.WriteLine(e.Message);
+                System.Diagnostics.Debug.WriteLine("File at path: " + path + " was not found");
+                return "Error";
+            }
+            catch (PathTooLongException)
+            {
+                System.Diagnostics.Debug.WriteLine("File path: " + path + " is too long");
+                return "Error";
+            }
+            catch (OutOfMemoryException)
+            {
+                System.Diagnostics.Debug.WriteLine("File contents were too big for string type variable");
+                return "Error";
+            }
+            catch (IOException)
+            {
+                System.Diagnostics.Debug.WriteLine("There was a prblem when trying to read file contents");
                 return "Error";
             }
         }
@@ -283,6 +297,10 @@ namespace VirtualLibrarian.API.Core
         {
             List<Admin> admins = new List<Admin>();
             string adminFileContent = ReadFile(adminsFilePath);
+            if(adminFileContent == "Error")
+            {
+                return null;
+            }
             string[] adminEntries = adminFileContent.Split(new string[] { "\r\n" }, StringSplitOptions.None);
             foreach (string entry in adminEntries)
             {
@@ -292,12 +310,10 @@ namespace VirtualLibrarian.API.Core
                 var usersList = new List<string>(adminProperties);
                 usersList.RemoveAt(0);
                 usersList.RemoveAt(0);
-                int userIndex = 0;
                 foreach (string userId in usersList)
                 {
                     User currentUser = GetUserFixed(Int32.Parse(userId));
-                    currentAdmin.AddManagedUser(currentUser, userIndex);
-                    userIndex++;
+                    currentAdmin.AddManagedUser(currentUser);
                 }
             }
             return admins;

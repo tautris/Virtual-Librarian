@@ -10,11 +10,13 @@ namespace VirtualLibrarian.API.Core
         private static readonly object padLock = new object();
         private List<Book> allBooks = new List<Book>();
         private List<User> allUsers = new List<User>();
+        private List<Admin> allAdmins = new List<Admin>();
 
         Library()
         {
             allBooks = FileReaderWriter.Instance.GetBooks();
             allUsers = FileReaderWriter.Instance.GetUsers();
+            allAdmins = FileReaderWriter.Instance.GetAdmins();
             List <BookCopy> bookCopies = new List<BookCopy>();
             bookCopies = FileReaderWriter.Instance.GetBookCopies();
             foreach (BookCopy bookCopy in bookCopies)
@@ -94,6 +96,11 @@ namespace VirtualLibrarian.API.Core
                 }
             }
             return availableBookCopies;
+        }
+
+        public List<Admin> GetAllAdmins()
+        {
+            return allAdmins;
         }
     }
 }
