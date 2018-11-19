@@ -17,6 +17,8 @@ namespace VirtualLibrarian.API.Core
     public sealed class FileReaderWriter : IReaderWriter
 
     {
+        public delegate string[] anonMethod(char seperator);
+
         private static readonly string projectDir = HttpContext.Current.Server.MapPath("~");
         private static readonly string userFilePath = projectDir + @"\FilesIO\user.txt";
         private static readonly string bookCopyFilePath = projectDir + @"\FilesIO\bookCopies.txt";
@@ -308,12 +310,20 @@ namespace VirtualLibrarian.API.Core
             string[] adminEntries = adminFileContent.Split(new string[] { "\r\n" }, StringSplitOptions.None);
             foreach (string entry in adminEntries)
             {
-                string[] adminProperties = entry.Split(',');
+                //anonymous method
+                Func<char, string[]> anonMethod = delegate (char seperator)
+                {
+                    string[] anonAdminProperties = entry.Split(seperator);
+                    return anonAdminProperties;
+                };
+                string[] adminProperties = anonMethod(',');
+
                 Admin currentAdmin = new Admin(adminProperties[0], adminProperties[1]);
                 admins.Add(currentAdmin);
                 var usersList = new List<string>(adminProperties);
                 usersList.RemoveAt(0);
                 usersList.RemoveAt(0);
+            
                 foreach (string userId in usersList)
                 {
                     User currentUser = GetUserFixed(Int32.Parse(userId));
