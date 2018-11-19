@@ -15,12 +15,14 @@ namespace VirtualLibrarian.API.Core
         {
             allBooks = FileReaderWriter.Instance.GetBooks();
             allUsers = FileReaderWriter.Instance.GetUsers();
+            /*
             List <BookCopy> bookCopies = new List<BookCopy>();
             bookCopies = FileReaderWriter.Instance.GetBookCopies();
             foreach (BookCopy bookCopy in bookCopies)
             {
                 allBooks.First(obj => obj.ISBN == bookCopy.book.ISBN).AddBookCopy(bookCopy);
             }
+            */
         }
         public static Library Instance
         {
@@ -70,7 +72,7 @@ namespace VirtualLibrarian.API.Core
                     }
                 }
             }
-            List<Book> sortedAvailableBooks = availableBooks.OrderBy(o => o.authorSurname).ToList();
+            List<Book> sortedAvailableBooks = availableBooks.OrderBy(o => o.author).ToList();
             return sortedAvailableBooks;
         }
 
@@ -95,5 +97,10 @@ namespace VirtualLibrarian.API.Core
             }
             return availableBookCopies;
         }
+        public List<User> GetAllUsers()
+        {
+            return allUsers;
+        }
+
     }
 }

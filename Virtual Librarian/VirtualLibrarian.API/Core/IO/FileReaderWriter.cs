@@ -223,9 +223,9 @@ namespace VirtualLibrarian.API.Core
             string bookEntry = bookFileContent.FromToNewline(ISBN);
             string[] bookProperties = bookEntry.Split(',');
 
-            DateTime date = DateTime.ParseExact(bookProperties[4], "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            //DateTime date = DateTime.ParseExact(bookProperties[4], "yyyy-MM-dd", CultureInfo.InvariantCulture);
 
-            return new Book(bookProperties[0], bookProperties[1], bookProperties[2], bookProperties[3], date);
+            return new Book(bookProperties[0], bookProperties[1], bookProperties[2], bookProperties[3], bookProperties[4], bookProperties[4]);
         }
 
         public List<Book> GetBooks()
@@ -237,15 +237,15 @@ namespace VirtualLibrarian.API.Core
             {
                 string[] bookProperties = entry.Split(',');
 
-                DateTime date = DateTime.ParseExact(bookProperties[4], "yyyy-MM-dd", CultureInfo.InvariantCulture);
-                books.Add(new Book(bookProperties[0], bookProperties[1], bookProperties[2], bookProperties[3], date));
+                //DateTime date = DateTime.ParseExact(bookProperties[4], "yyyy-MM-dd", CultureInfo.InvariantCulture);
+                books.Add(new Book(bookProperties[0], bookProperties[1], bookProperties[2], bookProperties[3], bookProperties[4], bookProperties[5]));
             }
             return books;
         }
 
         public void InsertBook(Book book)          //TODO: Check for repeating ISBN when adding
         {
-            WriteLineToFile(bookFilePath, book.ISBN + "," + book.title + "," + book.authorName + "," + book.authorSurname + "," + book.date.ToString("yyyy-MM-dd"));
+            WriteLineToFile(bookFilePath, book.ISBN + "," + book.title + "," + book.author + "," + book.description + "," + book.date.ToString("yyyy-MM-dd"));
         }
 
         public BookCopy GetBookCopy(int id)
