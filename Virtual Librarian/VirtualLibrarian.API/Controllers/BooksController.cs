@@ -12,18 +12,18 @@ namespace VirtualLibrarian.API.Controllers
 {
     public class BooksController : ApiController
     {
-        private static Library instance = null;
+        private static Library library = null;
         private static readonly object padLock = new object();
         public BooksController()
         {
-            instance = Library.Instance;
+            library = Library.Instance;
         }
 
         [HttpGet]
         [Route("GetAvailableBooksSorted")]
         public IHttpActionResult GetAvailableBooksSorted()
         {
-            List<Book> sortedAvailableBooks = instance.GetAvailableBooksSorted();
+            List<Book> sortedAvailableBooks = library.GetAvailableBooksSorted();
 
             if(sortedAvailableBooks == null)
             {
@@ -36,7 +36,7 @@ namespace VirtualLibrarian.API.Controllers
         [Route("GetAvailableBookCopies")]
         public IHttpActionResult GetAvailableBookCopies()
         {
-            List<BookCopy> availableBookCopies = instance.GetAvailableBookCopies();
+            List<BookCopy> availableBookCopies = library.GetAvailableBookCopies();
             if(availableBookCopies == null)
             {
                 return NotFound();
@@ -49,12 +49,34 @@ namespace VirtualLibrarian.API.Controllers
         [Route("GetAllBooks")]
         public IHttpActionResult GetAllBooks()
         {
-            List<Book> allBookEntities = instance.GetAllBooks();
+            List<Book> allBookEntities = library.GetAllBooks();
             if (allBookEntities == null)
             {
                 return NotFound();
             }
             return Ok(allBookEntities);
+        }
+        [HttpGet]
+        [Route("GetBook/{id}")]
+        public IHttpActionResult GetBook(int id)
+        {
+            Book book = library.GetBook(id);
+            if (book != null)
+            {
+                return Ok(book);
+            }
+            return BadRequest("Bad book id, book not found :(");
+        }
+        [HttpPut]
+        [Route("LikeBook/{id}")]
+         public IHttpActionResult LikeBook(int id)
+        {
+            Book book = library.LikeBook(id);
+            if (book != null)
+            {
+                return Ok(book);
+            } 
+            return BadRequest("Bad book id, book not found :(");
         }
     }
 }
