@@ -48,7 +48,7 @@ namespace Virtual_Librarian
 
         //    }
         //}
-
+/*
         private void LoginAdmin()
         {
             AdminLoginTextBox.Hide();
@@ -69,6 +69,7 @@ namespace Virtual_Librarian
                 lastIndex++;
             }
         }
+        */
 
         private void InitListView()
         {

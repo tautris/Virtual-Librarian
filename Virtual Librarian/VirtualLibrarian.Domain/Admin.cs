@@ -5,64 +5,27 @@ namespace VirtualLibrarian.Domain
     public class Admin
     {
 
-        //standard property
-        private string _loginName;
-        public string LoginName
-        {
-            get { return _loginName; }
-            set { _loginName = value; }
-        }
-
-        //auto-implemented property
+        public string LoginName { get; set; }
         public string Password { get; set; }
+        public List<User> ManagedUsers { get; set; }
 
 
-        //indexed property
-        private User[] ManagedUsers = new User[10];
-        public User this[int i]
+        public void AddManagedUser(User newUser)
         {
-            get { return ManagedUsers[i]; }
-            set { ManagedUsers[i] = value; }
-        }
-
-        //Named and optional arguments
-        public void AddManagedUser(User user, int index = 0)
-        {
-            this[index] = user;
-        }
-
-        public User GetManagedUser(int index)
-        {
-            return this[index];
-        }
-
-        public void RemoveManagedUser(int index)
-        {
-            for (int i = index; i < 10; i++)
+            if (!ManagedUsers.Contains(newUser))
             {
-                if (i != 9)
-                {
-                    this[i] = this[i + 1];
-                }
-                else
-                {
-                    this[i] = null;
-                }
+                ManagedUsers.Add(newUser);
             }
+        }    
+
+        public void RemoveManagedUser(User user)
+        {
+            ManagedUsers.Remove(user);
         }
 
         public List<User> GetAllManagedUsers()
         {
-            List<User> UserList = new List<User>();
-            for (int i = 0; i < 10; i++)
-            {
-                User TempUser = GetManagedUser(i);
-                if (TempUser != null)
-                {
-                    UserList.Add(TempUser);
-                }
-            }
-            return UserList;
+            return ManagedUsers;
         }
 
 
@@ -70,6 +33,7 @@ namespace VirtualLibrarian.Domain
         {
             this.LoginName = LoginName;
             this.Password = Password;
+            this.ManagedUsers = new List<User>();
         }
     }
 }
