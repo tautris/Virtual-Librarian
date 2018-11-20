@@ -29,9 +29,10 @@ namespace VirtualLibrarian.API
                .Add(new MediaTypeHeaderValue("text/html"));
 
             //Unity container for DI
-            var container = new UnityContainer();
-            container.RegisterType<ILibrary, Library>(new HierarchicalLifetimeManager());
-            config.DependencyResolver = new UnityResolver(container);
+            //var container = new UnityContainer();
+            //container.RegisterType<ILibrary, Library>(new HierarchicalLifetimeManager());
+            //container.RegisterType<IReaderWriter, FileReaderWriter>(new HierarchicalLifetimeManager());
+            //config.DependencyResolver = new UnityResolver(container);
         }
     }
 }
