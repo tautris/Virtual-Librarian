@@ -1,9 +1,10 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:virtual_librarian/login_screen.dart';
 
 import 'package:virtual_librarian/routes.dart';
-import 'package:virtual_librarian/login_screen.dart';
 import 'package:flutter/services.dart';
+import 'package:virtual_librarian/splash_screen.dart';
 
 List<CameraDescription> cameras;
 
@@ -24,6 +25,7 @@ class LibrarianApp extends StatelessWidget {
       theme: new ThemeData(
         brightness: Brightness.dark,
         primaryColorBrightness: Brightness.dark,
+        fontFamily: "Agne"
       ),
       title: 'Virtual Librarian',
       debugShowCheckedModeBanner: false,

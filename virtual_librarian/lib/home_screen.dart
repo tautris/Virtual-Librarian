@@ -84,13 +84,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return new Stack(
       children: [
         new Container(
-          decoration: new BoxDecoration(
-            gradient: new LinearGradient(
-              begin: FractionalOffset.topCenter,
-              end: FractionalOffset.bottomCenter,
-              colors:  [const Color(0xFF915FB5), const Color(0xFFCA436B)],
-              stops: [0.0, 1.0],
-            )
+            decoration: new BoxDecoration(
+              gradient: new LinearGradient(
+                begin: FractionalOffset.topCenter,
+                end: FractionalOffset.bottomCenter,
+                colors: [Color (0xFFFFFFFF), Color(0xFFAFAFAF)],//[const Color(0xFF915FB5), const Color(0xFFCA436B)],
+                stops: [0.0, 1.0],
+              )
           ),
           child: new Align(
             alignment: FractionalOffset.bottomCenter,

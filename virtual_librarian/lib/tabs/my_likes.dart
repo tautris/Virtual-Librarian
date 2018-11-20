@@ -1,11 +1,16 @@
 import 'dart:io';
 
+//import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
 import 'dart:convert';
 
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart';
+
+import 'package:virtual_librarian/models/downloaded_book.dart';
 
 class MyLikesState extends StatefulWidget {
   @override
@@ -16,56 +21,57 @@ class MyLikesState extends StatefulWidget {
 }
 
 class MyLikesView extends State<MyLikesState> {
-  var _isLoading = true;
-  var likedBooks;
 
-  _fetchLikedBookData() async {
-    print("Fetching book data");
+  Future<List<DownloadedBook>> _fetchDownloadedBooks () async {
+    var dir = await getApplicationDocumentsDirectory();
+    var pdfFolderDir = new Directory("${dir.path}/pdf");
+    var _filesPDF = pdfFolderDir.listSync(recursive: false, followLinks: false);
+    var fileslist = _filesPDF.toList();
+    List<String> pdfList = new List();
+    fileslist.forEach((file){
+      String filename = basename(file.path);
+      pdfList.add(filename.replaceAll(".pdf", ""));
+    });
 
-    final url = "https://api.myjson.com/bins/1aiwbu";
-    final response = await http.get(url);
-    if (response.statusCode == 200) {
-      print(response.body);
-
-      final likedBooksJson = json.decode(response.body);
-      likedBooksJson.forEach((likedBook) {
-        print(likedBook["title"]);
-      });
-      
-      if (this.mounted) {
-        setState(() {
-          _isLoading = false;
-          this.likedBooks = likedBooksJson;
-        });
-      }
-    }
+    var client = new Client();
+    List<Response> bookList = await Future.wait(pdfList.map((bookId) => client.get('https://api.myjson.com/bins/z0386')));
+    return bookList.map((response){
+      return new DownloadedBook.fromJson(json.decode(response.body));
+    }).toList();
   }
 
   @override
   Widget build(BuildContext context) {
     Widget childView;
-    if (_isLoading) {
-      childView = (
-        new Center(
-          child: CircularProgressIndicator()//Image.asset('assets/loading.gif')
-        )        
-      );
-      _fetchLikedBookData();
-    } else {
-      childView = (
-          new LikeFeed()
-      );
-    }
+    childView = FutureBuilder(
+      future: _fetchDownloadedBooks(),
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data!=null) {
+            return ListView.builder(
+              itemCount: snapshot.data != null ? snapshot.data.length : 0,
+              itemBuilder: (context, i) {
+                final book = snapshot.data[i];
+                return new LikedBooks(id: book.id, title: book.title, author: book.author, imageURL: book.imageURL);
+              }
+            );
+          }
+        } else {
+          return CircularProgressIndicator();
+        }
+      }
+    );
     return childView;
   }
 }
 
-class BookFeed extends StatelessWidget {
-  const BookFeed({ this.title, this.author, this.likes });
+class LikedBooks extends StatelessWidget {
+  const LikedBooks({ this.id, this.title, this.author, this.imageURL });
 
+  final int id;
   final String title;
   final String author;
-  final int likes;
+  final String imageURL;
 
   @override
   Widget build(BuildContext context) {
@@ -75,7 +81,7 @@ class BookFeed extends StatelessWidget {
     return new GestureDetector (
       onTap: () async {
         var dir = await getApplicationDocumentsDirectory();
-        var fileName = title.replaceAll(" ", "");
+        var fileName = id;
         var path = "${dir.path}/$fileName.pdf";
         //FIXME: check if file exists
         if (FileSystemEntity.typeSync(path) != FileSystemEntityType.notFound) {
@@ -84,14 +90,14 @@ class BookFeed extends StatelessWidget {
               duration: Duration(seconds: 1),
               content: new Text("Opening PDF..."),
             ));
-            OpenFile.open("${dir.path}/$fileName.pdf");
+            OpenFile.open("${dir.path}/pdf/$fileName.pdf");
           } catch (e) {
             print (e);
           }
         } else {
           Scaffold.of(context).showSnackBar(new SnackBar(
             duration: Duration(seconds: 1),
-            content: new Text("$fileName.pdf does not exist"),
+            content: new Text("$title PDF File does not exist"),
           ));
         }
       },
@@ -135,8 +141,8 @@ class BookFeed extends StatelessWidget {
                   onTap: () async {
                     //FIXME: check if file exists
                     var dir = await getApplicationDocumentsDirectory();
-                    var fileName = title.replaceAll(" ", "");
-                    var path = "${dir.path}/$fileName.pdf";
+                    var fileName = this.id;
+                    var path = "${dir.path}/pdf/$fileName.pdf";
                     //FIXME: check if file exists
                     if (FileSystemEntity.typeSync(path) != FileSystemEntityType.notFound) {
                       Scaffold.of(context).showSnackBar(new SnackBar(
@@ -157,19 +163,6 @@ class BookFeed extends StatelessWidget {
           ),
         ),
       )
-    );
-  }
-}
-
-class LikeFeed extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return new ListView(
-      children: [
-        new BookFeed(title: 'Notes From Underground', author: 'Feodor Dostoyevsky', likes: 4),
-        new BookFeed(title: 'Crime and Punishment', author: 'Feodor Dostoyevsky', likes: 13),
-        new BookFeed(title: '1984', author: 'George Orwell', likes: 3),
-      ],
     );
   }
 }

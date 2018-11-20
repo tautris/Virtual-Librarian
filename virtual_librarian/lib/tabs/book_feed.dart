@@ -5,8 +5,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:open_file/open_file.dart';
-import 'package:virtual_librarian/tabs/my_likes.dart';
 
 class BookFeedState extends StatefulWidget {  
   @override
@@ -23,15 +21,15 @@ class BookFeed2 extends State<BookFeedState> {
   _fetchBookData() async {
     print("Fetching book data");
 
-    final url = "https://api.myjson.com/bins/xmt8a";
+    final url = "https://api.myjson.com/bins/exs52";
     final response = await http.get(url);
     if (response.statusCode == 200) {
       //print(response.body);
 
       final booksJson = json.decode(response.body);
-      booksJson.forEach((book) {
-        //print(book["title"]);
-      });
+      // booksJson.forEach((book) {
+      //   //print(book["title"]);
+      // });
       
       if (this.mounted) {
         setState(() {
@@ -40,6 +38,10 @@ class BookFeed2 extends State<BookFeedState> {
         });
       }
     }
+  }
+
+  _likeBook() async {
+    //TODO implement post to like book
   }
 
   @override
@@ -58,7 +60,7 @@ class BookFeed2 extends State<BookFeedState> {
          itemCount: this.books != null ? this.books.length : 0,
          itemBuilder: (context, i) {
            final book = this.books[i];
-           return new BookFeed(author: book["author"], likes: book["likes"], title: book["title"], imageURL: book["image"], description: book["description"], pdfURL: "http://www.africau.edu/images/default/sample.pdf",);
+           return new BookFeed(id: book["id"], author: book["author"], likes: book["likes"], title: book["title"], description: book["description"], imageURL: book["image"], pdfURL: "http://www.africau.edu/images/default/sample.pdf");//book["pdf"]);
          }
        )
      );
@@ -68,13 +70,14 @@ class BookFeed2 extends State<BookFeedState> {
 }
 
 class BookFeed extends StatelessWidget {
-  const BookFeed({ this.title, this.author, this.likes, this.imageURL, this.description, this.pdfURL });
+  const BookFeed({ this.id, this.title, this.author, this.likes, this.description, this.imageURL, this.pdfURL });
 
+  final int id;
   final String title;
   final String author;
   final int likes;
-  final String imageURL;
   final String description;
+  final String imageURL;
   final String pdfURL;
 
   @override
@@ -125,21 +128,25 @@ class BookFeed extends StatelessWidget {
                     //FIXME: check if file exists
                     Dio dio = Dio();
                     var dir = await getApplicationDocumentsDirectory();
-                    var fileName = title.replaceAll(" ", "");
-                    var path = "${dir.path}/$fileName.pdf";
+                    var fileName = id.toString();
+                    var pdfFileDir = "${dir.path}/pdf/$fileName.pdf";
+
+                    var pdfFolderDir = new Directory("${dir.path}/pdf");
+                    if (!pdfFolderDir.existsSync()) {
+                      pdfFolderDir.create(recursive: false);
+                    }
+
                     try {
-                      //print("${dir.path}/$fileName.pdf");
-                      await dio.download(pdfURL, path, onProgress: (rec, total) {
+                      print("$pdfFileDir");
+                      await dio.download(pdfURL, pdfFileDir, onProgress: (rec, total) {
                         print ("Rec: $rec , Total: $total");
                       });
                     } catch (e) {
                       print (e);
                     }
-
-                    
-                    if (FileSystemEntity.typeSync(path) != FileSystemEntityType.notFound) {
+                    if (FileSystemEntity.typeSync(pdfFileDir) != FileSystemEntityType.notFound) {
                       Scaffold.of(context).showSnackBar(new SnackBar(
-                        content: new Text("File $title.pdf was successfully downloaded."),
+                        content: new Text("$title was successfully downloaded."),
                         duration: Duration(seconds: 1),
                       ));
                     } else {
@@ -148,7 +155,7 @@ class BookFeed extends StatelessWidget {
                         duration: Duration(seconds: 1),
                       ));
                     }
-                    //print("downloaded: ${dir.path}/$fileName.pdf");
+                    print("downloaded: ${dir.path}/$fileName.pdf");
                   },
                 ),
               ),
@@ -164,7 +171,7 @@ class BookFeed extends StatelessWidget {
                     ],
                   ),
                   onTap: () {
-                    // TODO(implement)
+                    // TODO(implement post like)
                     Scaffold.of(context).showSnackBar(new SnackBar(
                       content: new Text("You have liked the Book"),
                       duration: Duration(seconds: 1),
