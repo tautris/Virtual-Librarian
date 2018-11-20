@@ -16,5 +16,10 @@ namespace VirtualLibrarian.API.Core
         List<Book> GetAvailableBooksSorted();
         List<Book> GetAllBooks();
         List<BookCopy> GetAvailableBookCopies();
+        List<User> GetAllUsers();
+        List<Admin> GetAllAdmins();
+        Book GetBook(int id);
+        Book LikeBook(int id);
+        void ReviewBook(Book book, string comment, double star);
     }
 }

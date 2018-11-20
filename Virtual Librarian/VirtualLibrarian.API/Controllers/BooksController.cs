@@ -59,7 +59,7 @@ namespace VirtualLibrarian.API.Controllers
         [Route("GetBook/{id}")]
         public IHttpActionResult GetBook(int id)
         {
-            Book book = library.GetBook(id);
+            Book book = _library.GetBook(id);
             if (book != null)
             {
                 return Ok(book);
@@ -70,7 +70,7 @@ namespace VirtualLibrarian.API.Controllers
         [Route("LikeBook/{id}")]
          public IHttpActionResult LikeBook(int id)
         {
-            Book book = library.LikeBook(id);
+            Book book = _library.LikeBook(id);
             if (book != null)
             {
                 return Ok(book);

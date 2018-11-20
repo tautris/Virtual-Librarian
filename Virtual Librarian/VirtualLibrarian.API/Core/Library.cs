@@ -23,7 +23,6 @@ namespace VirtualLibrarian.API.Core
             {
                 allBooks.First(obj => obj.ISBN == bookCopy.book.ISBN).AddBookCopy(bookCopy);
             }
-            */
         }
 
         public void AddBook(Book book)
