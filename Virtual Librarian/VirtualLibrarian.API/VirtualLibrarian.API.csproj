@@ -170,11 +170,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminsController.cs" />
     <Compile Include="Controllers\BooksController.cs" />
-<<<<<<< HEAD
     <Compile Include="Controllers\UserController.cs" />
-=======
     <Compile Include="Core\ILibrary.cs" />
->>>>>>> WIP: Initial dependency injection, hard times with service
     <Compile Include="Core\IO\FileReaderWriter.cs" />
     <Compile Include="Core\IO\IReaderWriter.cs" />
     <Compile Include="Core\Library.cs" />
