@@ -56,7 +56,17 @@ namespace VirtualLibrarian.API.Controllers
             }
             return Ok(allBookEntities);
         }
-
+        [HttpGet]
+        [Route("GetBook/{id}")]
+        public IHttpActionResult GetBook(int id)
+        {
+            Book book = library.GetBook(id);
+            if (book != null)
+            {
+                return Ok(book);
+            }
+            return BadRequest("Bad book id, book not found :(");
+        }
         [HttpPut]
         [Route("LikeBook/{id}")]
          public IHttpActionResult LikeBook(int id)

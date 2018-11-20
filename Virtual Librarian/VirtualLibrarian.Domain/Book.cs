@@ -43,6 +43,7 @@ namespace VirtualLibrarian.Domain
             }
             reviewers = 0;
             stars = 0;
+            date = DateTime.Now;    //If not needed, delete it 
         }
         public void AddBookCopy(BookCopy copy)
         {
