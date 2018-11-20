@@ -12,13 +12,10 @@ namespace VirtualLibrarian.API.Controllers
 {
     public class BooksController : ApiController
     {
-        //private static Library instance = null;
-        //private static readonly object padLock = new object();
         private readonly ILibrary _library; 
         public BooksController(ILibrary library)
         {
             _library = library;
-            //instance = Library.Instance;
         }
 
         [HttpGet]

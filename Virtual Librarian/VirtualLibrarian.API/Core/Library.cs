@@ -6,15 +6,14 @@ namespace VirtualLibrarian.API.Core
 {
     public class Library : ILibrary
     {
-        //private static Library instance = null;
-        //private static readonly object padLock = new object();
         private List<Book> allBooks = new List<Book>();
         private List<User> allUsers = new List<User>();
         private List<Admin> allAdmins = new List<Admin>();
         private readonly IReaderWriter _readerWriter;
-        Library(IReaderWriter readerWriter)
+        public Library(IReaderWriter readerWriter)
         {
             _readerWriter = readerWriter;
+
             allBooks = _readerWriter.GetBooks();
             allUsers = _readerWriter.GetUsers();
             allAdmins = _readerWriter.GetAdmins();
@@ -26,20 +25,6 @@ namespace VirtualLibrarian.API.Core
             }
             */
         }
-        //public static Library Instance
-        //{
-        //    get
-        //    {
-        //        lock (padLock)
-        //        {
-        //            if (instance == null)
-        //            {
-        //                instance = new Library(IReaderWriter);
-        //            }
-        //            return instance;
-        //        }
-        //    }
-        //}
 
         public void AddBook(Book book)
         {
