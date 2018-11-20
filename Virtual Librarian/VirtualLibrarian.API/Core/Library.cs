@@ -4,43 +4,42 @@ using VirtualLibrarian.Domain;
 
 namespace VirtualLibrarian.API.Core
 {
-    public sealed class Library
+    public class Library : ILibrary
     {
-        private static Library instance = null;
-        private static readonly object padLock = new object();
+        //private static Library instance = null;
+        //private static readonly object padLock = new object();
         private List<Book> allBooks = new List<Book>();
         private List<User> allUsers = new List<User>();
         private List<Admin> allAdmins = new List<Admin>();
-
-        Library()
+        private readonly IReaderWriter _readerWriter;
+        Library(IReaderWriter readerWriter)
         {
-            allBooks = FileReaderWriter.Instance.GetBooks();
-            allUsers = FileReaderWriter.Instance.GetUsers();
-            allAdmins = FileReaderWriter.Instance.GetAdmins();
-
-            /*
+            _readerWriter = readerWriter;
+            allBooks = _readerWriter.GetBooks();
+            allUsers = _readerWriter.GetUsers();
+            allAdmins = _readerWriter.GetAdmins();
             List <BookCopy> bookCopies = new List<BookCopy>();
-            bookCopies = FileReaderWriter.Instance.GetBookCopies();
+            bookCopies = _readerWriter.GetBookCopies();
             foreach (BookCopy bookCopy in bookCopies)
             {
                 allBooks.First(obj => obj.ISBN == bookCopy.book.ISBN).AddBookCopy(bookCopy);
             }
             */
         }
-        public static Library Instance
-        {
-            get
-            {
-                lock (padLock)
-                {
-                    if (instance == null)
-                    {
-                        instance = new Library();
-                    }
-                    return instance;
-                }
-            }
-        }
+        //public static Library Instance
+        //{
+        //    get
+        //    {
+        //        lock (padLock)
+        //        {
+        //            if (instance == null)
+        //            {
+        //                instance = new Library(IReaderWriter);
+        //            }
+        //            return instance;
+        //        }
+        //    }
+        //}
 
         public void AddBook(Book book)
         {

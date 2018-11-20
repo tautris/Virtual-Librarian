@@ -14,7 +14,7 @@ using VirtualLibrarian.Domain;
 namespace VirtualLibrarian.API.Core
 {
 
-    public sealed class FileReaderWriter : IReaderWriter
+    public class FileReaderWriter : IReaderWriter
 
     {
         private static readonly string projectDir = HttpContext.Current.Server.MapPath("~");
@@ -23,23 +23,23 @@ namespace VirtualLibrarian.API.Core
         private static readonly string bookFilePath = projectDir + @"\FilesIO\books.txt";
         private static readonly string adminsFilePath = projectDir + @"\FilesIO\admins.txt";
 
-        private static FileReaderWriter instance = null;
-        private static readonly object padLock = new object();
-        FileReaderWriter() { }
-        public static FileReaderWriter Instance
-        {
-            get
-            {
-                lock (padLock)
-                {
-                    if (instance == null)
-                    {
-                        instance = new FileReaderWriter();
-                    }
-                    return instance;
-                }
-            }
-        }
+        //private static FileReaderWriter instance = null;
+        //private static readonly object padLock = new object();
+        //FileReaderWriter() { }
+        //public static FileReaderWriter Instance
+        //{
+        //    get
+        //    {
+        //        lock (padLock)
+        //        {
+        //            if (instance == null)
+        //            {
+        //                instance = new FileReaderWriter();
+        //            }
+        //            return instance;
+        //        }
+        //    }
+        //}
 
         public void WriteLineToFile(string path, string data)
         {
