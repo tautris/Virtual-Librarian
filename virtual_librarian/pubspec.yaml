@@ -41,8 +41,7 @@ flutter:
 
   assets:
     - assets/loading.gif
-    - assets/login_icon.png
-    - assets/profile.jpg
+    - assets/profile.gif
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

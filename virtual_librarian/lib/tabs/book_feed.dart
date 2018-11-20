@@ -21,15 +21,11 @@ class BookFeed2 extends State<BookFeedState> {
   _fetchBookData() async {
     print("Fetching book data");
 
-    final url = "https://api.myjson.com/bins/exs52";
+    final url = "http://localhost:50863/GetAllBooks";
     final response = await http.get(url);
     if (response.statusCode == 200) {
-      //print(response.body);
 
       final booksJson = json.decode(response.body);
-      // booksJson.forEach((book) {
-      //   //print(book["title"]);
-      // });
       
       if (this.mounted) {
         setState(() {

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:virtual_librarian/login_screen.dart';
+import 'package:virtual_librarian/home_screen.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:virtual_librarian/register_screen.dart';
 
@@ -23,7 +24,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 3), () => Navigator.of(context).pushNamed(LoginPage.tag));
+    Timer(Duration(seconds: 3), () => Navigator.of(context).pushNamed(HomeScreenState.tag));
   }
 
   @override

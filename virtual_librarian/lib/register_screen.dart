@@ -33,7 +33,7 @@ class _RegisterPageState extends State<RegisterPage> {
       //animationDuration: 2500,
       percent: _progress,
       linearStrokeCap: LinearStrokeCap.roundAll,
-      progressColor: Color.fromARGB(125, 120, 72, 72),
+      progressColor: Color(0xFF3F8F8F)
     );
 
     final email = TextFormField(
@@ -116,7 +116,7 @@ class _RegisterPageState extends State<RegisterPage> {
               gradient: new LinearGradient(
                 begin: FractionalOffset.topCenter,
                 end: FractionalOffset.bottomCenter,
-                colors: [Color (0xFFFFFF), Color(0xCFCFCF)],//[const Color(0xFF915FB5), const Color(0xFFCA436B)],
+                colors:  [Color (0xFF3F8F8F), Color(0xCF3F3F3F)],//[const Color(0xFF915FB5), const Color(0xFFCA436B)],
                 stops: [0.0, 1.0],
               )
             ),
@@ -148,7 +148,7 @@ class _RegisterPageState extends State<RegisterPage> {
               gradient: new LinearGradient(
                 begin: FractionalOffset.topCenter,
                 end: FractionalOffset.bottomCenter,
-                colors: [Color (0xFFFFFF), Color(0xCFCFCF)],//[const Color(0xFF915FB5), const Color(0xFFCA436B)],
+                colors:  [Color (0xFF3F8F8F), Color(0xCF3F3F3F)],//[const Color(0xFF915FB5), const Color(0xFFCA436B)],
                 stops: [0.0, 1.0],
               )
             ),

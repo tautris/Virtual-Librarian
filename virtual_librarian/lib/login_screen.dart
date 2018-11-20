@@ -49,7 +49,7 @@ class _LoginPageState extends State<LoginPage> {
           child: new CustomPaint (
             foregroundPainter: new GuidelinePainter(),
             child: new AspectRatio(
-              aspectRatio: 0.5625,
+              aspectRatio: 0.5625,//controller.value.aspectRatio,
               child: new CameraPreview(controller)
             )
           )
@@ -101,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
           gradient: new LinearGradient(
             begin: FractionalOffset.topLeft,
             end: FractionalOffset.bottomRight,
-            colors:  [Color (0xFF8F8F8F), Color(0xCF3F3F3F)],//[const Color(0xFF915FB5), const Color(0xFFCA436B)],
+            colors:  [Color (0xFF3F8F8F), Color(0xCF3F3F3F)],//[const Color(0xFF915FB5), const Color(0xFFCA436B)],
             stops: [0.0,1.0],
             tileMode: TileMode.clamp
           )

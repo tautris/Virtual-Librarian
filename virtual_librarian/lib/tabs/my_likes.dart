@@ -33,8 +33,9 @@ class MyLikesView extends State<MyLikesState> {
       pdfList.add(filename.replaceAll(".pdf", ""));
     });
 
+    final url = "http://localhost:50863/GetBook";
     var client = new Client();
-    List<Response> bookList = await Future.wait(pdfList.map((bookId) => client.get('https://api.myjson.com/bins/z0386')));
+    List<Response> bookList = await Future.wait(pdfList.map((bookId) => client.get("$url/$bookId")));
     return bookList.map((response){
       return new DownloadedBook.fromJson(json.decode(response.body));
     }).toList();
