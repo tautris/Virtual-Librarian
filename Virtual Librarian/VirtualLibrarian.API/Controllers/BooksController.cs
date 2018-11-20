@@ -57,6 +57,12 @@ namespace VirtualLibrarian.API.Controllers
             return Ok(allBookEntities);
         }
         [HttpGet]
+        [Route("GetBookzzz")]
+        public IHttpActionResult GetBookzzz()
+        {
+            return Ok("It works ");
+        }
+        [HttpGet]
         [Route("GetBook/{id}")]
         public IHttpActionResult GetBook(int id)
         {

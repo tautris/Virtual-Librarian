@@ -181,6 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\VirtualLibrarianAPI20181120125915 - Web Deploy.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\VirtualLibrarian.Domain\VirtualLibrarian.Domain.csproj">
@@ -206,7 +207,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50863</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50863/</IISUrl>
+          <IISUrl>http://127.0.0.1:50863/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
