@@ -12,18 +12,17 @@ namespace VirtualLibrarian.API.Controllers
 {
     public class BooksController : ApiController
     {
-        private static Library library = null;
-        private static readonly object padLock = new object();
-        public BooksController()
+        private readonly ILibrary _library; 
+        public BooksController(ILibrary library)
         {
-            library = Library.Instance;
+            _library = library;
         }
 
         [HttpGet]
         [Route("GetAvailableBooksSorted")]
         public IHttpActionResult GetAvailableBooksSorted()
         {
-            List<Book> sortedAvailableBooks = library.GetAvailableBooksSorted();
+            List<Book> sortedAvailableBooks = _library.GetAvailableBooksSorted();
 
             if(sortedAvailableBooks == null)
             {
@@ -36,7 +35,7 @@ namespace VirtualLibrarian.API.Controllers
         [Route("GetAvailableBookCopies")]
         public IHttpActionResult GetAvailableBookCopies()
         {
-            List<BookCopy> availableBookCopies = library.GetAvailableBookCopies();
+            List<BookCopy> availableBookCopies = _library.GetAvailableBookCopies();
             if(availableBookCopies == null)
             {
                 return NotFound();
@@ -49,7 +48,7 @@ namespace VirtualLibrarian.API.Controllers
         [Route("GetAllBooks")]
         public IHttpActionResult GetAllBooks()
         {
-            List<Book> allBookEntities = library.GetAllBooks();
+            List<Book> allBookEntities = _library.GetAllBooks();
             if (allBookEntities == null)
             {
                 return NotFound();
@@ -60,7 +59,7 @@ namespace VirtualLibrarian.API.Controllers
         [Route("GetBook/{id}")]
         public IHttpActionResult GetBook(int id)
         {
-            Book book = library.GetBook(id);
+            Book book = _library.GetBook(id);
             if (book != null)
             {
                 return Ok(book);
@@ -71,7 +70,7 @@ namespace VirtualLibrarian.API.Controllers
         [Route("LikeBook/{id}")]
          public IHttpActionResult LikeBook(int id)
         {
-            Book book = library.LikeBook(id);
+            Book book = _library.LikeBook(id);
             if (book != null)
             {
                 return Ok(book);

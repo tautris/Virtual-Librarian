@@ -8,18 +8,17 @@ namespace VirtualLibrarian.API.Controllers
 {
     public class AdminsController : ApiController
     {
-
-        private static Library instance = null;
-        public AdminsController()
+        private readonly ILibrary _library;
+        public AdminsController(ILibrary library)
         {
-            instance = Library.Instance;
+            _library = library;
         }
 
         [HttpGet]
         [Route("GetAllAdmins")]
         public IHttpActionResult GetAllAdmins()
         {
-            List<Admin> admins = instance.GetAllAdmins();
+            List<Admin> admins = _library.GetAllAdmins();
             if (admins == null)
             {
                 return NotFound();

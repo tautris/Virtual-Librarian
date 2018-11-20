@@ -11,18 +11,17 @@ namespace VirtualLibrarian.API.Controllers
 {
     public class UserController : ApiController
     {
-        private static Library instance = null;
-        private static readonly object padLock = new object();
-        public UserController()
+        private readonly ILibrary _library;
+        public UserController(ILibrary library)
         {
-            instance = Library.Instance;
+            _library = library;
         }
 
         [HttpGet]
         [Route("GetUsers")]
         public IHttpActionResult GetAvailableBooksSorted()
         {
-            List<User> userList = instance.GetAllUsers();
+            List<User> userList = _library.GetAllUsers();
 
             if (userList == null)
             {

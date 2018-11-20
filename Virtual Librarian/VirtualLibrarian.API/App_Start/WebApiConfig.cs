@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Web.Http;
+using Unity;
+using Unity.Lifetime;
+using VirtualLibrarian.API.Core;
 
 namespace VirtualLibrarian.API
 {
@@ -21,11 +21,13 @@ namespace VirtualLibrarian.API
                 defaults: new { id = RouteParameter.Optional }
             );
 
+            //Json config
             config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling
                 = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 
             config.Formatters.JsonFormatter.SupportedMediaTypes
                .Add(new MediaTypeHeaderValue("text/html"));
+
         }
     }
 }

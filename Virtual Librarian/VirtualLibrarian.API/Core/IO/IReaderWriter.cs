@@ -18,5 +18,6 @@ namespace VirtualLibrarian.API.Core
         BookCopy GetBookCopy(int id);
         List<BookCopy> GetBookCopies();
         void InsertBookCopy(BookCopy bookCopy);
+        List<Admin> GetAdmins();
     }
 }
