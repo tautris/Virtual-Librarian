@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
       'Book Feed': new BookFeedState(),
       'My Books': new MyLikesState(),
       'My Stats': new Center(
-        child: new Text('Graphs and something'),
+        child: new Text('Graphs. Future Release 1.1'),
       ),
     };
     TextTheme textTheme = Theme
@@ -84,13 +84,13 @@ class _HomeScreenState extends State<HomeScreen> {
     return new Stack(
       children: [
         new Container(
-          decoration: new BoxDecoration(
-            gradient: new LinearGradient(
-              begin: FractionalOffset.topCenter,
-              end: FractionalOffset.bottomCenter,
-              colors:  [const Color(0xFF915FB5), const Color(0xFFCA436B)],
-              stops: [0.0, 1.0],
-            )
+            decoration: new BoxDecoration(
+              gradient: new LinearGradient(
+                begin: FractionalOffset.topCenter,
+                end: FractionalOffset.bottomCenter,
+                colors:  [Color (0xFF3F8F8F), Color(0xCF3F3F3F)],//[const Color(0xFF915FB5), const Color(0xFFCA436B)],
+                stops: [0.0, 1.0],
+              )
           ),
           child: new Align(
             alignment: FractionalOffset.bottomCenter,
@@ -113,7 +113,7 @@ class _HomeScreenState extends State<HomeScreen> {
             elevation: 0.0,
             leading: new Center(
               child: new ClipOval(
-                child: Image.asset('assets/profile.jpg'),
+                child: Image.asset('assets/profile.gif'),
               ),
             ),
             actions: [

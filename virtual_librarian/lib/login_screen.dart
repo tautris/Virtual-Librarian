@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   void initState() {
     super.initState();
-    controller = new CameraController(widget.cameras[1], ResolutionPreset.medium);
+    controller = new CameraController(widget.cameras[1], ResolutionPreset.high);
     controller.initialize().then((_) {
       if (!mounted) {
         return;
@@ -49,24 +49,13 @@ class _LoginPageState extends State<LoginPage> {
           child: new CustomPaint (
             foregroundPainter: new GuidelinePainter(),
             child: new AspectRatio(
-              aspectRatio: controller.value.aspectRatio,
+              aspectRatio: 0.5625,//controller.value.aspectRatio,
               child: new CameraPreview(controller)
             )
           )
         )
       //new CircularProgressIndicator(),//Image.asset('assets/login_icon.png'),
       )
-    );
-
-    final nickname = TextFormField(
-      keyboardType: TextInputType.emailAddress,
-      autofocus: false,
-      decoration: InputDecoration(
-        hintText: 'Nickname',
-        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
-        fillColor: Colors.white,
-      ),
     );
 
     final loginButton = ButtonTheme (
@@ -82,6 +71,17 @@ class _LoginPageState extends State<LoginPage> {
             Navigator.of(context).pushNamed(HomeScreenState.tag);
           },
         ),
+    );
+
+    final nickname = TextFormField(
+      keyboardType: TextInputType.emailAddress,
+      autofocus: false,
+      decoration: InputDecoration(
+        hintText: 'Nickname',
+        contentPadding: EdgeInsets.fromLTRB(20.0, 10.0, 20.0, 10.0),
+        border: OutlineInputBorder(borderRadius: BorderRadius.circular(32.0)),
+        fillColor: Colors.white,
+      ),
     );
 
     final registerLabel = FlatButton(
@@ -101,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
           gradient: new LinearGradient(
             begin: FractionalOffset.topLeft,
             end: FractionalOffset.bottomRight,
-            colors:  [const Color(0xFF915FB5), const Color(0xFFCA436B)],
+            colors:  [Color (0xFF3F8F8F), Color(0xCF3F3F3F)],//[const Color(0xFF915FB5), const Color(0xFFCA436B)],
             stops: [0.0,1.0],
             tileMode: TileMode.clamp
           )
