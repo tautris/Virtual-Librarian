@@ -38,7 +38,7 @@ namespace VirtualLibrarian.API
         {
             // Our registered types for DI
             container.RegisterType<IReaderWriter, FileReaderWriter>();
-            container.RegisterType<ILibraryManager, Library>();
+            container.RegisterSingleton<ILibraryManager, Library>();
         }
     }
 }
