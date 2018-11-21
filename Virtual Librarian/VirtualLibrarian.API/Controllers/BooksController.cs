@@ -1,28 +1,21 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
+﻿using System.Web.Http;
 using VirtualLibrarian.API.Core;
-using VirtualLibrarian.Domain;
 
 namespace VirtualLibrarian.API.Controllers
 {
     public class BooksController : ApiController
     {
-        private readonly ILibrary _library; 
-        public BooksController(ILibrary library)
+        private readonly ILibraryManager _library; 
+        public BooksController(ILibraryManager library)
         {
             _library = library;
         }
 
         [HttpGet]
-        [Route("GetAvailableBooksSorted")]
-        public IHttpActionResult GetAvailableBooksSorted()
+        [Route("AvailableBooksSorted")]
+        public IHttpActionResult AvailableBooksSorted()
         {
-            List<Book> sortedAvailableBooks = _library.GetAvailableBooksSorted();
+            var sortedAvailableBooks = _library.GetAvailableBooksSorted();
 
             if(sortedAvailableBooks == null)
             {
@@ -32,10 +25,10 @@ namespace VirtualLibrarian.API.Controllers
         }
 
         [HttpGet]
-        [Route("GetAvailableBookCopies")]
-        public IHttpActionResult GetAvailableBookCopies()
+        [Route("AvailableBookCopies")]
+        public IHttpActionResult AvailableBookCopies()
         {
-            List<BookCopy> availableBookCopies = _library.GetAvailableBookCopies();
+            var availableBookCopies = _library.GetAvailableBookCopies();
             if(availableBookCopies == null)
             {
                 return NotFound();
@@ -45,10 +38,10 @@ namespace VirtualLibrarian.API.Controllers
         }
 
         [HttpGet]
-        [Route("GetAllBooks")]
-        public IHttpActionResult GetAllBooks()
+        [Route("AllBooks")]
+        public IHttpActionResult AllBooks()
         {
-            List<Book> allBookEntities = _library.GetAllBooks();
+            var allBookEntities = _library.GetAllBooks();
             if (allBookEntities == null)
             {
                 return NotFound();
@@ -56,10 +49,10 @@ namespace VirtualLibrarian.API.Controllers
             return Ok(allBookEntities);
         }
         [HttpGet]
-        [Route("GetBook/{id}")]
-        public IHttpActionResult GetBook(int id)
+        [Route("Book/{id}")]
+        public IHttpActionResult Book(int id)
         {
-            Book book = _library.GetBook(id);
+            var book = _library.GetBook(id);
             if (book != null)
             {
                 return Ok(book);
@@ -70,7 +63,7 @@ namespace VirtualLibrarian.API.Controllers
         [Route("LikeBook/{id}")]
          public IHttpActionResult LikeBook(int id)
         {
-            Book book = _library.LikeBook(id);
+            var book = _library.LikeBook(id);
             if (book != null)
             {
                 return Ok(book);

@@ -4,7 +4,7 @@ using VirtualLibrarian.Domain;
 
 namespace VirtualLibrarian.API.Core
 {
-    public class Library : ILibrary
+    public class Library : ILibraryManager
     {
         private List<Book> allBooks = new List<Book>();
         private List<User> allUsers = new List<User>();

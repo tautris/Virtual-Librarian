@@ -7,7 +7,7 @@ using VirtualLibrarian.Domain;
 
 namespace VirtualLibrarian.API.Core
 {
-    public interface ILibrary
+    public interface ILibraryManager
     {
         void AddBook(Book book);
         void AddBookCopy(BookCopy bookCopy, Book book);
