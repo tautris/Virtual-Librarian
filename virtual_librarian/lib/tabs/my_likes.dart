@@ -30,7 +30,7 @@ class MyLikesView extends State<MyLikesState> {
       pdfList.add(filename.replaceAll(".pdf", ""));
     });
 
-    final url = "http://localhost:50863/GetBook";
+    final url = "http://192.168.0.19:8081/GetBook";
     var client = new Client();
     List<Response> bookList = await Future.wait(pdfList.map((bookId) => client.get("$url/$bookId")));
     return bookList.map((response){
