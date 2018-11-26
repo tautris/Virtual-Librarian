@@ -115,10 +115,7 @@ class LikedBooks extends StatelessWidget {
               new Container(
                 margin: const EdgeInsets.only(top: 4.0, bottom: 4.0, right: 10.0),
                 child: new CircleAvatar(
-                  // backgroundImage: new NetworkImage(
-                  //   'http://thecatapi.com/api/images/get?format=src'
-                  //     '&size=small&type=jpg#${title.hashCode}'
-                  // ),
+                  backgroundImage: new NetworkImage(imageURL),
                   radius: 20.0,
                 ),
               ),
