@@ -171,7 +171,7 @@
     <Compile Include="Controllers\AdminsController.cs" />
     <Compile Include="Controllers\BooksController.cs" />
     <Compile Include="Controllers\UserController.cs" />
-    <Compile Include="Core\ILibrary.cs" />
+    <Compile Include="Core\ILibraryManager.cs" />
     <Compile Include="Core\IO\FileReaderWriter.cs" />
     <Compile Include="Core\IO\IReaderWriter.cs" />
     <Compile Include="Core\Library.cs" />

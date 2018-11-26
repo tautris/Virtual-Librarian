@@ -1,24 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Web.Http;
-using VirtualLibrarian.Domain;
+﻿using System.Web.Http;
 using VirtualLibrarian.API.Core;
-using System;
 
 namespace VirtualLibrarian.API.Controllers
 {
     public class AdminsController : ApiController
     {
-        private readonly ILibrary _library;
-        public AdminsController(ILibrary library)
+        private readonly ILibraryManager _library;
+        public AdminsController(ILibraryManager library)
         {
             _library = library;
         }
 
         [HttpGet]
-        [Route("GetAllAdmins")]
-        public IHttpActionResult GetAllAdmins()
+        [Route("AllAdmins")]
+        public IHttpActionResult AllAdmins()
         {
-            List<Admin> admins = _library.GetAllAdmins();
+            var admins = _library.GetAllAdmins();
             if (admins == null)
             {
                 return NotFound();
