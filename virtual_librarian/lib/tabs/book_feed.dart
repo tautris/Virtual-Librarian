@@ -21,7 +21,7 @@ class BookFeed2 extends State<BookFeedState> {
   _fetchBookData() async {
     print("Fetching book data");
 
-    final url = "http://192.168.0.19:8081/GetAllBooks";
+    final url = "http://192.168.43.167:50863/allbooks";
     final response = await http.get(url);
     if (response.statusCode == 200) {
 
