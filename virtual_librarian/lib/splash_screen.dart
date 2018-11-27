@@ -36,7 +36,6 @@ class _SplashScreenState extends State<SplashScreen> {
           child: TypewriterAnimatedTextKit(
             duration: Duration(seconds: 3),
             onTap: () {
-                print("Tap Event");
               },
             text: [
               "Virtual Librarian",

@@ -21,7 +21,7 @@ class BookFeed2 extends State<BookFeedState> {
   _fetchBookData() async {
     print("Fetching book data");
 
-    final url = "http://192.168.0.19:8081/GetAllBooks";
+    final url = "http://192.168.43.167:50863/allbooks";
     final response = await http.get(url);
     if (response.statusCode == 200) {
 
@@ -56,7 +56,7 @@ class BookFeed2 extends State<BookFeedState> {
          itemCount: this.books != null ? this.books.length : 0,
          itemBuilder: (context, i) {
            final book = this.books[i];
-           return new BookFeed(id: book["id"], author: book["author"], likes: book["likes"], title: book["title"], description: book["description"], imageURL: book["image"], pdfURL: "http://www.africau.edu/images/default/sample.pdf");//book["pdf"]);
+           return new BookFeed(id: book["id"], author: book["author"], likes: book["likes"], title: book["title"], description: book["description"], imageURL: book["image"], pdfURL: book["pdf"]);
          }
        )
      );
@@ -131,25 +131,32 @@ class BookFeed extends StatelessWidget {
                     if (!pdfFolderDir.existsSync()) {
                       pdfFolderDir.create(recursive: false);
                     }
-
-                    try {
-                      print("$pdfFileDir");
-                      await dio.download(pdfURL, pdfFileDir, onProgress: (rec, total) {
-                        print ("Rec: $rec , Total: $total");
-                      });
-                    } catch (e) {
-                      print (e);
-                    }
                     if (FileSystemEntity.typeSync(pdfFileDir) != FileSystemEntityType.notFound) {
-                      Scaffold.of(context).showSnackBar(new SnackBar(
-                        content: new Text("$title was successfully downloaded."),
-                        duration: Duration(seconds: 1),
-                      ));
+                        Scaffold.of(context).showSnackBar(new SnackBar(
+                          content: new Text("$title Is already downloaded."),
+                          duration: Duration(seconds: 1),
+                        ));
+                        return;
                     } else {
-                      Scaffold.of(context).showSnackBar(new SnackBar(
-                        content: new Text("Something Went Wrong. File was not downloaded."),
-                        duration: Duration(seconds: 1),
-                      ));
+                      try {
+                        print("$pdfFileDir");
+                        await dio.download(pdfURL, pdfFileDir, onProgress: (rec, total) {
+                          print ("Rec: $rec , Total: $total");
+                        });
+                      } catch (e) {
+                        print (e);
+                      }
+                      if (FileSystemEntity.typeSync(pdfFileDir) != FileSystemEntityType.notFound) {
+                        Scaffold.of(context).showSnackBar(new SnackBar(
+                          content: new Text("$title was successfully downloaded."),
+                          duration: Duration(seconds: 1),
+                        ));
+                      } else {
+                        Scaffold.of(context).showSnackBar(new SnackBar(
+                          content: new Text("Something Went Wrong. File was not downloaded."),
+                          duration: Duration(seconds: 1),
+                        ));
+                      }
                     }
                     print("downloaded: ${dir.path}/$fileName.pdf");
                   },

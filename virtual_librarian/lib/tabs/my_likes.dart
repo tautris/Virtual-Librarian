@@ -22,6 +22,9 @@ class MyLikesView extends State<MyLikesState> {
   Future<List<DownloadedBook>> _fetchDownloadedBooks () async {
     var dir = await getApplicationDocumentsDirectory();
     var pdfFolderDir = new Directory("${dir.path}/pdf");
+    if (!pdfFolderDir.existsSync()) {
+      pdfFolderDir.create(recursive: false);
+    }
     var _filesPDF = pdfFolderDir.listSync(recursive: false, followLinks: false);
     var fileslist = _filesPDF.toList();
     List<String> pdfList = new List();
@@ -30,7 +33,7 @@ class MyLikesView extends State<MyLikesState> {
       pdfList.add(filename.replaceAll(".pdf", ""));
     });
 
-    final url = "http://192.168.0.19:8081/GetBook";
+    final url = "http://192.168.43.167:50863/book";
     var client = new Client();
     List<Response> bookList = await Future.wait(pdfList.map((bookId) => client.get("$url/$bookId")));
     return bookList.map((response){
@@ -80,8 +83,7 @@ class LikedBooks extends StatelessWidget {
       onTap: () async {
         var dir = await getApplicationDocumentsDirectory();
         var fileName = id;
-        var path = "${dir.path}/$fileName.pdf";
-        //FIXME: check if file exists
+        var path = "${dir.path}/pdf/$fileName.pdf";
         if (FileSystemEntity.typeSync(path) != FileSystemEntityType.notFound) {
           try {
             Scaffold.of(context).showSnackBar(new SnackBar(
@@ -113,10 +115,7 @@ class LikedBooks extends StatelessWidget {
               new Container(
                 margin: const EdgeInsets.only(top: 4.0, bottom: 4.0, right: 10.0),
                 child: new CircleAvatar(
-                  // backgroundImage: new NetworkImage(
-                  //   'http://thecatapi.com/api/images/get?format=src'
-                  //     '&size=small&type=jpg#${title.hashCode}'
-                  // ),
+                  backgroundImage: new NetworkImage(imageURL),
                   radius: 20.0,
                 ),
               ),
