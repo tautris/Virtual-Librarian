@@ -1,54 +1,42 @@
-# Virtual-Librarian
-Applied Object-Oriented Programming exercises
+﻿# Virtual-Librarian
+Applied Object-Oriented Programming
 
-iki 10-09 (kitos pratybos TOP)
+**Native iOS and Android Application, allowing users to read eBooks in PDF Format.**
 
-Funkcionalumas:
-1. Prisijungimas vartotojo(būtų idealu jei veido atpažinimas, bet jei nepaeis tai tarkim su usernamu pirmam atsiskaitymui)
-2. Gali pasiimti knygą. Mato bibliotekos laisvų knygų sąrašą.
-3. Paspaudžia ant knygos kurią nori pasiimt tarkim atsidaro kažkoks ten langas su daugiau info apie tą knygą ir ok jam viskas tinka spaudžia paimt.
-4. Pasiėmė knygą mato paimtų knygų savo sąrašą.
-5. Tam paimtų knygų sąraše gali paspaust ant knygos ir ją grąžinti.
-6. Išsilogina.
-
-5 formos:
-* prisijungimui
-* knygų laisvų sąrašas
-* vienos knygos info langas su galimybe ją pasiimt
-* tavo turimų knygų sąrašas(kažkaip vistiek skiriasi nuo šiaip bibliotekos laisvų knygų sąrašo)
-* knygos grąžinimo kaip patvirtinimo langas???
-
-klausimai?
-* ar vartotojas gali pats prisiregistruot ar tarkim jį turi adminas priregistruot
-* ką adminas gali daryt jei yra adminas (kažkas turi įdėt knygas naujas ar kažkas tokio)
-
-extra ateičiai:
-* vartotojas gali turėt 5knygas pasiėmęs vienu metu
-* mygtukas "suprise me" pagal skaitytų knygų istoriją jam biblioteka pasiūlo įdomią knygą ale panašią.
-* prisispausdinam QR kodų ant visokių ale knygų priklijuojam, QR kodas saugos kiekvieno egzemplioriaus info ir kai vartotojas nori pasiimt knygą jis prisijungęs skanuoja QR kodą.
-* atlikinėti paiešką bibliotekos knygų ir tarkim jei ji jau yra paimta kito žmogaus ją rezervuot ir kai bus grąžinta tu būsi ją rezervavęs.
-* vartotojui prisijungus rodo šiaip kokias naujas knygas bibliotekoje, gal jam atrodys įdomu.
-* rodo pagal knygų istoriją kiek puslapių jis jau yra perskaitęs.
-
-
-## 1st TASK (10-22!!!)
+##### Tasks for 12/04
+ - Implement Front End design pattern, to separate logic from views (e. g. MVP)
+ - Implement Front End Face Detection (Google ML Kit)
  
-* Official goal: to develop an app while working in groups while using material covered in 1-6 lectures. 
+#### Tasks for 12/11
+ - Implement DataBase using Entity Framework
+ - Draw Entity Relationship diagram
+ - Make sure, that App works in iOS
+ - *//TODO:*
 
-* Unofficial goal: to develop an app in Windows Forms, that has basic functionality of assigned APP. Understand the usage of GitHub, coding in team principles. Learn to code review yourself and take the feedback when getting one.
+### How to - Back End:
+ - Install all required dependencies from nuget packet manager
+ - Change project's URL from localhost:port -> 127.0.0.1:port (e. g. 127.0.0.1:50863)
+ - Open "../Virtual Librarian/.vs/config/applicationhost.config" and bindignInformation of most recent Site (by ID) to "*:port:*" (e. g. bindingInformation=* :50863:*)
+ - Run Solution
 
-* Requirements:
 
-   * Creating and using your own class, struct and enum (with flag(s), preferably).
-   * Property (standard, indexed, auto-implemented) usage in struct and class.
-   * Named and optional argument usage.
-   * Extension method usage.
-   * Reading from file.
-   * Generic type usage.
-   * Regex.
-   * Widening and narrowing type conversions.
-   * Putting data to collection, iterating through it the right way.
-   * LINQ to Objects usage (methods and queries), including groupJoin.
-   * Implementing some of the standard .NET interfaces (IEnumerable, IComparable, IComparer, IEquatable, IEnumerator, etc.) 
-   
+### How to - Front End (using android):
+ - InstalL Flutter SDK
+ - Install Android SDK
+ - Run "flutter doctor" in terminal to check for faults
+ - Open front end project's directory in terminal and run "flutter run"
+
+### How to - Access backend from mobile device
+ - Connect hosting machine to mobile device's Hotspot
+ - Change flutter's endpoints to IPV4 address of hosting Machine
+ - Disable all firewalls in hosting Machine
+ - Change Network to private type on hosting Machine
  
+*If faced with any difficulties, contact with tautvydas.dirmeikis@mif.stud.vu.lt*
+
+#### TEAM
+ - Agota Kazėnaitė
+ - Tautrimas Gumbys
+ - Domantas Mitrius
+ - Simonas Briedis
+ - Tautvydas Dirmeiki
