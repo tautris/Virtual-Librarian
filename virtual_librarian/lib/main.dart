@@ -1,6 +1,6 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:virtual_librarian/login_screen.dart';
+import 'package:virtual_librarian/data/dependency_injection.dart';
 
 import 'package:virtual_librarian/routes.dart';
 import 'package:flutter/services.dart';
@@ -9,6 +9,7 @@ import 'package:virtual_librarian/splash_screen.dart';
 List<CameraDescription> cameras;
 
 Future<Null> main() async {
+  Injector.configure(Flavor.MOCK);
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);
@@ -29,7 +30,7 @@ class LibrarianApp extends StatelessWidget {
       ),
       title: 'Virtual Librarian',
       debugShowCheckedModeBanner: false,
-      home: LoginPage(cameras),
+      home: SplashScreen(cameras),//LoginPage(cameras),
       routes: routes,
     ); 
   }

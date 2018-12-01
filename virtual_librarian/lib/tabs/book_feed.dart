@@ -5,39 +5,31 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:virtual_librarian/data/book_feed/feed_book.dart';
+import 'package:virtual_librarian/modules/book_feed/book_feed_presenter.dart';
 
-class BookFeedState extends StatefulWidget {  
+class BookFeed extends StatefulWidget {  
   @override
   State<StatefulWidget> createState() {
-    return BookFeed2();
+    return _BookFeedState();
   }
 }
 
-class BookFeed2 extends State<BookFeedState> {
+class _BookFeedState extends State<BookFeed> implements BookFeedListViewContract{
+  BookFeedListPresenter _presenter;
+  
   var _isLoading = true;
 
-  var books;
+  List<FeedBook>  books;
 
-  _fetchBookData() async {
-    print("Fetching book data");
-
-    final url = "http://192.168.43.167:50863/allbooks";
-    final response = await http.get(url);
-    if (response.statusCode == 200) {
-
-      final booksJson = json.decode(response.body);
-      
-      if (this.mounted) {
-        setState(() {
-          _isLoading = false;
-          this.books = booksJson;
-        });
-      }
-    }
+  _BookFeedState() {
+    _presenter = new BookFeedListPresenter(this);
   }
 
-  _likeBook() async {
-    //TODO implement post to like book
+  @override 
+  void initState() {
+    super.initState();
+    _presenter.loadBooks();
   }
 
   @override
@@ -49,32 +41,38 @@ class BookFeed2 extends State<BookFeedState> {
           child: CircularProgressIndicator()
         )        
       );
-      _fetchBookData();
     } else {
      childView = (
        new ListView.builder(
          itemCount: this.books != null ? this.books.length : 0,
          itemBuilder: (context, i) {
            final book = this.books[i];
-           return new BookFeed(id: book["id"], author: book["author"], likes: book["likes"], title: book["title"], description: book["description"], imageURL: book["image"], pdfURL: book["pdf"]);
+           return new BookFeedModel(book);
          }
        )
      );
     }
     return childView;
   }
+
+  @override
+  void onLoadFeedComplete(List<FeedBook> items) {
+    setState(() {
+      _isLoading = false;
+      books = items;
+    });
+  }
+
+  @override
+  void onLoadFeedError() {
+    print("error happened");
+  }
 }
 
-class BookFeed extends StatelessWidget {
-  const BookFeed({ this.id, this.title, this.author, this.likes, this.description, this.imageURL, this.pdfURL });
+class BookFeedModel extends StatelessWidget {
+  const BookFeedModel(this.book);
 
-  final int id;
-  final String title;
-  final String author;
-  final int likes;
-  final String description;
-  final String imageURL;
-  final String pdfURL;
+  final FeedBook book;
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +98,7 @@ class BookFeed extends StatelessWidget {
               new Container(
                 margin: const EdgeInsets.only(top: 4.0, bottom: 4.0, right: 10.0),
                 child: new CircleAvatar(
-                  backgroundImage: new NetworkImage(imageURL),
+                  backgroundImage: new NetworkImage(book.imageURL),
                   radius: 20.0,
                 ),
               ),
@@ -110,8 +108,8 @@ class BookFeed extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      new Text(title, style: textTheme.subhead),
-                      new Text(author, style: textTheme.caption),
+                      new Text(book.title, style: textTheme.subhead),
+                      new Text(book.author, style: textTheme.caption),
                     ],
                   ),
                 ),
@@ -121,10 +119,9 @@ class BookFeed extends StatelessWidget {
                 child: new InkWell(
                   child: new Icon(Icons.backup, size: 40.0),
                   onTap: () async {
-                    //FIXME: check if file exists
                     Dio dio = Dio();
                     var dir = await getApplicationDocumentsDirectory();
-                    var fileName = id.toString();
+                    var fileName = book.id.toString();
                     var pdfFileDir = "${dir.path}/pdf/$fileName.pdf";
 
                     var pdfFolderDir = new Directory("${dir.path}/pdf");
@@ -133,14 +130,14 @@ class BookFeed extends StatelessWidget {
                     }
                     if (FileSystemEntity.typeSync(pdfFileDir) != FileSystemEntityType.notFound) {
                         Scaffold.of(context).showSnackBar(new SnackBar(
-                          content: new Text("$title Is already downloaded."),
+                          content: new Text("${book.title} Is already downloaded."),
                           duration: Duration(seconds: 1),
                         ));
                         return;
                     } else {
                       try {
                         print("$pdfFileDir");
-                        await dio.download(pdfURL, pdfFileDir, onProgress: (rec, total) {
+                        await dio.download(book.pdfURL, pdfFileDir, onProgress: (rec, total) {
                           print ("Rec: $rec , Total: $total");
                         });
                       } catch (e) {
@@ -148,7 +145,7 @@ class BookFeed extends StatelessWidget {
                       }
                       if (FileSystemEntity.typeSync(pdfFileDir) != FileSystemEntityType.notFound) {
                         Scaffold.of(context).showSnackBar(new SnackBar(
-                          content: new Text("$title was successfully downloaded."),
+                          content: new Text("${book.title} was successfully downloaded."),
                           duration: Duration(seconds: 1),
                         ));
                       } else {
@@ -170,7 +167,7 @@ class BookFeed extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
                       new Icon(Icons.favorite, size: 25.0),
-                      new Text('${likes ?? ''}'),
+                      new Text('${book.likes}'),
                     ],
                   ),
                   onTap: () {

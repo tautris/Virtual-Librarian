@@ -72,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   build(BuildContext context) {
     final Map<String, Widget> pages = <String, Widget>{
-      'Book Feed': new BookFeedState(),
+      'Book Feed': new BookFeed(),
       'My Books': new MyLikesState(),
       'My Stats': new Center(
         child: new Text('Graphs. Future Release 1.1'),
