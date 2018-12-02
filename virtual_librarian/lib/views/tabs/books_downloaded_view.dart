@@ -1,11 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'dart:convert';
-
 import 'package:open_file/open_file.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart';
 
 import 'package:virtual_librarian/data/book_downloaded/downloaded_book.dart';
 import 'package:virtual_librarian/modules/book_downloaded/book_downloaded_presenter.dart';
@@ -38,7 +33,7 @@ class _MyBooksState extends State<MyBooks> implements DownloadedBookListViewCont
 
   @override
   void deleteBookError() {
-    // TODO: implement deleteBookError
+    print("VIEW. Delete Book Error happened.");
   }
 
   @override
@@ -86,10 +81,10 @@ class _MyBooksState extends State<MyBooks> implements DownloadedBookListViewCont
                                     book: book,
                                     deleteBookAction: (){
                                       _presenter.deleteBook(book.id);
-                                      // setState(() {
-                                      //   _isLoading = true;
-                                      //   _presenter.loadBooks();
-                                      // });
+                                      setState(() {
+                                        _isLoading = true;
+                                        _presenter.loadBooks();
+                                      });
                                     },
                                     openBookAction: (){
                                       setState(() {
@@ -125,26 +120,6 @@ class DownloadedBookWidget extends StatelessWidget {
       .textTheme;
     return new GestureDetector (
       onTap: openBookAction,
-      //  () async {
-      //   var dir = await getApplicationDocumentsDirectory();
-      //   var path = "${dir.path}/pdf/${book.id}.pdf";
-      //   if (FileSystemEntity.typeSync(path) != FileSystemEntityType.notFound) {
-      //     try {
-      //       Scaffold.of(context).showSnackBar(new SnackBar(
-      //         duration: Duration(seconds: 1),
-      //         content: new Text("Opening PDF..."),
-      //       ));
-      //       OpenFile.open("${dir.path}/pdf/${book.id}}.pdf");
-      //     } catch (e) {
-      //       print (e);
-      //     }
-      //   } else {
-      //     Scaffold.of(context).showSnackBar(new SnackBar(
-      //       duration: Duration(seconds: 1),
-      //       content: new Text("${book.title} PDF File does not exist"),
-      //     ));
-      //   }
-      // },
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 5.0),
         padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),

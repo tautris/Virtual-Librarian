@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:virtual_librarian/views/tabs/books_feed_view.dart';
 import 'package:virtual_librarian/views/tabs/books_downloaded_view.dart';
 
@@ -88,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
               gradient: new LinearGradient(
                 begin: FractionalOffset.topCenter,
                 end: FractionalOffset.bottomCenter,
-                colors:  [Color (0xFF3F8F8F), Color(0xCF3F3F3F)],//[const Color(0xFF915FB5), const Color(0xFFCA436B)],
+                colors:  [Color (0xFF3F8F8F), Color(0xCF3F3F3F)],
                 stops: [0.0, 1.0],
               )
           ),
@@ -99,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: new Text(
                 'P  I  R  M  A  G  R  U  P  E',
                 style: textTheme.headline.copyWith(
-                  color:  Color.fromARGB(55, 20, 72, 72).withOpacity(0.8),//Colors.grey.shade800.withOpacity(0.8),
+                  color:  Color.fromARGB(55, 20, 72, 72).withOpacity(0.8),
                   fontWeight: FontWeight.bold,
                 ),
               ),

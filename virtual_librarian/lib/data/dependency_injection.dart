@@ -1,5 +1,3 @@
-
-
 import 'package:virtual_librarian/data/book_downloaded/downloaded_book.dart';
 import 'package:virtual_librarian/data/book_downloaded/downloaded_book_data.dart';
 import 'package:virtual_librarian/data/book_downloaded/downloaded_book_data_mock.dart';

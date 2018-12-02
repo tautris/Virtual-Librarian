@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:http/http.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+
 import 'package:virtual_librarian/data/book_downloaded/downloaded_book.dart';
 
 class BookDownloadedRepositoryData implements BookDownloadedRepository {
@@ -42,28 +42,7 @@ class BookDownloadedRepositoryData implements BookDownloadedRepository {
       throw new DeleteBookException("ERROR: File was not found.");
     }
   }
-
-        //  () async {
-      //   var dir = await getApplicationDocumentsDirectory();
-      //   var path = "${dir.path}/pdf/${book.id}.pdf";
-      //   if (FileSystemEntity.typeSync(path) != FileSystemEntityType.notFound) {
-      //     try {
-      //       Scaffold.of(context).showSnackBar(new SnackBar(
-      //         duration: Duration(seconds: 1),
-      //         content: new Text("Opening PDF..."),
-      //       ));
-      //       OpenFile.open("${dir.path}/pdf/${book.id}}.pdf");
-      //     } catch (e) {
-      //       print (e);
-      //     }
-      //   } else {
-      //     Scaffold.of(context).showSnackBar(new SnackBar(
-      //       duration: Duration(seconds: 1),
-      //       content: new Text("${book.title} PDF File does not exist"),
-      //     ));
-      //   }
-      // },
-
+  
   Future <List<String>> getDownloadedIdList() async {
     var dir = await getApplicationDocumentsDirectory();
     var pdfFolderDir = new Directory("${dir.path}/pdf");

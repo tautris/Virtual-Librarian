@@ -1,8 +1,7 @@
-import 'dart:convert';
 import 'dart:io';
-import 'package:http/http.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
+
 import 'package:virtual_librarian/data/book_downloaded/downloaded_book.dart';
 
 class BookDownloadedRepositoryMock implements BookDownloadedRepository {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:virtual_librarian/data/book_feed/feed_book.dart';
 import 'package:virtual_librarian/modules/book_feed/book_feed_presenter.dart';
 
@@ -50,6 +51,9 @@ class _BookFeedState extends State<BookFeed> implements BookFeedListViewContract
                                         _isDownloading = true;
                                       });
                                       _presenter.downloadBookFile(book.id, book.pdfURL);
+                                      setState(() {
+                                        _isDownloading = false;
+                                      });
                                     },
                                     likeBookAction: (){
                                       _presenter.likeBook(book.id);
@@ -75,13 +79,6 @@ class _BookFeedState extends State<BookFeed> implements BookFeedListViewContract
   }
 
   @override
-  void downloadBookComplete() {
-      setState(() {
-        _isDownloading = false;
-      });
-  }
-
-  @override
   void downloadBookError() {
     print("VIEW. Download Book error happened");
   }
@@ -89,7 +86,7 @@ class _BookFeedState extends State<BookFeed> implements BookFeedListViewContract
   @override 
   void likeBookComplete() {
     setState(() {
-      //TODO: Implement like state
+      //TODO: Implement Real time Like addition / refresh books?
     });
   }
 

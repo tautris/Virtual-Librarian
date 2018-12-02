@@ -101,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
           gradient: new LinearGradient(
             begin: FractionalOffset.topLeft,
             end: FractionalOffset.bottomRight,
-            colors:  [Color (0xFF3F8F8F), Color(0xCF3F3F3F)],//[const Color(0xFF915FB5), const Color(0xFFCA436B)],
+            colors:  [Color (0xFF3F8F8F), Color(0xCF3F3F3F)],
             stops: [0.0,1.0],
             tileMode: TileMode.clamp
           )

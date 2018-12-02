@@ -42,7 +42,6 @@ class _SplashScreenState extends State<SplashScreen> {
             ],
             textStyle: TextStyle(
                 fontSize: 30.0,
-                //fontFamily: "Agne"
             ),
           ),
         )
