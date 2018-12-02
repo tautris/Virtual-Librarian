@@ -7,11 +7,11 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:async';
 
-class ProdBookFeedRepository implements BookFeedRepository {
+class BookFeedRepositoryData implements BookFeedRepository {
   String bookFeedUrl = "https://api.myjson.com/bins/xmt8a"; //TODO: Add real URL
 
   @override
-  Future<List<FeedBook>> fetchBooks() async {
+  Future <List<FeedBook>> fetchBooks() async {
     http.Response response = await http.get(bookFeedUrl);
     final List responseBody = json.decode(response.body);
     final statusCode = response.statusCode;

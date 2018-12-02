@@ -2,10 +2,10 @@ import 'dart:async';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:virtual_librarian/login_screen.dart';
-import 'package:virtual_librarian/home_screen.dart';
+import 'package:virtual_librarian/views/login_screen.dart';
+import 'package:virtual_librarian/views/home_screen.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:virtual_librarian/register_screen.dart';
+import 'package:virtual_librarian/views/register_screen.dart';
 
 
 class SplashScreen extends StatefulWidget {

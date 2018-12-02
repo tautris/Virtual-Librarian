@@ -4,7 +4,7 @@ import 'package:virtual_librarian/data/dependency_injection.dart';
 
 import 'package:virtual_librarian/routes.dart';
 import 'package:flutter/services.dart';
-import 'package:virtual_librarian/splash_screen.dart';
+import 'package:virtual_librarian/views/splash_screen.dart';
 
 List<CameraDescription> cameras;
 

@@ -1,5 +1,8 @@
 
 
+import 'package:virtual_librarian/data/book_downloaded/downloaded_book.dart';
+import 'package:virtual_librarian/data/book_downloaded/downloaded_book_data.dart';
+import 'package:virtual_librarian/data/book_downloaded/downloaded_book_data_mock.dart';
 import 'package:virtual_librarian/data/book_feed/book_feed_data.dart';
 import 'package:virtual_librarian/data/book_feed/book_feed_data_mock.dart';
 import 'package:virtual_librarian/data/book_feed/feed_book.dart';
@@ -22,8 +25,15 @@ class Injector {
 
   BookFeedRepository get bookFeedRepository{
     switch (_flavor) {
-      case Flavor.MOCK: return new MockBookFeedRepository();
-      default: return new ProdBookFeedRepository();
+      case Flavor.MOCK: return new BookFeedRepositoryMock();
+      default: return new BookFeedRepositoryData();
+    }
+  }
+
+  BookDownloadedRepository get bookDownloadedRepository{
+    switch (_flavor) {
+      case Flavor.MOCK: return new BookDownloadedRepositoryMock();
+      default: return new BookDownloadedRepositoryData();
     }
   }
 }

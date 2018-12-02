@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:virtual_librarian/tabs/book_feed.dart';
-import 'package:virtual_librarian/tabs/my_likes.dart';
+import 'package:virtual_librarian/views/tabs/books_feed_view.dart';
+import 'package:virtual_librarian/views/tabs/books_downloaded_view.dart';
 
 class HomeScreenState extends StatelessWidget {
   static String tag = 'home-page';
@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
   build(BuildContext context) {
     final Map<String, Widget> pages = <String, Widget>{
       'Book Feed': new BookFeed(),
-      'My Books': new MyLikesState(),
+      'My Books': new MyBooks(),
       'My Stats': new Center(
         child: new Text('Graphs. Future Release 1.1'),
       ),

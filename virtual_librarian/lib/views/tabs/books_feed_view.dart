@@ -12,8 +12,8 @@ class BookFeed extends StatefulWidget {
 class _BookFeedState extends State<BookFeed> implements BookFeedListViewContract{
   BookFeedListPresenter _presenter;
   
-  var _isLoading = true;
-  var _isDownloading = false;
+  bool _isLoading = true;
+  bool _isDownloading = false;
   var downloadBookAction;
 
   List<FeedBook>  books;
@@ -50,10 +50,10 @@ class _BookFeedState extends State<BookFeed> implements BookFeedListViewContract
                                         _isDownloading = true;
                                       });
                                       _presenter.downloadBookFile(book.id, book.pdfURL);
-                                    });
+                                    },
                                     likeBookAction: (){
                                       _presenter.likeBook(book.id);
-                                    };
+                                    });
          }
        )
      );

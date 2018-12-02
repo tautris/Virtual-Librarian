@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 
-import 'package:virtual_librarian/home_screen.dart';
-import 'package:virtual_librarian/register_screen.dart';
+import 'package:virtual_librarian/views/home_screen.dart';
+import 'package:virtual_librarian/views/register_screen.dart';
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';

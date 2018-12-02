@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:virtual_librarian/home_screen.dart';
+import 'package:virtual_librarian/views/home_screen.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class RegisterPage extends StatefulWidget {
