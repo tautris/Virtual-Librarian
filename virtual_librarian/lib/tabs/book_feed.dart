@@ -1,10 +1,4 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:dio/dio.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:virtual_librarian/data/book_feed/feed_book.dart';
 import 'package:virtual_librarian/modules/book_feed/book_feed_presenter.dart';
 
@@ -19,6 +13,8 @@ class _BookFeedState extends State<BookFeed> implements BookFeedListViewContract
   BookFeedListPresenter _presenter;
   
   var _isLoading = true;
+  var _isDownloading = false;
+  var downloadBookAction;
 
   List<FeedBook>  books;
 
@@ -47,7 +43,17 @@ class _BookFeedState extends State<BookFeed> implements BookFeedListViewContract
          itemCount: this.books != null ? this.books.length : 0,
          itemBuilder: (context, i) {
            final book = this.books[i];
-           return new BookFeedModel(book);
+           return new BookFeedWidget(
+                                    book: book,
+                                    downloadBookAction: (){
+                                      setState(() {
+                                        _isDownloading = true;
+                                      });
+                                      _presenter.downloadBookFile(book.id, book.pdfURL);
+                                    });
+                                    likeBookAction: (){
+                                      _presenter.likeBook(book.id);
+                                    };
          }
        )
      );
@@ -65,14 +71,44 @@ class _BookFeedState extends State<BookFeed> implements BookFeedListViewContract
 
   @override
   void onLoadFeedError() {
-    print("error happened");
+    print("VIEW. Load Feed error happened");
+  }
+
+  @override
+  void downloadBookComplete() {
+      setState(() {
+        _isDownloading = false;
+      });
+  }
+
+  @override
+  void downloadBookError() {
+    print("VIEW. Download Book error happened");
+  }
+
+  @override 
+  void likeBookComplete() {
+    setState(() {
+      //TODO: Implement like state
+    });
+  }
+
+  @override
+  void likebookError() {
+    print("VIEW. Like Book error happened");
   }
 }
 
-class BookFeedModel extends StatelessWidget {
-  const BookFeedModel(this.book);
-
+class BookFeedWidget extends StatelessWidget {
   final FeedBook book;
+  final VoidCallback downloadBookAction;
+  final VoidCallback likeBookAction;
+
+  BookFeedWidget({
+    this.book, 
+    this.downloadBookAction,
+    this.likeBookAction
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -118,45 +154,7 @@ class BookFeedModel extends StatelessWidget {
                 margin: new EdgeInsets.symmetric(horizontal: 5.0),
                 child: new InkWell(
                   child: new Icon(Icons.backup, size: 40.0),
-                  onTap: () async {
-                    Dio dio = Dio();
-                    var dir = await getApplicationDocumentsDirectory();
-                    var fileName = book.id.toString();
-                    var pdfFileDir = "${dir.path}/pdf/$fileName.pdf";
-
-                    var pdfFolderDir = new Directory("${dir.path}/pdf");
-                    if (!pdfFolderDir.existsSync()) {
-                      pdfFolderDir.create(recursive: false);
-                    }
-                    if (FileSystemEntity.typeSync(pdfFileDir) != FileSystemEntityType.notFound) {
-                        Scaffold.of(context).showSnackBar(new SnackBar(
-                          content: new Text("${book.title} Is already downloaded."),
-                          duration: Duration(seconds: 1),
-                        ));
-                        return;
-                    } else {
-                      try {
-                        print("$pdfFileDir");
-                        await dio.download(book.pdfURL, pdfFileDir, onProgress: (rec, total) {
-                          print ("Rec: $rec , Total: $total");
-                        });
-                      } catch (e) {
-                        print (e);
-                      }
-                      if (FileSystemEntity.typeSync(pdfFileDir) != FileSystemEntityType.notFound) {
-                        Scaffold.of(context).showSnackBar(new SnackBar(
-                          content: new Text("${book.title} was successfully downloaded."),
-                          duration: Duration(seconds: 1),
-                        ));
-                      } else {
-                        Scaffold.of(context).showSnackBar(new SnackBar(
-                          content: new Text("Something Went Wrong. File was not downloaded."),
-                          duration: Duration(seconds: 1),
-                        ));
-                      }
-                    }
-                    print("downloaded: ${dir.path}/$fileName.pdf");
-                  },
+                  onTap: downloadBookAction
                 ),
               ),
               new Container(
@@ -170,13 +168,7 @@ class BookFeedModel extends StatelessWidget {
                       new Text('${book.likes}'),
                     ],
                   ),
-                  onTap: () {
-                    // TODO(implement post like)
-                    Scaffold.of(context).showSnackBar(new SnackBar(
-                      content: new Text("You have liked the Book"),
-                      duration: Duration(seconds: 1),
-                    ));
-                  },
+                  onTap: likeBookAction
                 ),
               ),
             ],

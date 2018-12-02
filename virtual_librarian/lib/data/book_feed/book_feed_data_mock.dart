@@ -8,6 +8,18 @@ class MockBookFeedRepository implements BookFeedRepository {
   Future<List<FeedBook>> fetchBooks() {
     return new Future.value(books);
   }
+
+  @override
+  Future downloadBook(int id, String pdfUrl) {
+    // TODO: implement downloadBook
+    return null;
+  }
+
+  @override
+  Future likeBook(int id) {
+    // TODO: implement likeBook
+    return null;
+  }
 }
 
 var books = <FeedBook>[
