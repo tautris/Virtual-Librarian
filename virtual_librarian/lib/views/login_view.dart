@@ -65,12 +65,19 @@ class _LoginPageState extends State<LoginPage> implements LoginViewContract {
         child:  new CircularProgressIndicator(),
       )
       : Container (
+        height: 250.0,
+        padding: new EdgeInsets.only(left: 25.0, right: 25.0),
         child: ClipOval(
           child: new CustomPaint (
             foregroundPainter:  new GuidelinePainter(),
-            child: new AspectRatio(
-              aspectRatio: 0.5625, //TODO: Fix aspect Ratio, maybe controller.value.aspectRatio,
-              child: new CameraPreview(cameraController)
+            child: Transform.scale(
+              scale: 1,
+              child: Center (
+                child: AspectRatio(
+                  aspectRatio: cameraController.value.aspectRatio,
+                  child: new CameraPreview(cameraController)
+                )
+              )
             ),
           )
         ),
