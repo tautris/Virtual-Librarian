@@ -2,39 +2,55 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:virtual_librarian/modules/login/login_presenter.dart';
 
 import 'package:virtual_librarian/views/home_screen.dart';
 import 'package:virtual_librarian/views/register_screen.dart';
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';
-
-  List<CameraDescription> cameras;
-
-  LoginPage(this.cameras);
-
   @override
   _LoginPageState createState() => new _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  CameraController controller;
+class _LoginPageState extends State<LoginPage> implements LoginViewContract {
+  LoginPresenter _presenter;
+
+  bool _isCameraLoading = true;
+
+  CameraController cameraController;
+
+  _LoginPageState() {
+    _presenter = new LoginPresenter(this);
+  }
 
   @override
   void initState() {
     super.initState();
-    controller = new CameraController(widget.cameras[1], ResolutionPreset.high);
-    controller.initialize().then((_) {
+    _presenter.loadCameras();
+  }
+
+  @override
+  void onLoadCameraComplete(List<CameraDescription> cameras) {
+    cameraController = new CameraController(cameras[1], ResolutionPreset.high);
+    cameraController.initialize().then((_) {
       if (!mounted) {
         return;
       }
-      setState((){});
+      setState(() {
+        _isCameraLoading = false;
+      });
     });
   }
 
   @override
+  void onLoadCameraError() {
+    print("VIEW. Load Camera error happened");
+  }
+
+  @override
   void dispose() {
-    controller?.dispose();
+    cameraController?.dispose();
     super.dispose();
   }
 
@@ -42,19 +58,22 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final face = Hero(
       tag: 'UserFace',
-      child: Container(
+      child: _isCameraLoading ? 
+      Container(
         height: 250.0,
         padding: new EdgeInsets.only(left: 25.0, right: 25.0),
-        child: ClipOval (
+        child:  new CircularProgressIndicator(),
+      )
+      : Container (
+        child: ClipOval(
           child: new CustomPaint (
-            foregroundPainter: new GuidelinePainter(),
+            foregroundPainter:  new GuidelinePainter(),
             child: new AspectRatio(
-              aspectRatio: 0.5625,//controller.value.aspectRatio,
-              child: new CameraPreview(controller)
-            )
+              aspectRatio: 0.5625, //TODO: Fix aspect Ratio, maybe controller.value.aspectRatio,
+              child: new CameraPreview(cameraController)
+            ),
           )
-        )
-      //new CircularProgressIndicator(),//Image.asset('assets/login_icon.png'),
+        ),
       )
     );
 

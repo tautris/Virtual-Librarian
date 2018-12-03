@@ -4,6 +4,8 @@ import 'package:virtual_librarian/data/book_downloaded/downloaded_book_data_mock
 import 'package:virtual_librarian/data/book_feed/book_feed_data.dart';
 import 'package:virtual_librarian/data/book_feed/book_feed_data_mock.dart';
 import 'package:virtual_librarian/data/book_feed/feed_book.dart';
+import 'package:virtual_librarian/data/login/login.dart';
+import 'package:virtual_librarian/data/login/login_data.dart';
 
 enum Flavor {MOCK, PROD}
 
@@ -33,5 +35,9 @@ class Injector {
       case Flavor.MOCK: return new BookDownloadedRepositoryMock();
       default: return new BookDownloadedRepositoryData();
     }
+  }
+
+  LoginRepository get loginRepository{
+    return new LoginRepositoryData();
   }
 }
