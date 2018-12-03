@@ -6,7 +6,7 @@ import 'package:virtual_librarian/data/dependency_injection.dart';
 abstract class DownloadedBookListViewContract {
   void onLoadDownloadedComplete(List<DownloadedBook> items);
   void onLoadDownloadedError();
-  void onRetrieveFilePathComplete(File path);
+  void onRetrieveFilePathComplete(String path);
   void openBookError();
   void deleteBookError();
 }

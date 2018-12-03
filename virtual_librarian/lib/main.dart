@@ -22,7 +22,6 @@ class LibrarianApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //return new LoginScreen();
     return new MaterialApp(
       theme: new ThemeData(
         brightness: Brightness.dark,

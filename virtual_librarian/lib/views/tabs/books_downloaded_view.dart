@@ -19,7 +19,7 @@ class _MyBooksState extends State<MyBooks> implements DownloadedBookListViewCont
   bool _isRetrievingFile = false;
 
   List<DownloadedBook> books;
-  File filePath;
+  String filePath;
 
   _MyBooksState() {
     _presenter = new BookDownloadedListPresenter(this);
@@ -45,10 +45,11 @@ class _MyBooksState extends State<MyBooks> implements DownloadedBookListViewCont
   }
 
   @override
-  void onRetrieveFilePathComplete(File path) {
+  void onRetrieveFilePathComplete(String path) {
     setState(() {
       filePath = path;
       _isRetrievingFile = false;
+      OpenFile.open(path);
     });
   }
 
@@ -87,12 +88,10 @@ class _MyBooksState extends State<MyBooks> implements DownloadedBookListViewCont
                                       });
                                     },
                                     openBookAction: (){
+                                      _presenter.openBook(book.id);
                                       setState(() {
                                         _isRetrievingFile = true;
-                                        _presenter.loadBooks();
                                       });
-                                      _presenter.openBook(book.id);
-                                      OpenFile.open(filePath);
                                     });
          }
        )

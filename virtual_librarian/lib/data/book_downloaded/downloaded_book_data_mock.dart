@@ -24,7 +24,7 @@ class BookDownloadedRepositoryMock implements BookDownloadedRepository {
 
     pdfList.forEach((id) {
       var idInt = int.parse(id);
-      downloadedBooks.add(books[idInt]);
+      downloadedBooks.add(books[idInt-1]);
     });    
     return downloadedBooks;
   }
