@@ -2,18 +2,14 @@ import 'dart:async';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:virtual_librarian/login_screen.dart';
-import 'package:virtual_librarian/home_screen.dart';
+import 'package:virtual_librarian/views/login_view.dart';
+import 'package:virtual_librarian/views/home_screen.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:virtual_librarian/register_screen.dart';
+import 'package:virtual_librarian/views/register_screen.dart';
 
 
 class SplashScreen extends StatefulWidget {
   static String tag = 'splash-screen';
-
-  //TODO Fix getting camera info in splash screen, not in main method
-  List<CameraDescription> cameras;
-  SplashScreen(this.cameras);
 
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -24,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(Duration(seconds: 3), () => Navigator.of(context).pushNamed(HomeScreenState.tag));
+    Timer(Duration(seconds: 3), () => Navigator.of(context).pushNamed(LoginPage.tag));
   }
 
   @override
@@ -42,7 +38,6 @@ class _SplashScreenState extends State<SplashScreen> {
             ],
             textStyle: TextStyle(
                 fontSize: 30.0,
-                //fontFamily: "Agne"
             ),
           ),
         )

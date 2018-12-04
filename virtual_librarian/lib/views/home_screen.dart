@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:virtual_librarian/tabs/book_feed.dart';
-import 'package:virtual_librarian/tabs/my_likes.dart';
+
+import 'package:virtual_librarian/views/tabs/books_feed_view.dart';
+import 'package:virtual_librarian/views/tabs/books_downloaded_view.dart';
 
 class HomeScreenState extends StatelessWidget {
   static String tag = 'home-page';
@@ -72,8 +73,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   build(BuildContext context) {
     final Map<String, Widget> pages = <String, Widget>{
-      'Book Feed': new BookFeedState(),
-      'My Books': new MyLikesState(),
+      'Book Feed': new BookFeed(),
+      'My Books': new MyBooks(),
       'My Stats': new Center(
         child: new Text('Graphs. Future Release 1.1'),
       ),
@@ -88,7 +89,7 @@ class _HomeScreenState extends State<HomeScreen> {
               gradient: new LinearGradient(
                 begin: FractionalOffset.topCenter,
                 end: FractionalOffset.bottomCenter,
-                colors:  [Color (0xFF3F8F8F), Color(0xCF3F3F3F)],//[const Color(0xFF915FB5), const Color(0xFFCA436B)],
+                colors:  [Color (0xFF3F8F8F), Color(0xCF3F3F3F)],
                 stops: [0.0, 1.0],
               )
           ),
@@ -99,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
               child: new Text(
                 'P  I  R  M  A  G  R  U  P  E',
                 style: textTheme.headline.copyWith(
-                  color:  Color.fromARGB(55, 20, 72, 72).withOpacity(0.8),//Colors.grey.shade800.withOpacity(0.8),
+                  color:  Color.fromARGB(55, 20, 72, 72).withOpacity(0.8),
                   fontWeight: FontWeight.bold,
                 ),
               ),

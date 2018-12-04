@@ -2,39 +2,55 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:virtual_librarian/modules/login/login_presenter.dart';
 
-import 'package:virtual_librarian/home_screen.dart';
-import 'package:virtual_librarian/register_screen.dart';
+import 'package:virtual_librarian/views/home_screen.dart';
+import 'package:virtual_librarian/views/register_screen.dart';
 
 class LoginPage extends StatefulWidget {
   static String tag = 'login-page';
-
-  List<CameraDescription> cameras;
-
-  LoginPage(this.cameras);
-
   @override
   _LoginPageState createState() => new _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
-  CameraController controller;
+class _LoginPageState extends State<LoginPage> implements LoginViewContract {
+  LoginPresenter _presenter;
+
+  bool _isCameraLoading = true;
+
+  CameraController cameraController;
+
+  _LoginPageState() {
+    _presenter = new LoginPresenter(this);
+  }
 
   @override
   void initState() {
     super.initState();
-    controller = new CameraController(widget.cameras[1], ResolutionPreset.high);
-    controller.initialize().then((_) {
+    _presenter.loadCameras();
+  }
+
+  @override
+  void onLoadCameraComplete(List<CameraDescription> cameras) {
+    cameraController = new CameraController(cameras[1], ResolutionPreset.high);
+    cameraController.initialize().then((_) {
       if (!mounted) {
         return;
       }
-      setState((){});
+      setState(() {
+        _isCameraLoading = false;
+      });
     });
   }
 
   @override
+  void onLoadCameraError() {
+    print("VIEW. Load Camera error happened");
+  }
+
+  @override
   void dispose() {
-    controller?.dispose();
+    cameraController?.dispose();
     super.dispose();
   }
 
@@ -42,19 +58,29 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     final face = Hero(
       tag: 'UserFace',
-      child: Container(
+      child: _isCameraLoading ? 
+      Container(
         height: 250.0,
         padding: new EdgeInsets.only(left: 25.0, right: 25.0),
-        child: ClipOval (
+        child:  new CircularProgressIndicator(),
+      )
+      : Container (
+        height: 250.0,
+        padding: new EdgeInsets.only(left: 25.0, right: 25.0),
+        child: ClipOval(
           child: new CustomPaint (
-            foregroundPainter: new GuidelinePainter(),
-            child: new AspectRatio(
-              aspectRatio: 0.5625,//controller.value.aspectRatio,
-              child: new CameraPreview(controller)
-            )
+            foregroundPainter:  new GuidelinePainter(),
+            child: Transform.scale(
+              scale: 1,
+              child: Center (
+                child: AspectRatio(
+                  aspectRatio: cameraController.value.aspectRatio,
+                  child: new CameraPreview(cameraController)
+                )
+              )
+            ),
           )
-        )
-      //new CircularProgressIndicator(),//Image.asset('assets/login_icon.png'),
+        ),
       )
     );
 
@@ -101,7 +127,7 @@ class _LoginPageState extends State<LoginPage> {
           gradient: new LinearGradient(
             begin: FractionalOffset.topLeft,
             end: FractionalOffset.bottomRight,
-            colors:  [Color (0xFF3F8F8F), Color(0xCF3F3F3F)],//[const Color(0xFF915FB5), const Color(0xFFCA436B)],
+            colors:  [Color (0xFF3F8F8F), Color(0xCF3F3F3F)],
             stops: [0.0,1.0],
             tileMode: TileMode.clamp
           )
