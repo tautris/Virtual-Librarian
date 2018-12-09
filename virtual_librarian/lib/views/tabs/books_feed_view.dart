@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:share/share.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:virtual_librarian/data/book_feed/feed_book.dart';
 import 'package:virtual_librarian/modules/book_feed/book_feed_presenter.dart';
@@ -59,7 +60,7 @@ class _BookFeedState extends State<BookFeed> implements BookFeedListViewContract
                                   },
                                   likeBookAction: (){
                                     _presenter.likeBook(book.id);
-                                  },
+                                  }
                                 );
          }
        )
@@ -86,16 +87,32 @@ class _BookFeedState extends State<BookFeed> implements BookFeedListViewContract
     print("VIEW. Download Book error happened");
   }
 
-  @override 
-  void likeBookComplete() {
-    setState(() {
-      //TODO: Implement Real time Like addition / refresh books?
-    });
-  }
-
   @override
   void likebookError() {
     print("VIEW. Like Book error happened");
+  }
+
+  @override
+  void onLikeComplete(bool success) {
+    if (success) {
+      Fluttertoast.showToast(
+        msg: "Liked!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 1,
+        backgroundColor: Color(0xFF6BFDD9),
+        textColor: Colors.black
+      );
+    } else {
+      Fluttertoast.showToast(
+        msg: "Failure",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white
+      );
+    }
   }
 }
 

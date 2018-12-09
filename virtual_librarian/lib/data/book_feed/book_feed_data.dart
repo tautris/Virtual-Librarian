@@ -54,8 +54,14 @@ class BookFeedRepositoryData implements BookFeedRepository {
   }
 
   @override
-  Future likeBook(int id) {
-    // TODO: implement likeBook
-    return null;
+  Future <bool> likeBook(int id) async {
+    bool success;
+    var url = "http://example.com/likeBook/$id";  //TODO: change URL
+
+    await http.post(url, body: {"name": "User1"})
+    .then((response) {
+      success = json.decode(response.body)[success];
+    });
+    return success;
   }
 }

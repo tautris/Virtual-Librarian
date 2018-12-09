@@ -42,9 +42,9 @@ class BookFeedRepositoryMock implements BookFeedRepository {
   }
 
   @override
-  Future likeBook(int id) {
+  Future <bool> likeBook(int id) async{
     // TODO: implement likeBook
-    return null;
+    return true;
   }
 }
 

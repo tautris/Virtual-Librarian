@@ -22,7 +22,7 @@ class FeedBook {
 abstract class BookFeedRepository {
   Future<List<FeedBook>> fetchBooks();
   Future downloadBook(int id, String pdfUrl);
-  Future likeBook(int id);
+  Future <bool> likeBook(int id);
 }
 
 class FetchDataException implements Exception {

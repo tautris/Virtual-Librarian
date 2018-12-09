@@ -5,6 +5,7 @@ abstract class BookFeedListViewContract {
   void onLoadFeedComplete(List<FeedBook> items);
   void onLoadFeedError();
   void downloadBookError();
+  void onLikeComplete(bool success);
   void likebookError();
 }
 
@@ -32,6 +33,7 @@ class BookFeedListPresenter {
   void likeBook(int id){
     _repository
       .likeBook(id)
+      .then((success) => _view.onLikeComplete(success))
       .catchError((onError) => _view.likebookError());
   }
 }

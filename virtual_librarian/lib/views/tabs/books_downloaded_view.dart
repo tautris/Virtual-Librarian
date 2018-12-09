@@ -132,9 +132,14 @@ class DownloadedBookWidget extends StatelessWidget {
             children: <Widget>[
               new Container(
                 margin: const EdgeInsets.only(top: 4.0, bottom: 4.0, right: 10.0),
-                child: new CircleAvatar(
-                  backgroundImage: new NetworkImage(book.imageURL),
-                  radius: 20.0,
+                height: 42.0,
+                width: 42.0,
+                decoration: new BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: new DecorationImage(
+                    fit: BoxFit.fill,
+                    image: NetworkImage(book.imageURL)
+                  )
                 ),
               ),
               new Expanded(
