@@ -6,8 +6,9 @@ class FeedBook {
   String description;
   String imageURL;
   String pdfURL;
+  bool downloaded;
 
-  FeedBook(this.id, this.title, this.author, this.likes, this.description, this.imageURL, this.pdfURL);
+  FeedBook(this.id, this.title, this.author, this.likes, this.description, this.imageURL, this.pdfURL, {this.downloaded = false});
 
   FeedBook.fromMap(Map<String, dynamic> map)
     : id = map['id'],
@@ -16,13 +17,15 @@ class FeedBook {
       likes = map['likes'],
       description = map['description'],
       imageURL = map['imageURL'],
-      pdfURL = map['pdfURL'];
+      pdfURL = map['pdfURL'],
+      downloaded = false;
 }
 
 abstract class BookFeedRepository {
   Future<List<FeedBook>> fetchBooks();
   Future downloadBook(int id, String pdfUrl);
   Future <bool> likeBook(int id);
+  Future openBook(int id);
 }
 
 class FetchDataException implements Exception {
@@ -51,6 +54,17 @@ class LikeBookException implements Exception {
   final _message;
 
   LikeBookException([this._message]);
+
+  String toString() {
+    if (_message == null) return "Exception";
+    return "Exception: $_message";
+  }
+}
+
+class OpenBookException implements Exception {
+  final _message;
+
+  OpenBookException([this._message]);
 
   String toString() {
     if (_message == null) return "Exception";

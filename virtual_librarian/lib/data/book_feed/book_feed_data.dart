@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:http/http.dart' as http;
+import 'package:path/path.dart';
 import 'dart:convert';
 import 'dart:async';
 
@@ -20,11 +21,31 @@ class BookFeedRepositoryData implements BookFeedRepository {
         "ERROR: Data Fetching. Status Code : $statusCode.");
     }
 
-    return responseBody.map((book) => new FeedBook.fromMap(book)).toList();
+    List<String> downloadedList = await getDownloadedIdList();
+
+    List<FeedBook> bookList = responseBody.map((book){
+       var bookObject = new FeedBook.fromMap(book);
+       if (downloadedList.contains(bookObject.id.toString())) {
+         bookObject.downloaded = true;
+       }
+    }).toList();
+
+    return bookList;
   }
 
   @override
-  Future downloadBook(int id, String pdfUrl) async {
+  Future openBook(int id) async {
+    var dir = await getApplicationDocumentsDirectory();
+    var path = "${dir.path}/pdf/$id.pdf";
+    if (FileSystemEntity.typeSync(path) != FileSystemEntityType.notFound) {
+      return path;
+    } else {
+      throw new OpenBookException("ERROR: File was not found.");
+    }
+  }
+
+  @override
+  Future <bool> downloadBook(int id, String pdfUrl) async {
     Dio dio = Dio();
     var dir = await getApplicationDocumentsDirectory();
     var fileName = "${id.toString()}.pdf";
@@ -35,7 +56,8 @@ class BookFeedRepositoryData implements BookFeedRepository {
       pdfFolderDir.create(recursive: false);
     }
     if (FileSystemEntity.typeSync(pdfFileDir) != FileSystemEntityType.notFound) {
-      throw new DownloadBookException("ERROR: Book is already downloaded.");
+      //throw new DownloadBookException("ERROR: Book is already downloaded.");
+      return false;
     } else {
       try {
         await dio.download(pdfUrl, pdfFileDir, onProgress: (progress, total) {
@@ -43,12 +65,14 @@ class BookFeedRepositoryData implements BookFeedRepository {
           print ("Rec: $progress , Total: $total");
         });
       } catch (e) {
-        throw new DownloadBookException("ERROR: Book download has failed.");
+        //throw new DownloadBookException("ERROR: Book download has failed.");
+        return false;
       }
       if (FileSystemEntity.typeSync(pdfFileDir) != FileSystemEntityType.notFound) {
-        return;
+        return true;
       } else {
-        throw new DownloadBookException("ERROR: The book was not downloaded succesfully.");
+        //throw new DownloadBookException("ERROR: The book was not downloaded succesfully.");
+        return false;
       }
     }
   }
@@ -63,5 +87,22 @@ class BookFeedRepositoryData implements BookFeedRepository {
       success = json.decode(response.body)[success];
     });
     return success;
+  }
+
+  Future <List<String>> getDownloadedIdList() async {
+    var dir = await getApplicationDocumentsDirectory();
+    var pdfFolderDir = new Directory("${dir.path}/pdf");
+    if (!pdfFolderDir.existsSync()) {
+      pdfFolderDir.create(recursive: false);
+    }
+    var _filesPDF = pdfFolderDir.listSync(recursive: false, followLinks: false);
+    var filesList = _filesPDF.toList();
+    List<String> pdfList = new List();
+    filesList.forEach((file){
+      String filename = basename(file.path);
+      pdfList.add(filename.replaceAll(".pdf", ""));
+    });
+    
+    return pdfList;
   }
 }

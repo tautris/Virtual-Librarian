@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'dart:async';
 
@@ -7,12 +8,32 @@ import 'package:virtual_librarian/data/book_feed/feed_book.dart';
 
 class BookFeedRepositoryMock implements BookFeedRepository {
   @override
-  Future <List<FeedBook>> fetchBooks() {
-    return new Future.value(books);
+  Future <List<FeedBook>> fetchBooks() async {
+    List<String> downloadedList = await getDownloadedIdList();
+    List<FeedBook> bookList = books;
+    bookList.forEach((book) {
+      if (downloadedList.contains(book.id.toString())) {
+        book.downloaded = true;
+      } else {
+        book.downloaded = false;
+      }
+    });
+    return bookList;
   }
 
   @override
-  Future downloadBook(int id, String pdfUrl) async {
+  Future openBook(int id) async {
+    var dir = await getApplicationDocumentsDirectory();
+    var path = "${dir.path}/pdf/$id.pdf";
+    if (FileSystemEntity.typeSync(path) != FileSystemEntityType.notFound) {
+      return path;
+    } else {
+      throw new OpenBookException("ERROR: File was not found.");
+    }
+  }
+
+  @override
+  Future <bool> downloadBook(int id, String pdfUrl) async {
     Dio dio = Dio();
     var dir = await getApplicationDocumentsDirectory();
     var fileName = "${id.toString()}.pdf";
@@ -23,7 +44,8 @@ class BookFeedRepositoryMock implements BookFeedRepository {
       pdfFolderDir.create(recursive: false);
     }
     if (FileSystemEntity.typeSync(pdfFileDir) != FileSystemEntityType.notFound) {
-      throw new DownloadBookException("ERROR: Book is already downloaded.");
+      //throw new DownloadBookException("ERROR: Book is already downloaded.");
+      return false;
     } else {
       try {
         await dio.download(pdfUrl, pdfFileDir, onProgress: (progress, total) {
@@ -31,12 +53,14 @@ class BookFeedRepositoryMock implements BookFeedRepository {
           print ("Rec: $progress , Total: $total");
         });
       } catch (e) {
-        throw new DownloadBookException("ERROR: Book download has failed.");
+        //throw new DownloadBookException("ERROR: Book download has failed.");
+        return false;
       }
       if (FileSystemEntity.typeSync(pdfFileDir) != FileSystemEntityType.notFound) {
-        return;
+        return true;
       } else {
-        throw new DownloadBookException("ERROR: The book was not downloaded succesfully.");
+        //throw new DownloadBookException("ERROR: The book was not downloaded succesfully.");
+        return false;
       }
     }
   }
@@ -45,6 +69,23 @@ class BookFeedRepositoryMock implements BookFeedRepository {
   Future <bool> likeBook(int id) async{
     // TODO: implement likeBook
     return true;
+  }
+
+  Future <List<String>> getDownloadedIdList() async {
+    var dir = await getApplicationDocumentsDirectory();
+    var pdfFolderDir = new Directory("${dir.path}/pdf");
+    if (!pdfFolderDir.existsSync()) {
+      pdfFolderDir.create(recursive: false);
+    }
+    var _filesPDF = pdfFolderDir.listSync(recursive: false, followLinks: false);
+    var filesList = _filesPDF.toList();
+    List<String> pdfList = new List();
+    filesList.forEach((file){
+      String filename = basename(file.path);
+      pdfList.add(filename.replaceAll(".pdf", ""));
+    });
+    
+    return pdfList;
   }
 }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:open_file/open_file.dart';
 import 'package:share/share.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -17,7 +18,7 @@ class _BookFeedState extends State<BookFeed> implements BookFeedListViewContract
   
   bool _isLoading = true;
   bool _isDownloading = false;
-  var downloadBookAction;
+  String filePath;
 
   List<FeedBook>  books;
 
@@ -50,13 +51,17 @@ class _BookFeedState extends State<BookFeed> implements BookFeedListViewContract
                                   book,
                                   horizontal: true,
                                   downloadBookAction: (){
-                                    setState(() {
-                                      _isDownloading = true;
-                                    });
-                                    _presenter.downloadBookFile(book.id, book.pdfURL);
-                                    setState(() {
-                                      _isDownloading = false;
-                                    });
+                                    if (book.downloaded) {
+                                      _presenter.openBook(book.id);
+                                    } else {
+                                      setState(() {
+                                        _isDownloading = true;
+                                      });
+                                      _presenter.downloadBookFile(book.id, book.pdfURL);
+                                      setState(() {
+                                        _isDownloading = false;
+                                      });
+                                    }
                                   },
                                   likeBookAction: (){
                                     _presenter.likeBook(book.id);
@@ -103,6 +108,44 @@ class _BookFeedState extends State<BookFeed> implements BookFeedListViewContract
         backgroundColor: Color(0xFF6BFDD9),
         textColor: Colors.black
       );
+    } else {
+      Fluttertoast.showToast(
+        msg: "Failure",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 1,
+        backgroundColor: Colors.red,
+        textColor: Colors.white
+      );
+    }
+  }
+
+  @override
+  void onRetrieveFilePathComplete(String path) {
+    setState(() {
+      filePath = path;
+      OpenFile.open(path);
+    });
+  }
+
+  @override
+  void openBookError() {
+    print("VIEW. Open Book error happened.");
+  }
+
+  @override
+  void downloadBookComplete(bool success) {
+    if (success) {
+      Fluttertoast.showToast(
+        msg: "Book was successfully downloaded!",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.CENTER,
+        timeInSecForIos: 1,
+        backgroundColor: Color(0xFF6BFDD9),
+        textColor: Colors.black
+      );
+      _presenter.loadBooks();
+      setState((){});
     } else {
       Fluttertoast.showToast(
         msg: "Failure",
@@ -339,6 +382,24 @@ class BookDetailPage extends StatelessWidget {
       );
   }
 
+  Widget _getActionButton (bool downloaded) {
+    var fab;
+    downloaded 
+    ? fab = FloatingActionButton.extended(
+        elevation: 4.0,
+        icon: const Icon(Icons.file_download),
+        label: const Text("Open Book"),
+        onPressed: downloadBookAction
+    )
+    : fab = FloatingActionButton.extended(
+      elevation: 4.0,
+      icon: const Icon(Icons.file_download),
+      label: const Text("Download book"),
+      onPressed: downloadBookAction
+    );
+    return fab;
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
@@ -354,36 +415,31 @@ class BookDetailPage extends StatelessWidget {
           ],
         )
       ),
-      floatingActionButton: FloatingActionButton.extended(
-      elevation: 4.0,
-      icon: const Icon(Icons.file_download),
-      label: const Text("Download book"),
-      onPressed: downloadBookAction,
-    ),
-    floatingActionButtonLocation: 
-      FloatingActionButtonLocation.centerDocked,
-    bottomNavigationBar: BottomAppBar(
-      child: new Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          IconButton(
-            icon: Icon(Icons.share),
-            onPressed:() {
-              final RenderBox box = context.findRenderObject();
-                              Share.share("Check out ${book.title} by ${book.author} on Virtual Librarian. Deep linking is out of scope xd",
-                                  sharePositionOrigin:
-                                      box.localToGlobal(Offset.zero) &
-                                          box.size);
-            }
-          ),
-          IconButton(
-            icon: Icon(Icons.thumb_up),
-            onPressed: likeBookAction,
-          )
-        ],
+      floatingActionButton: _getActionButton(book.downloaded),
+      floatingActionButtonLocation: 
+        FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomAppBar(
+        child: new Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            IconButton(
+              icon: Icon(Icons.share),
+              onPressed:() {
+                final RenderBox box = context.findRenderObject();
+                                Share.share("Check out ${book.title} by ${book.author} on Virtual Librarian. Deep linking definetely out of scope.",
+                                    sharePositionOrigin:
+                                        box.localToGlobal(Offset.zero) &
+                                            box.size);
+              }
+            ),
+            IconButton(
+              icon: Icon(Icons.thumb_up),
+              onPressed: likeBookAction,
+            )
+          ],
+        ),
       ),
-    ),
     );
   }
 }
