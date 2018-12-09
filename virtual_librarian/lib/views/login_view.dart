@@ -2,8 +2,8 @@ import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'package:virtual_librarian/modules/login/login_presenter.dart';
 
+import 'package:virtual_librarian/modules/login/login_presenter.dart';
 import 'package:virtual_librarian/views/home_screen.dart';
 import 'package:virtual_librarian/views/register_screen.dart';
 
@@ -65,19 +65,12 @@ class _LoginPageState extends State<LoginPage> implements LoginViewContract {
         child:  new CircularProgressIndicator(),
       )
       : Container (
-        height: 250.0,
-        padding: new EdgeInsets.only(left: 25.0, right: 25.0),
         child: ClipOval(
           child: new CustomPaint (
             foregroundPainter:  new GuidelinePainter(),
-            child: Transform.scale(
-              scale: 1,
-              child: Center (
-                child: AspectRatio(
-                  aspectRatio: cameraController.value.aspectRatio,
-                  child: new CameraPreview(cameraController)
-                )
-              )
+            child: new AspectRatio(
+              aspectRatio: 0.5625, //TODO: Fix aspect Ratio, maybe controller.value.aspectRatio,
+              child: new CameraPreview(cameraController)
             ),
           )
         ),
@@ -88,7 +81,7 @@ class _LoginPageState extends State<LoginPage> implements LoginViewContract {
         height: 50.0,
         child: RaisedButton(
           elevation: 20,
-          color: Color.fromARGB(255, 60, 112, 112),
+          color: Color(0xBB6BFDD9),
           splashColor: Colors.white54,
           textColor: Colors.white,
           shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
@@ -127,7 +120,7 @@ class _LoginPageState extends State<LoginPage> implements LoginViewContract {
           gradient: new LinearGradient(
             begin: FractionalOffset.topLeft,
             end: FractionalOffset.bottomRight,
-            colors:  [Color (0xFF3F8F8F), Color(0xCF3F3F3F)],
+            colors:  [Color (0x22FFEEFF), Color(0x88FFEEFF)],
             stops: [0.0,1.0],
             tileMode: TileMode.clamp
           )

@@ -73,7 +73,7 @@ class _RegisterPageState extends State<RegisterPage> {
       height: 50.0,
       child: RaisedButton(
         elevation: 20,
-        color: Color.fromARGB(255, 60, 112, 112),
+        color: Color(0xBB6BFDD9),
         splashColor: Colors.white54,
         textColor: Colors.white,
         shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
@@ -90,7 +90,7 @@ class _RegisterPageState extends State<RegisterPage> {
       height: 50.0,
       child: RaisedButton(
         elevation: 20,
-        color: Color.fromARGB(255, 60, 112, 112),
+        color: Color(0xBB6BFDD9),
         splashColor: Colors.white54,
         textColor: Colors.white,
         shape: new RoundedRectangleBorder(borderRadius: new BorderRadius.circular(30.0)),
@@ -116,7 +116,7 @@ class _RegisterPageState extends State<RegisterPage> {
               gradient: new LinearGradient(
                 begin: FractionalOffset.topCenter,
                 end: FractionalOffset.bottomCenter,
-                colors:  [Color (0xFF3F8F8F), Color(0xCF3F3F3F)],//[const Color(0xFF915FB5), const Color(0xFFCA436B)],
+                colors:  [Color (0x22FFEEFF), Color(0x88FFEEFF)],
                 stops: [0.0, 1.0],
               )
             ),
@@ -148,7 +148,7 @@ class _RegisterPageState extends State<RegisterPage> {
               gradient: new LinearGradient(
                 begin: FractionalOffset.topCenter,
                 end: FractionalOffset.bottomCenter,
-                colors:  [Color (0xFF3F8F8F), Color(0xCF3F3F3F)],//[const Color(0xFF915FB5), const Color(0xFFCA436B)],
+                colors:  [Color (0x22FFEEFF), Color(0x88FFEEFF)],
                 stops: [0.0, 1.0],
               )
             ),

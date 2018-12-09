@@ -49,7 +49,7 @@ class BookFeedRepositoryMock implements BookFeedRepository {
 }
 
 var books = <FeedBook>[
-  new FeedBook(1, "Book1", "author1", 1, "Description1", "https://cdn4.iconfinder.com/data/icons/basic-17/80/22_BO_open_book-512.png", "http://www.africau.edu/images/default/sample.pdf"),
+  new FeedBook(1, "Notes From Underground", "Feodor Dostoyevsky", 1, "Long long description. It is long long. Long long description. It is long long. Long long description. It is long long. Long long description. It is long long. ", "https://cdn4.iconfinder.com/data/icons/basic-17/80/22_BO_open_book-512.png", "http://www.africau.edu/images/default/sample.pdf"),
   new FeedBook(2, "Book2", "author2", 2, "Description2", "https://cdn4.iconfinder.com/data/icons/basic-17/80/22_BO_open_book-512.png", "http://www.africau.edu/images/default/sample.pdf"),
   new FeedBook(3, "Book3", "author3", 3, "Description3", "https://cdn4.iconfinder.com/data/icons/basic-17/80/22_BO_open_book-512.png", "http://www.africau.edu/images/default/sample.pdf"),
   new FeedBook(4, "Book4", "author4", 4, "Description4", "https://cdn4.iconfinder.com/data/icons/basic-17/80/22_BO_open_book-512.png", "http://www.africau.edu/images/default/sample.pdf"),

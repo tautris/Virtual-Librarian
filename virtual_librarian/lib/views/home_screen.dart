@@ -89,23 +89,10 @@ class _HomeScreenState extends State<HomeScreen> {
               gradient: new LinearGradient(
                 begin: FractionalOffset.topCenter,
                 end: FractionalOffset.bottomCenter,
-                colors:  [Color (0xFF3F8F8F), Color(0xCF3F3F3F)],
+                colors:  [Color (0x22FFEEFF), Color(0x88FFEEFF)],
                 stops: [0.0, 1.0],
               )
           ),
-          child: new Align(
-            alignment: FractionalOffset.bottomCenter,
-            child: new Container(
-              padding: const EdgeInsets.all(10.0),
-              child: new Text(
-                'P  I  R  M  A  G  R  U  P  E',
-                style: textTheme.headline.copyWith(
-                  color:  Color.fromARGB(55, 20, 72, 72).withOpacity(0.8),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            )
-          )
         ),
         new Scaffold(
           backgroundColor: const Color(0x00000000),
@@ -119,13 +106,13 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             actions: [
               new IconButton(
-                icon: new Icon(Icons.add),
+                icon: new Icon(Icons.search),
                 onPressed: () {
                   // TODO: implement
                 },
               ),
             ],
-            title: const Text('Users Books'),
+            title: const Text('Virtual Librarian'),
             bottom: new CustomTabBar(
               pageController: _pageController,
               pageNames: pages.keys.toList(),
