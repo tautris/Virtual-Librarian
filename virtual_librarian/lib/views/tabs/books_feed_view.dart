@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:folding_cell/folding_cell.dart';
+import 'package:share/share.dart';
 
 import 'package:virtual_librarian/data/book_feed/feed_book.dart';
 import 'package:virtual_librarian/modules/book_feed/book_feed_presenter.dart';
@@ -60,9 +60,6 @@ class _BookFeedState extends State<BookFeed> implements BookFeedListViewContract
                                   likeBookAction: (){
                                     _presenter.likeBook(book.id);
                                   },
-                                  shareBookAction: (){
-                                    print("aaa");
-                                  },
                                 );
          }
        )
@@ -107,9 +104,8 @@ class BookSummary extends StatelessWidget {
   final bool horizontal;
   final VoidCallback downloadBookAction;
   final VoidCallback likeBookAction;
-  final VoidCallback shareBookAction;
 
-  BookSummary(this.book, {this.horizontal = true, this.downloadBookAction, this.likeBookAction, this.shareBookAction});
+  BookSummary(this.book, {this.horizontal = true, this.downloadBookAction, this.likeBookAction});
 
   @override
   Widget build(BuildContext context) {
@@ -224,7 +220,7 @@ class BookSummary extends StatelessWidget {
     onTap: horizontal
     ? () =>  Navigator.of(context).push(
       new PageRouteBuilder(
-        pageBuilder: (_, __, ___) => new BookDetailPage(book, downloadBookAction, likeBookAction, shareBookAction),
+        pageBuilder: (_, __, ___) => new BookDetailPage(book, downloadBookAction, likeBookAction),
         transitionsBuilder: (context, animation, secondaryAnimation, child) =>
           new FadeTransition(opacity: animation, child: child),
       ),
@@ -261,10 +257,9 @@ class Separator extends StatelessWidget {
 class BookDetailPage extends StatelessWidget {
   final VoidCallback downloadBookAction;
   final VoidCallback likeBookAction;
-  final VoidCallback shareBookAction;
   final FeedBook book;
 
-  BookDetailPage(this.book, this.downloadBookAction, this.likeBookAction, this.shareBookAction);
+  BookDetailPage(this.book, this.downloadBookAction, this.likeBookAction);
 
   Container _getBackground() {
     return new Container(
@@ -357,7 +352,13 @@ class BookDetailPage extends StatelessWidget {
         children: <Widget>[
           IconButton(
             icon: Icon(Icons.share),
-            onPressed: shareBookAction,
+            onPressed:() {
+              final RenderBox box = context.findRenderObject();
+                              Share.share("Check out ${book.title} by ${book.author} on Virtual Librarian. Deep linking is out of scope xd",
+                                  sharePositionOrigin:
+                                      box.localToGlobal(Offset.zero) &
+                                          box.size);
+            }
           ),
           IconButton(
             icon: Icon(Icons.thumb_up),
