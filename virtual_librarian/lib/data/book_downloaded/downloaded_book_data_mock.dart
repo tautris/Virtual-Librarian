@@ -59,7 +59,7 @@ class BookDownloadedRepositoryMock implements BookDownloadedRepository {
 }
 
 var books = <DownloadedBook>[
-  new DownloadedBook(1, "author1", "book1", "https://cdn4.iconfinder.com/data/icons/basic-17/80/22_BO_open_book-512.png"),
+  new DownloadedBook(1, "Feodor Dostoyevsky", "Notes From Underground", "http://www.nationwidebooks.co.nz/application/modules/images/assets/upload/9781843911265.jpg"),
   new DownloadedBook(2, "author2", "book2", "https://cdn4.iconfinder.com/data/icons/basic-17/80/22_BO_open_book-512.png"),
   new DownloadedBook(3, "author3", "book3", "https://cdn4.iconfinder.com/data/icons/basic-17/80/22_BO_open_book-512.png"),
   new DownloadedBook(4, "author4", "book4", "https://cdn4.iconfinder.com/data/icons/basic-17/80/22_BO_open_book-512.png"),

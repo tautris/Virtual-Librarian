@@ -67,7 +67,6 @@ class BookFeedRepositoryMock implements BookFeedRepository {
 
   @override
   Future <bool> likeBook(int id) async{
-    // TODO: implement likeBook
     return true;
   }
 
@@ -90,11 +89,11 @@ class BookFeedRepositoryMock implements BookFeedRepository {
 }
 
 var books = <FeedBook>[
-  new FeedBook(1, "Notes From Underground", "Feodor Dostoyevsky", 1, "Long long description. It is long long. Long long description. It is long long. Long long description. It is long long. Long long description. It is long long. ", "https://cdn4.iconfinder.com/data/icons/basic-17/80/22_BO_open_book-512.png", "http://www.africau.edu/images/default/sample.pdf"),
-  new FeedBook(2, "Book2", "author2", 2, "Description2", "https://cdn4.iconfinder.com/data/icons/basic-17/80/22_BO_open_book-512.png", "http://www.africau.edu/images/default/sample.pdf"),
-  new FeedBook(3, "Book3", "author3", 3, "Description3", "https://cdn4.iconfinder.com/data/icons/basic-17/80/22_BO_open_book-512.png", "http://www.africau.edu/images/default/sample.pdf"),
-  new FeedBook(4, "Book4", "author4", 4, "Description4", "https://cdn4.iconfinder.com/data/icons/basic-17/80/22_BO_open_book-512.png", "http://www.africau.edu/images/default/sample.pdf"),
-  new FeedBook(5, "Book5", "author5", 5, "Description5", "https://cdn4.iconfinder.com/data/icons/basic-17/80/22_BO_open_book-512.png", "http://www.africau.edu/images/default/sample.pdf"),
+  new FeedBook(1, "Notes From Underground", "Feodor Dostoyevsky", 1, "Long long description. It is long long. Long long description. It is long long. Long long description. It is long long. Long long description. It is long long. ", "http://www.nationwidebooks.co.nz/application/modules/images/assets/upload/9781843911265.jpg", "http://www.africau.edu/images/default/sample.pdf"),
+  new FeedBook(2, "Book2", "author2", 2, "Description2", "https://images-na.ssl-images-amazon.com/images/I/51G9QXQ7QRL.jpg", "http://www.africau.edu/images/default/sample.pdf"),
+  new FeedBook(3, "Book3", "author3", 3, "Description3", "https://images-na.ssl-images-amazon.com/images/I/51G9QXQ7QRL.jpg", "http://www.africau.edu/images/default/sample.pdf"),
+  new FeedBook(4, "Book4", "author4", 4, "Description4", "https://images-na.ssl-images-amazon.com/images/I/51G9QXQ7QRL.jpg", "http://www.africau.edu/images/default/sample.pdf"),
+  new FeedBook(5, "Book5", "author5", 5, "Description5", "https://marketplace.canva.com/MACV2Ehunsw/1/0/thumbnail_large/canva-blue-photo-science-fiction-book-cover-MACV2Ehunsw.jpg", "http://www.africau.edu/images/default/sample.pdf"),
   new FeedBook(6, "Book6", "author6", 6, "Description6", "https://cdn4.iconfinder.com/data/icons/basic-17/80/22_BO_open_book-512.png", "http://www.africau.edu/images/default/sample.pdf"),
   new FeedBook(7, "Book7", "author7", 7, "Description7", "https://cdn4.iconfinder.com/data/icons/basic-17/80/22_BO_open_book-512.png", "http://www.africau.edu/images/default/sample.pdf")
 ];

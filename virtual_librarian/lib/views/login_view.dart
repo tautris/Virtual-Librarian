@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
@@ -253,7 +252,6 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                 child: MaterialButton(
                     highlightColor: Colors.transparent,
                     splashColor: Colors.transparent,
-                    //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 42.0),
@@ -359,7 +357,6 @@ class _LoginPageState extends State<LoginPage> with SingleTickerProviderStateMix
                 child: MaterialButton(
                     highlightColor: Colors.transparent,
                     splashColor: Colors.transparent,
-                    //shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(5.0))),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 10.0, horizontal: 42.0),
