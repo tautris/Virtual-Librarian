@@ -15,6 +15,7 @@ class MyBooks extends StatefulWidget {
 class _MyBooksState extends State<MyBooks> implements DownloadedBookListViewContract{
   BookDownloadedListPresenter _presenter;
 
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
   bool _isLoading = true;
   bool _isRetrievingFile = false;
 
@@ -23,6 +24,10 @@ class _MyBooksState extends State<MyBooks> implements DownloadedBookListViewCont
 
   _MyBooksState() {
     _presenter = new BookDownloadedListPresenter(this);
+  }
+
+  Future _refresh() async {
+    _presenter.loadBooks();
   }
 
   @override
@@ -73,29 +78,33 @@ class _MyBooksState extends State<MyBooks> implements DownloadedBookListViewCont
         )        
       );
     } else {
-     childView = (
-       new ListView.builder(
-         itemCount: this.books != null ? this.books.length : 0,
-         itemBuilder: (context, i) {
-           final book = this.books[i];
-           return new DownloadedBookWidget(
-                                    book: book,
-                                    deleteBookAction: (){
-                                      _presenter.deleteBook(book.id);
-                                      setState(() {
-                                        _isLoading = true;
-                                        _presenter.loadBooks();
-                                      });
-                                    },
-                                    openBookAction: (){
-                                      _presenter.openBook(book.id);
-                                      setState(() {
-                                        _isRetrievingFile = true;
-                                      });
-                                    });
-         }
-       )
-     );
+      childView = (
+        RefreshIndicator(
+          key: _refreshIndicatorKey,
+          onRefresh: _refresh,
+          child: ListView.builder(
+            itemCount: this.books != null ? this.books.length : 0,
+            itemBuilder: (context, i) {
+              final book = this.books[i];
+              return new DownloadedBookWidget(
+                                        book: book,
+                                        deleteBookAction: (){
+                                          _presenter.deleteBook(book.id);
+                                          setState(() {
+                                            _isLoading = true;
+                                            _presenter.loadBooks();
+                                          });
+                                        },
+                                        openBookAction: (){
+                                          _presenter.openBook(book.id);
+                                          setState(() {
+                                            _isRetrievingFile = true;
+                                          });
+                                        });
+            }
+          )
+        )
+      );
     }
     return childView;
   }

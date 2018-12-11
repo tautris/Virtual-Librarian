@@ -15,12 +15,17 @@ class BookFeed extends StatefulWidget {
 
 class _BookFeedState extends State<BookFeed> implements BookFeedListViewContract{
   BookFeedListPresenter _presenter;
-  
+  final GlobalKey<RefreshIndicatorState> _refreshIndicatorKey = new GlobalKey<RefreshIndicatorState>();
+
   bool _isLoading = true;
   bool _isDownloading = false;
   String filePath;
 
   List<FeedBook>  books;
+
+  Future _refresh() async {
+    _presenter.loadBooks();
+  }
 
   _BookFeedState() {
     _presenter = new BookFeedListPresenter(this);
@@ -42,34 +47,38 @@ class _BookFeedState extends State<BookFeed> implements BookFeedListViewContract
         )        
       );
     } else {
-     childView = (
-       new ListView.builder(
-         itemCount: this.books != null ? this.books.length : 0,
-         itemBuilder: (context, i) {
-           final book = this.books[i];
-           return new BookSummary(
-                                  book,
-                                  horizontal: true,
-                                  downloadBookAction: (){
-                                    if (book.downloaded) {
-                                      _presenter.openBook(book.id);
-                                    } else {
-                                      setState(() {
-                                        _isDownloading = true;
-                                      });
-                                      _presenter.downloadBookFile(book.id, book.pdfURL);
-                                      setState(() {
-                                        _isDownloading = false;
-                                      });
-                                    }
-                                  },
-                                  likeBookAction: (){
-                                    _presenter.likeBook(book.id);
-                                  }
-                                );
-         }
-       )
-     );
+      childView = (
+        RefreshIndicator(
+          key: _refreshIndicatorKey,
+          onRefresh: _refresh,
+          child: ListView.builder(
+            itemCount: this.books != null ? this.books.length : 0,
+            itemBuilder: (context, i) {
+              final book = this.books[i];
+              return new BookSummary(
+                                      book,
+                                      horizontal: true,
+                                      downloadBookAction: (){
+                                        if (book.downloaded) {
+                                          _presenter.openBook(book.id);
+                                        } else {
+                                          setState(() {
+                                            _isDownloading = true;
+                                          });
+                                          _presenter.downloadBookFile(book.id, book.pdfURL);
+                                          setState(() {
+                                            _isDownloading = false;
+                                          });
+                                        }
+                                      },
+                                      likeBookAction: (){
+                                        _presenter.likeBook(book.id);
+                                      }
+                                    );
+            }
+          )
+        )
+      );
     }
     return childView;
   }
