@@ -30,7 +30,7 @@ class LibrarianApp extends StatelessWidget {
       ),
       title: 'Virtual Librarian',
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),//LoginPage(),//(cameras),//SplashScreen(cameras),//LoginPage(cameras),
+      home: LoginPage(),//SplashScreen(),
       routes: routes,
     ); 
   }
