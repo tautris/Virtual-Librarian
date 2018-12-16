@@ -57,5 +57,8 @@
     <Compile Include="User.cs" />
     <Compile Include="Validators.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

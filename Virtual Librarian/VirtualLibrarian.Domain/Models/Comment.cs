@@ -1,12 +1,12 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VirtualLibrarian.Domain.Models
 {
     public class Comment : Base
     {
-        [ForeignKey("Book")]
-        public Guid BookCopyId { get; set; }
+        [ForeignKey("BookCopy")]
+        public int BookCopyId { get; set; }
+        public virtual BookCopy BookCopy { get; set; }
         public string Text { get; set; }
     }
 }

@@ -5,7 +5,7 @@ namespace VirtualLibrarian.API.Controllers
 {
     public class BooksController : ApiController
     {
-        private readonly ILibraryManager _library; 
+        private readonly ILibraryManager _library;
         public BooksController(ILibraryManager library)
         {
             _library = library;
@@ -17,7 +17,7 @@ namespace VirtualLibrarian.API.Controllers
         {
             var sortedAvailableBooks = _library.GetAvailableBooksSorted();
 
-            if(sortedAvailableBooks == null)
+            if (sortedAvailableBooks == null)
             {
                 return NotFound();
             }
@@ -29,7 +29,7 @@ namespace VirtualLibrarian.API.Controllers
         public IHttpActionResult AvailableBookCopies()
         {
             var availableBookCopies = _library.GetAvailableBookCopies();
-            if(availableBookCopies == null)
+            if (availableBookCopies == null)
             {
                 return NotFound();
             }
@@ -61,13 +61,13 @@ namespace VirtualLibrarian.API.Controllers
         }
         [HttpPut]
         [Route("LikeBook/{id}")]
-         public IHttpActionResult LikeBook(int id)
+        public IHttpActionResult LikeBook(int id)
         {
             var book = _library.LikeBook(id);
             if (book != null)
             {
                 return Ok(book);
-            } 
+            }
             return BadRequest("Bad book id, book not found :(");
         }
     }

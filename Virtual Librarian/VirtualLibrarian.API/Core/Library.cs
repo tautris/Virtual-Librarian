@@ -1,81 +1,52 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using VirtualLibrarian.Domain;
+using VirtualLibrarian.Domain.Models;
 
 namespace VirtualLibrarian.API.Core
 {
     public class Library : ILibraryManager
     {
-        private List<Book> allBooks = new List<Book>();
-        private List<User> allUsers = new List<User>();
-        private List<Admin> allAdmins = new List<Admin>();
         private readonly IReaderWriter _readerWriter;
+
         public Library(IReaderWriter readerWriter)
         {
             _readerWriter = readerWriter;
-
-            allBooks = _readerWriter.GetBooks();
-            allUsers = _readerWriter.GetUsers();
-            allAdmins = _readerWriter.GetAdmins();
-            List <BookCopy> bookCopies = new List<BookCopy>();
-            bookCopies = _readerWriter.GetBookCopies();
-            foreach (BookCopy bookCopy in bookCopies)
-            {
-                allBooks.First(obj => obj.ISBN == bookCopy.book.ISBN).AddBookCopy(bookCopy);
-            }
         }
 
-        public void AddBook(Book book)
+        public ICollection<Book> GetAvailableBooksSorted()
         {
-            allBooks.Add(book);
-        }
-        public void AddBookCopy(BookCopy bookCopy, Book book)
-        {
-            if (!allBooks.Contains(book))
-            {
-                AddBook(book);
-            }
-            book.AddBookCopy(bookCopy);
-        }
-        public void RemoveBook(Book book)
-        {
-            allBooks.Remove(book);
-        }
-        public void RemoveBookCopy(BookCopy bookCopy, Book book)
-        {
-            book.RemoveBookCopy(bookCopy);
-        }
-        public List<Book> GetAvailableBooksSorted()
-        {
-            List<Book> availableBooks = new List<Book>();
+            var allBooks = _readerWriter.GetBooks();
+
+            ICollection<Book> availableBooks = new List<Book>();
             foreach (Book book in allBooks)
             {
-                foreach (BookCopy bookCopy in book.copies)
+                foreach (BookCopy bookCopy in book.Copies)
                 {
-                    if (bookCopy.IsAvailable() && !availableBooks.Contains(book))
+                    if (bookCopy.LastReturnDate != null && !availableBooks.Contains(book))
                     {
                         availableBooks.Add(book);
                     }
                 }
             }
-            List<Book> sortedAvailableBooks = availableBooks.OrderBy(o => o.author).ToList();
+            ICollection<Book> sortedAvailableBooks = availableBooks.OrderBy(o => o.Author).ToList();
             return sortedAvailableBooks;
         }
 
-        public List<Book> GetAllBooks()
+        public ICollection<Book> GetAllBooks()
         {
-            return allBooks;
+            return _readerWriter.GetBooks();
         }
-        public List<BookCopy> GetAvailableBookCopies()
+
+        public ICollection<BookCopy> GetAvailableBookCopies()
         {
-            List<BookCopy> availableBookCopies = new List<BookCopy>();
-            List<Book> availableBooks = new List<Book>();
+            ICollection<BookCopy> availableBookCopies = new List<BookCopy>();
+            ICollection<Book> availableBooks = new List<Book>();
             availableBooks = GetAvailableBooksSorted();
             foreach (Book book in availableBooks)
             {
-                foreach (BookCopy bookCopy in book.copies)
+                foreach (BookCopy bookCopy in book.Copies)
                 {
-                    if (bookCopy.IsAvailable())
+                    if (bookCopy.LastReturnDate != null)
                     {
                         availableBookCopies.Add(bookCopy);
                     }
@@ -84,41 +55,61 @@ namespace VirtualLibrarian.API.Core
             return availableBookCopies;
         }
 
-        public List<Admin> GetAllAdmins()
+        public ICollection<User> GetAllUsers()
         {
-            return allAdmins;
-        }
-        public List<User> GetAllUsers()
-        {
-            return allUsers;
+            return _readerWriter.GetUsers();
         }
 
         public Book GetBook(int id)
         {
-            foreach(Book book in allBooks )
+            var book = _readerWriter.GetBook(id);
+            if(book == null)
             {
-                if (book.id == id)
-                {
-                    return book;
-                }
+                //lool
+                return null;
             }
-            return null;
+            return book;
         }
 
         public Book LikeBook(int id)
         {
-            Book book = GetBook(id);
-            if (book != null)
+            var book = _readerWriter.GetBook(id);
+            if(book != null)
             {
-                book.likes++;
+                _readerWriter.LikeBook(id);
                 return book;
+
             }
             return null;
         }
-        public void ReviewBook(Book book, string comment, double star)
-        {
-            book.ReviewBook(comment, star);
-        }
 
+        //    public void ReviewBook(Book book, string comment, double star)
+        //    {
+        //        book.ReviewBook(comment, star);
+        //    }
+        //    public List<Admin> GetAllAdmins()
+        //    {
+        //        return allAdmins;
+        //    }
+        //    public void AddBook(Book book)
+        //    {
+        //        allBooks.Add(book);
+        //    }
+        //    public void AddBookCopy(BookCopy bookCopy, Book book)
+        //    {
+        //        if (!allBooks.Contains(book))
+        //        {
+        //            AddBook(book);
+        //        }
+        //        book.AddBookCopy(bookCopy);
+        //    }
+        //    public void RemoveBook(Book book)
+        //    {
+        //        allBooks.Remove(book);
+        //    }
+        //    public void RemoveBookCopy(BookCopy bookCopy, Book book)
+        //    {
+        //        book.RemoveBookCopy(bookCopy);
+        //    }
     }
 }
