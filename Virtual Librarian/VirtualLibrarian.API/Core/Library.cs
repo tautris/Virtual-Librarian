@@ -62,8 +62,7 @@ namespace VirtualLibrarian.API.Core
 
         public int GetUserId(string userName)
         {
-            ICollection<User> allUsers = new List<User>();
-            allUsers = GetAllUsers();
+            var allUsers = GetAllUsers();
             foreach (User user in allUsers)
             {
                 if(user.Name==userName)
