@@ -23,5 +23,16 @@ namespace VirtualLibrarian.API.Controllers
             }
             return Ok(userList);
         }
+        [HttpGet]
+        [Route("Login/{username}")]
+        public IHttpActionResult Login(int id, string username)
+        {
+            int userId = _library.GetUserId(username);
+            if (userId != -1)
+            {
+                return Ok(userId);
+            }
+            return BadRequest("User not found");
+        }
     }
 }
