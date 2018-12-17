@@ -7,7 +7,7 @@ using VirtualLibrarian.Domain.Models;
 
 namespace VirtualLibrarian.API.Core.Context
 {
-    public class LibraryContextInitializer : SqliteDropCreateDatabaseWhenModelChanges<LibraryContext>
+    public class LibraryContextInitializer : SqliteDropCreateDatabaseAlways<LibraryContext>
     {
         public LibraryContextInitializer(DbModelBuilder modelBuilder) : base(modelBuilder) { }
 
