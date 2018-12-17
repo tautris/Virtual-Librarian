@@ -21,15 +21,16 @@ namespace VirtualLibrarian.Domain
             CGF
         }
         public string Name { get; }
-        public string Surname { get; }
+        //public string Surname { get; }
         public Faculty CurrentFaculty { get; set; }
         public int Id { get; }
         public List<BookCopy> takenBooks = new List<BookCopy>();
-        public User(int id, string name, string surname, Faculty faculty = Faculty.MIF)
+        //public User(int id, string name, string surname, Faculty faculty = Faculty.MIF)
+        public User(int id, string name, Faculty faculty = Faculty.MIF)
         {
             Id = id;
             Name = name;
-            Surname = surname;
+            //Surname = surname;
             CurrentFaculty = faculty;
         }
 

@@ -19,21 +19,21 @@ namespace VirtualLibrarian.API.Core.Context
                 {
                     Id = 1,
                     Name = "Adomas",
-                    Surname = "Adomenas",
+                    //Surname = "Adomenas",
                     CurrentFaculty = FacultyEnum.CGF,
                 },
                 new User()
                 {
                     Id = 2,
                     Name = "Tomas",
-                    Surname = "Tomenas",
+                    //Surname = "Tomenas",
                     CurrentFaculty = FacultyEnum.MIF
                 },
                 new User()
                 {
                     Id = 3,
                     Name = "Barbora",
-                    Surname = "Barboraite",
+                    //Surname = "Barboraite",
                     CurrentFaculty = FacultyEnum.MF
                 },
             };
