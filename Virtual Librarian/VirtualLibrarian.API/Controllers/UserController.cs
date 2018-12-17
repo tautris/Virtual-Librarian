@@ -25,7 +25,7 @@ namespace VirtualLibrarian.API.Controllers
         }
         [HttpGet]
         [Route("Login/{username}")]
-        public IHttpActionResult Login(int id, string username)
+        public IHttpActionResult Login(string username)
         {
             int userId = _library.GetUserId(username);
             if (userId != -1)
