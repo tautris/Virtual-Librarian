@@ -43,8 +43,8 @@ namespace VirtualLibrarian.API.Core.IO
         public Book LikeBook(int id)
         {
             var book = _context.Books.Where(b => b.Id == id).First();
-
-            book.Star++;
+            //update statement could be used here and query executed as indexer get users
+            book.Likes++;
             _context.SaveChanges();
 
             return book;
