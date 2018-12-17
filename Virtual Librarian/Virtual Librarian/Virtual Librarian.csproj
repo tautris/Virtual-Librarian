@@ -141,6 +141,10 @@
     <Content Include="License-LGPL.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\VirtualLibrarian.API\VirtualLibrarian.API.csproj">
+      <Project>{62d014e1-707e-4d12-80cf-e3bc462f63e0}</Project>
+      <Name>VirtualLibrarian.API</Name>
+    </ProjectReference>
     <ProjectReference Include="..\VirtualLibrarian.Domain\VirtualLibrarian.Domain.csproj">
       <Project>{151e26fb-08b1-4c31-9061-f98f1e0669ea}</Project>
       <Name>VirtualLibrarian.Domain</Name>

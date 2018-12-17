@@ -2,6 +2,8 @@ using System;
 
 using Unity;
 using VirtualLibrarian.API.Core;
+using VirtualLibrarian.API.Core.IO;
+
 namespace VirtualLibrarian.API
 {
     /// <summary>
@@ -37,7 +39,7 @@ namespace VirtualLibrarian.API
         public static void RegisterTypes(IUnityContainer container)
         {
             // Our registered types for DI
-            container.RegisterType<IReaderWriter, FileReaderWriter>();
+            container.RegisterType<IReaderWriter, DBReaderWriter>();
             container.RegisterSingleton<ILibraryManager, Library>();
         }
     }
