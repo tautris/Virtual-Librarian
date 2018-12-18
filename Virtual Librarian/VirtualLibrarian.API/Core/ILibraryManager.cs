@@ -11,6 +11,7 @@ namespace VirtualLibrarian.API.Core
         ICollection<User> GetAllUsers();
         Book GetBook(int id);
         Book LikeBook(int id);
+        int GetUserId(string userName);
         //void ReviewBook(Book book, string comment, double star);
         //void AddBook(Book book);
         //void AddBookCopy(BookCopy bookCopy, Book book);

@@ -60,6 +60,19 @@ namespace VirtualLibrarian.API.Core
             return _readerWriter.GetUsers();
         }
 
+        public int GetUserId(string userName)
+        {
+            var allUsers = GetAllUsers();
+            foreach (User user in allUsers)
+            {
+                if(user.Name==userName)
+                {
+                    return user.Id;
+                }
+            }
+            return -1;
+        }
+
         public Book GetBook(int id)
         {
             var book = _readerWriter.GetBook(id);
